@@ -1,12 +1,130 @@
 ---
 // Page Accueil — responsable : Jimmy
+// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
+// Prix et étapes repris de la page Services et tarifs : les garder identiques si l'une change.
 import Layout from '../layouts/Layout.astro';
+
+const offres = [
+	{
+		titre: 'Site vitrine',
+		texte:
+			'Un site clair, rapide et adapté au mobile pour présenter votre activité, vos horaires et vos coordonnées.',
+		prix: '800 €',
+		ancre: '/services#site-vitrine',
+	},
+	{
+		titre: 'Identité visuelle',
+		texte:
+			'Logo, couleurs et typographies : une image cohérente sur votre vitrine, vos réseaux et vos supports.',
+		prix: 'De 600 à 1 000 €',
+		ancre: '/services#identite-visuelle',
+	},
+	{
+		titre: 'Maintenance',
+		texte:
+			'On garde votre site à jour et sauvegardé, et on modifie vos horaires ou vos prix quand vous en avez besoin.',
+		prix: '40 €/mois',
+		ancre: '/services#maintenance',
+	},
+];
+
+const etapes = [
+	{
+		titre: 'On discute de votre projet',
+		texte: 'Un premier rendez-vous pour comprendre votre activité et vos besoins, puis un devis clair.',
+	},
+	{
+		titre: 'On crée votre maquette',
+		texte: 'Après un acompte de 30 %, on conçoit la maquette de votre site.',
+	},
+	{
+		titre: 'On ajuste ensemble',
+		texte: 'Trois tours de modifications sont inclus pour que le résultat vous ressemble.',
+	},
+	{
+		titre: 'On met en ligne',
+		texte:
+			"Nom de domaine en .fr et hébergement compris la première année : vous n'avez rien à gérer.",
+	},
+];
 ---
 
 <Layout
 	title="Accueil"
-	description="[À COMPLÉTER] Qui on est, ce qu'on fait, nos offres."
+	description="Narukla, agence web à Troyes : sites vitrines, identités visuelles et maintenance pour les commerces, artisans et indépendants."
 >
-	<h1>[À COMPLÉTER : accroche]</h1>
-	<p>[À COMPLÉTER]</p>
+	<section class="accueil__hero" aria-labelledby="titre-accueil">
+		<h1 id="titre-accueil">Votre site web, pensé pour vos clients et livré sans prise de tête</h1>
+		<!-- Décision de Jimmy (27/10) : le statut d'étudiants est dit sur L'équipe, pas ici -->
+		<p class="accueil__accroche">
+			Narukla est une agence web installée à Troyes. Nous créons des sites vitrines et des identités
+			visuelles pour les commerces, artisans et indépendants qui veulent être trouvés en ligne.
+		</p>
+		<ul class="accueil__actions">
+			<li><a class="accueil__bouton accueil__bouton--principal" href="/contact">Demander un devis</a></li>
+			<li><a class="accueil__bouton" href="/services">Voir nos offres</a></li>
+		</ul>
+	</section>
+
+	<section class="accueil__offres" aria-labelledby="titre-offres">
+		<h2 id="titre-offres">Ce qu'on fait pour vous</h2>
+		<ul class="accueil__liste-offres">
+			{
+				offres.map((offre) => (
+					<li>
+						<article class="accueil__offre">
+							<h3 class="accueil__offre-titre">{offre.titre}</h3>
+							<p class="accueil__offre-texte">{offre.texte}</p>
+							<p class="accueil__offre-prix">{offre.prix}</p>
+							<a class="accueil__offre-lien" href={offre.ancre}>
+								En savoir plus sur l'offre {offre.titre.toLowerCase()}
+							</a>
+						</article>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="accueil__etapes" aria-labelledby="titre-etapes">
+		<h2 id="titre-etapes">Comment ça se passe</h2>
+		<ol class="accueil__liste-etapes">
+			{
+				etapes.map((etape) => (
+					<li class="accueil__etape">
+						<h3 class="accueil__etape-titre">{etape.titre}</h3>
+						<p class="accueil__etape-texte">{etape.texte}</p>
+					</li>
+				))
+			}
+		</ol>
+	</section>
+
+	<section class="accueil__pourquoi" aria-labelledby="titre-pourquoi">
+		<h2 id="titre-pourquoi">Pourquoi nous choisir</h2>
+		<ul class="accueil__liste-pourquoi">
+			<li class="accueil__argument">
+				<h3>Des prix pensés pour les petites structures</h3>
+				<p>Des tarifs clairs, annoncés à l'avance, sans mauvaise surprise.</p>
+			</li>
+			<li class="accueil__argument">
+				<h3>Une équipe complète</h3>
+				<p>
+					Développement, graphisme et marketing : cinq associés qui suivent votre projet du premier
+					rendez-vous à la mise en ligne.
+				</p>
+			</li>
+			<li class="accueil__argument">
+				<h3>Des interlocuteurs proches</h3>
+				<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
+			</li>
+		</ul>
+		<p><a href="/equipe">Découvrir l'équipe</a></p>
+	</section>
+
+	<section class="accueil__contact" aria-labelledby="titre-contact">
+		<h2 id="titre-contact">Un projet en tête ?</h2>
+		<p>Parlez-nous de votre activité, on vous répond sous 48 h.</p>
+		<p><a href="/contact">Contactez-nous</a></p>
+	</section>
 </Layout>

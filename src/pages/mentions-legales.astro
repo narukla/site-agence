@@ -1,12 +1,117 @@
 ---
 // Page Mentions légales — responsable : Jimmy
+// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
+// Les [À COMPLÉTER] dépendent de la création de la SAS (Kbis) : à remplir avant la mise en ligne.
 import Layout from '../layouts/Layout.astro';
+
+const editeur = {
+	forme: 'SAS',
+	capital: '[À COMPLÉTER : capital] €',
+	rcs: 'RCS [À COMPLÉTER : ville du greffe]',
+	siren: '[À COMPLÉTER : SIREN]',
+	siege: '[À COMPLÉTER : adresse du siège social]',
+	tva: '[À COMPLÉTER : n° de TVA intracommunautaire]',
+	president: 'Jibril [À COMPLÉTER : nom]',
+	// Mêmes valeurs que dans contact.astro
+	mail: '[À COMPLÉTER : adresse e-mail]',
+	telephone: '[À COMPLÉTER : téléphone]',
+	site: '[À COMPLÉTER : nom de domaine .fr]',
+};
+
+const hebergeur = {
+	// Adresse et téléphone à vérifier sur le site officiel de Netlify avant la mise en ligne
+	nom: 'Netlify, Inc.',
+	adresse: '512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis',
+	telephone: '[À COMPLÉTER : téléphone de Netlify, obligatoire (LCEN)]',
+	site: 'https://www.netlify.com',
+};
 ---
 
 <Layout
 	title="Mentions légales"
-	description="[À COMPLÉTER] Éditeur, hébergeur et données personnelles."
+	description="Mentions légales du site de Narukla : éditeur, hébergeur, propriété intellectuelle et données personnelles."
 >
-	<h1>Mentions légales</h1>
-	<p>[À COMPLÉTER]</p>
+	<article class="mentions">
+		<h1>Mentions légales</h1>
+
+		<section class="mentions__section" id="editeur" aria-labelledby="titre-editeur">
+			<h2 id="titre-editeur">Éditeur du site</h2>
+			<p>
+				Le site {editeur.site} est édité par Narukla, {editeur.forme} au capital de {editeur.capital},
+				immatriculée au {editeur.rcs} sous le numéro {editeur.siren}.
+			</p>
+			<ul>
+				<li>Siège social : {editeur.siege}</li>
+				<li>TVA intracommunautaire : {editeur.tva}</li>
+				<li>E-mail : {editeur.mail}</li>
+				<li>Téléphone : {editeur.telephone}</li>
+				<li>Président et directeur de la publication : {editeur.president}</li>
+			</ul>
+		</section>
+
+		<section class="mentions__section" id="hebergeur" aria-labelledby="titre-hebergeur">
+			<h2 id="titre-hebergeur">Hébergeur</h2>
+			<p>
+				Le site est hébergé par {hebergeur.nom}, {hebergeur.adresse}, téléphone : {hebergeur.telephone}
+				(<a href={hebergeur.site} rel="noopener">{hebergeur.site}</a>).
+			</p>
+		</section>
+
+		<section class="mentions__section" id="propriete" aria-labelledby="titre-propriete">
+			<h2 id="titre-propriete">Propriété intellectuelle</h2>
+			<p>
+				Les contenus de ce site (textes, images, logo, graphismes, code) appartiennent à Narukla,
+				sauf mention contraire. Toute reproduction, totale ou partielle, sans autorisation écrite
+				préalable est interdite.
+			</p>
+			<p>
+				Les projets présentés dans la rubrique Réalisations restent la propriété de leurs auteurs ou
+				de leurs clients et sont affichés avec leur accord.
+			</p>
+		</section>
+
+		<section class="mentions__section" id="donnees" aria-labelledby="titre-donnees">
+			<h2 id="titre-donnees">Données personnelles</h2>
+			<p>
+				Les informations envoyées par le formulaire de contact (nom, entreprise, e-mail, téléphone,
+				message) servent uniquement à répondre à votre demande et à vous établir un devis. Elles ne
+				sont ni vendues ni cédées. Seul notre hébergeur, qui reçoit les messages du formulaire, y a
+				accès pour notre compte.
+			</p>
+			<!-- Garanties du transfert à vérifier dans l'accord de traitement des données (DPA) de Netlify -->
+			<p>
+				Les messages du formulaire sont stockés par {hebergeur.nom}, aux États-Unis. Il s'agit donc
+				d'un transfert de données hors de l'Union européenne, encadré par les garanties prévues par
+				le RGPD pour ce type de transfert.
+			</p>
+			<!-- Durée de conservation à valider en réunion -->
+			<p>
+				Elles sont conservées au maximum 3 ans après notre dernier échange. Le responsable du
+				traitement est Narukla.
+			</p>
+			<p>
+				Conformément au Règlement général sur la protection des données (RGPD) et à la loi
+				Informatique et Libertés, vous pouvez accéder à vos données, les rectifier, les supprimer ou
+				vous opposer à leur traitement en nous écrivant à {editeur.mail}. Vous pouvez aussi adresser
+				une réclamation à la CNIL (<a href="https://www.cnil.fr" rel="noopener">cnil.fr</a>).
+			</p>
+		</section>
+
+		<section class="mentions__section" id="cookies" aria-labelledby="titre-cookies">
+			<h2 id="titre-cookies">Cookies</h2>
+			<p>
+				Ce site n'utilise ni cookies publicitaires ni outil de mesure d'audience. Si cela change, un
+				bandeau vous demandera votre accord avant tout dépôt.
+			</p>
+		</section>
+
+		<section class="mentions__section" id="responsabilite" aria-labelledby="titre-responsabilite">
+			<h2 id="titre-responsabilite">Responsabilité</h2>
+			<p>
+				Narukla veille à ce que les informations de ce site soient exactes et à jour, sans pouvoir
+				garantir l'absence d'erreur. Les liens vers des sites externes n'engagent pas sa
+				responsabilité.
+			</p>
+		</section>
+	</article>
 </Layout>
