@@ -35,7 +35,7 @@ const etapes = [
 	},
 	{
 		titre: 'On crée votre maquette',
-		texte: 'Après un acompte de 30 %, on conçoit la maquette de votre site.',
+		texte: 'Après un acompte de 30\u00a0%, on conçoit la maquette de votre site.',
 	},
 	{
 		titre: 'On ajuste ensemble',
@@ -61,8 +61,8 @@ const etapes = [
 			visuelles pour les commerces, artisans et indépendants qui veulent être trouvés en ligne.
 		</p>
 		<ul class="accueil__actions">
-			<li><a class="accueil__bouton accueil__bouton--principal" href="/contact">Demander un devis</a></li>
-			<li><a class="accueil__bouton" href="/services">Voir nos offres</a></li>
+			<li><a class="bouton bouton--principal" href="/contact">Demander un devis</a></li>
+			<li><a class="bouton" href="/services">Voir nos offres</a></li>
 		</ul>
 	</section>
 
@@ -119,12 +119,179 @@ const etapes = [
 				<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
 			</li>
 		</ul>
-		<p><a href="/equipe">Découvrir l'équipe</a></p>
+		<p><a class="accueil__lien-equipe" href="/equipe">Découvrir l'équipe</a></p>
 	</section>
 
 	<section class="accueil__contact" aria-labelledby="titre-contact">
 		<h2 id="titre-contact">Un projet en tête ?</h2>
 		<p>Parlez-nous de votre activité, on vous répond sous 48 h.</p>
-		<p><a href="/contact">Contactez-nous</a></p>
+		<p><a class="bouton bouton--principal" href="/contact">Contactez-nous</a></p>
 	</section>
 </Layout>
+
+<style>
+	/* Base visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
+	section {
+		padding-top: var(--espace-section);
+	}
+
+	ul,
+	ol {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.accueil__hero {
+		position: relative;
+		isolation: isolate;
+		padding-bottom: 0;
+		text-align: center;
+	}
+
+	/* Halo de couleur derrière le titre */
+	.accueil__hero::before {
+		content: '';
+		position: absolute;
+		inset: 10% 15% auto;
+		height: 60%;
+		z-index: -1;
+		background: var(--degrade);
+		opacity: 0.12;
+		filter: blur(60px);
+		border-radius: 50%;
+	}
+
+	.accueil__hero h1 {
+		max-width: 18ch;
+		margin-inline: auto;
+	}
+
+	.accueil__accroche {
+		max-width: var(--largeur-texte);
+		margin: 0 auto 2rem;
+		color: var(--couleur-texte-doux);
+		font-size: 1.125rem;
+	}
+
+	.accueil__actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.75rem;
+	}
+
+	.accueil__liste-offres {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.accueil__offre {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		padding: 1.75rem;
+		border: 1px solid var(--couleur-bordure);
+		border-radius: var(--rayon);
+		background: var(--couleur-blanc);
+		box-shadow: var(--ombre);
+	}
+
+	.accueil__offre-texte {
+		color: var(--couleur-texte-doux);
+	}
+
+	.accueil__offre-prix {
+		margin-top: auto;
+		font-size: 1.5rem;
+		font-weight: 800;
+		color: var(--couleur-accent);
+	}
+
+	.accueil__offre-lien {
+		font-weight: 600;
+	}
+
+	.accueil__liste-etapes {
+		display: grid;
+		gap: 1.25rem;
+		counter-reset: etape;
+	}
+
+	.accueil__etape {
+		counter-increment: etape;
+		padding: 1.5rem;
+		border-radius: var(--rayon);
+		background: var(--couleur-fond-doux);
+	}
+
+	/* Numéro de l'étape en pastille */
+	.accueil__etape::before {
+		content: counter(etape);
+		display: grid;
+		place-items: center;
+		width: 2.5rem;
+		height: 2.5rem;
+		margin-bottom: 1rem;
+		border-radius: 50%;
+		background: var(--degrade);
+		color: var(--couleur-blanc);
+		font-weight: 800;
+	}
+
+	.accueil__etape-texte {
+		margin: 0;
+		color: var(--couleur-texte-doux);
+	}
+
+	.accueil__liste-pourquoi {
+		display: grid;
+		gap: 1.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.accueil__argument {
+		padding-left: 1rem;
+		border-left: 4px solid var(--couleur-accent);
+	}
+
+	.accueil__argument p {
+		margin: 0;
+		color: var(--couleur-texte-doux);
+	}
+
+	.accueil__lien-equipe {
+		font-weight: 600;
+	}
+
+	.accueil__contact {
+		margin-top: var(--espace-section);
+		padding: var(--espace-section) var(--marge-cote);
+		border-radius: calc(var(--rayon) * 2);
+		background: var(--degrade);
+		color: var(--couleur-blanc);
+		text-align: center;
+	}
+
+	.accueil__contact .bouton--principal {
+		background: var(--couleur-blanc);
+		color: var(--couleur-violet);
+	}
+
+	@media (min-width: 48rem) {
+		.accueil__liste-offres,
+		.accueil__liste-pourquoi {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.accueil__liste-etapes {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.accueil__liste-etapes {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+</style>

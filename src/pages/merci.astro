@@ -8,6 +8,19 @@ import Layout from '../layouts/Layout.astro';
 	<section class="merci" aria-labelledby="titre-merci">
 		<h1 id="titre-merci">Merci, votre message est bien parti</h1>
 		<p>On revient vers vous sous 48 h.</p>
-		<p><a href="/">Retour à l'accueil</a></p>
+		<p><a class="bouton bouton--principal" href="/">Retour à l'accueil</a></p>
 	</section>
 </Layout>
+
+<style>
+	/* Base visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
+	.merci {
+		padding-top: var(--espace-section);
+		text-align: center;
+	}
+
+	.merci p {
+		color: var(--couleur-texte-doux);
+		font-size: 1.125rem;
+	}
+</style>

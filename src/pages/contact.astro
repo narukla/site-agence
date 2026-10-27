@@ -26,97 +26,210 @@ const coordonnees = {
 		</p>
 	</section>
 
-	<section class="contact__formulaire" aria-labelledby="titre-formulaire">
-		<h2 id="titre-formulaire">Parlez-nous de votre projet</h2>
-		<form
-			class="formulaire"
-			name="contact"
-			method="POST"
-			action="/merci"
-			data-netlify="true"
-			netlify-honeypot="champ-robot"
-		>
-			<input type="hidden" name="form-name" value="contact" />
-			<!-- Piège à robots : caché aux humains, Netlify rejette les envois qui le remplissent -->
-			<p class="formulaire__piege" hidden>
-				<label>Ne pas remplir : <input name="champ-robot" tabindex="-1" autocomplete="off" /></label>
-			</p>
+	<div class="contact__corps">
+		<section class="contact__formulaire" aria-labelledby="titre-formulaire">
+			<h2 id="titre-formulaire">Parlez-nous de votre projet</h2>
+			<form
+				class="formulaire"
+				name="contact"
+				method="POST"
+				action="/merci"
+				data-netlify="true"
+				netlify-honeypot="champ-robot"
+			>
+				<input type="hidden" name="form-name" value="contact" />
+				<!-- Piège à robots : caché aux humains, Netlify rejette les envois qui le remplissent -->
+				<p class="formulaire__piege" hidden>
+					<label>Ne pas remplir : <input name="champ-robot" tabindex="-1" autocomplete="off" /></label>
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="nom">Nom et prénom</label>
-				<input id="nom" name="nom" type="text" autocomplete="name" required />
-			</p>
+				<p class="formulaire__champ">
+					<label for="nom">Nom et prénom</label>
+					<input id="nom" name="nom" type="text" autocomplete="name" required />
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="entreprise">Entreprise ou activité (facultatif)</label>
-				<input id="entreprise" name="entreprise" type="text" autocomplete="organization" />
-			</p>
+				<p class="formulaire__champ">
+					<label for="entreprise">Entreprise ou activité (facultatif)</label>
+					<input id="entreprise" name="entreprise" type="text" autocomplete="organization" />
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="mail">Adresse e-mail</label>
-				<input id="mail" name="mail" type="email" autocomplete="email" required />
-			</p>
+				<p class="formulaire__champ">
+					<label for="mail">Adresse e-mail</label>
+					<input id="mail" name="mail" type="email" autocomplete="email" required />
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="telephone">Téléphone (facultatif)</label>
-				<input id="telephone" name="telephone" type="tel" autocomplete="tel" />
-			</p>
+				<p class="formulaire__champ">
+					<label for="telephone">Téléphone (facultatif)</label>
+					<input id="telephone" name="telephone" type="tel" autocomplete="tel" />
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="besoin">Votre besoin</label>
-				<select id="besoin" name="besoin" required>
-					<option value="">Choisir une option</option>
-					<option value="site-vitrine">Site vitrine</option>
-					<option value="identite-visuelle">Identité visuelle</option>
-					<option value="site-et-identite">Site vitrine et identité visuelle</option>
-					<option value="maintenance">Maintenance d'un site existant</option>
-					<option value="autre">Autre</option>
-				</select>
-			</p>
+				<p class="formulaire__champ">
+					<label for="besoin">Votre besoin</label>
+					<select id="besoin" name="besoin" required>
+						<option value="">Choisir une option</option>
+						<option value="site-vitrine">Site vitrine</option>
+						<option value="identite-visuelle">Identité visuelle</option>
+						<option value="site-et-identite">Site vitrine et identité visuelle</option>
+						<option value="maintenance">Maintenance d'un site existant</option>
+						<option value="autre">Autre</option>
+					</select>
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="message">Votre message</label>
-				<textarea id="message" name="message" rows="6" required></textarea>
-			</p>
+				<p class="formulaire__champ">
+					<label for="message">Votre message</label>
+					<textarea id="message" name="message" rows="6" required></textarea>
+				</p>
 
-			<!-- Mention d'information RGPD (skill livraison du kit) -->
-			<p class="formulaire__mention">
-				Vos données servent uniquement à répondre à votre demande. Pour en savoir plus et exercer vos
-				droits, consultez nos <a href="/mentions-legales#donnees">mentions légales</a>.
-			</p>
+				<!-- Mention d'information RGPD (skill livraison du kit) -->
+				<p class="formulaire__mention">
+					Vos données servent uniquement à répondre à votre demande. Pour en savoir plus et exercer vos
+					droits, consultez nos <a href="/mentions-legales#donnees">mentions légales</a>.
+				</p>
 
-			<button class="formulaire__envoyer" type="submit">Envoyer</button>
-		</form>
-	</section>
+				<button class="bouton bouton--principal formulaire__envoyer" type="submit">Envoyer</button>
+			</form>
+		</section>
 
-	<section class="contact__coordonnees" aria-labelledby="titre-coordonnees">
-		<h2 id="titre-coordonnees">Nous joindre directement</h2>
-		<address>
-			<ul class="contact__liste">
-				{
-					coordonnees.mail && (
-						<li>
-							E-mail : <a href={`mailto:${coordonnees.mail}`}>{coordonnees.mail}</a>
-						</li>
-					)
-				}
-				{
-					coordonnees.telephone && (
-						<li>
-							Téléphone :{' '}
-							<a href={`tel:${coordonnees.telephone.replace(/\s/g, '')}`}>{coordonnees.telephone}</a>
-						</li>
-					)
-				}
-				{
-					coordonnees.instagram && (
-						<li>
-							<a href={coordonnees.instagram} rel="noopener">Narukla sur Instagram</a>
-						</li>
-					)
-				}
-				<li>Basés à Troyes, rendez-vous possible sur place.</li>
-			</ul>
-		</address>
-	</section>
+		<section class="contact__coordonnees" aria-labelledby="titre-coordonnees">
+			<h2 id="titre-coordonnees">Nous joindre directement</h2>
+			<address>
+				<ul class="contact__liste">
+					{
+						coordonnees.mail && (
+							<li>
+								E-mail : <a href={`mailto:${coordonnees.mail}`}>{coordonnees.mail}</a>
+							</li>
+						)
+					}
+					{
+						coordonnees.telephone && (
+							<li>
+								Téléphone :{' '}
+								<a href={`tel:${coordonnees.telephone.replace(/\s/g, '')}`}>{coordonnees.telephone}</a>
+							</li>
+						)
+					}
+					{
+						coordonnees.instagram && (
+							<li>
+								<a href={coordonnees.instagram} rel="noopener">Narukla sur Instagram</a>
+							</li>
+						)
+					}
+					<li>Basés à Troyes, rendez-vous possible sur place.</li>
+				</ul>
+			</address>
+		</section>
+	</div>
 </Layout>
+
+<style>
+	/* Base visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
+	.contact__intro {
+		padding-block: var(--espace-section) 2rem;
+		max-width: var(--largeur-texte);
+	}
+
+	.contact__intro p {
+		color: var(--couleur-texte-doux);
+		font-size: 1.125rem;
+	}
+
+	.contact__formulaire,
+	.contact__coordonnees {
+		padding: 2rem 1.5rem;
+		border-radius: var(--rayon);
+	}
+
+	.contact__formulaire {
+		border: 1px solid var(--couleur-bordure);
+		background: var(--couleur-blanc);
+		box-shadow: var(--ombre);
+	}
+
+	.contact__coordonnees {
+		margin-top: 1.5rem;
+		background: var(--couleur-fond-doux);
+	}
+
+	.contact__coordonnees h2,
+	.contact__formulaire h2 {
+		font-size: 1.5rem;
+	}
+
+	.formulaire__champ {
+		display: flex;
+		flex-direction: column;
+		gap: 0.35rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.formulaire__champ label {
+		font-weight: 600;
+	}
+
+	.formulaire__champ :is(input, select, textarea) {
+		width: 100%;
+		padding: 0.75rem 1rem;
+		border: 1px solid var(--couleur-bordure);
+		border-radius: calc(var(--rayon) / 1.5);
+		background: var(--couleur-fond);
+		color: var(--couleur-texte);
+		font: inherit;
+	}
+
+	.formulaire__champ :is(input, select, textarea):focus-visible {
+		outline: 2px solid var(--couleur-accent);
+		outline-offset: 0;
+		border-color: var(--couleur-accent);
+	}
+
+	.formulaire__champ textarea {
+		resize: vertical;
+	}
+
+	.formulaire__mention {
+		color: var(--couleur-texte-doux);
+		font-size: 0.875rem;
+	}
+
+	.formulaire__envoyer {
+		width: 100%;
+	}
+
+	address {
+		font-style: normal;
+	}
+
+	.contact__liste {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.contact__liste li + li {
+		margin-top: 0.5rem;
+	}
+
+	@media (min-width: 64rem) {
+		/* Formulaire à gauche, coordonnées à droite */
+		.contact__corps {
+			display: grid;
+			grid-template-columns: 5fr 3fr;
+			align-items: start;
+			gap: 2rem;
+		}
+
+		.contact__formulaire {
+			padding: 2.5rem;
+		}
+
+		.contact__coordonnees {
+			margin-top: 0;
+		}
+
+		.formulaire__envoyer {
+			width: auto;
+		}
+	}
+</style>
