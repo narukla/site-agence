@@ -1,0 +1,30 @@
+# Secrets — jamais commités
+.env
+.env.*
+!.env.example
+
+# Dépendances et builds
+node_modules/
+dist/
+build/
+.next/
+.astro/
+.vercel/
+out/
+
+# Système et éditeurs
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Réglages Claude Code personnels (les réglages d'équipe .claude/settings.json restent commités)
+.claude/settings.local.json
+
+# Données clients et fichiers de travail lourds
+donnees-clients/
+*.psd
+
+# Logs npm
+npm-debug.log*

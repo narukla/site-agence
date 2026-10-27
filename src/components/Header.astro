@@ -1,0 +1,36 @@
+---
+// En-tête commun : logo + navigation principale.
+// La page en cours reçoit aria-current="page" (lu par les lecteurs d'écran, stylable en CSS).
+const liens = [
+	{ href: '/', label: 'Accueil' },
+	{ href: '/services', label: 'Services et tarifs' },
+	{ href: '/realisations', label: 'Réalisations' },
+	{ href: '/equipe', label: "L'équipe" },
+	{ href: '/contact', label: 'Contact' },
+];
+
+// Astro.url.pathname vaut par exemple "/equipe" ou "/equipe/" selon l'hébergeur
+const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="header">
+	<!-- Logo de Noah à venir (jeu. 29) : remplacer ce texte par l'image -->
+	<a class="header__logo" href="/">Narukla</a>
+	<nav class="header__nav" aria-label="Navigation principale">
+		<ul class="header__liste">
+			{
+				liens.map((lien) => (
+					<li>
+						<a
+							class="header__lien"
+							href={lien.href}
+							aria-current={cheminActuel === lien.href ? 'page' : undefined}
+						>
+							{lien.label}
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</nav>
+</header>

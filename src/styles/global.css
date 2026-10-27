@@ -1,0 +1,68 @@
+/* Styles communs à tout le site.
+   Couleurs et typos : valeurs provisoires, à remplacer par celles de la maquette Figma (mer. 28).
+   Règle : jamais de couleur en dur dans une page, toujours une variable d'ici. */
+
+:root {
+	--couleur-fond: #ffffff;
+	--couleur-texte: #1a1a1a;
+	--couleur-accent: #1a1a1a;
+	--police-texte: system-ui, sans-serif;
+	--largeur-max: 72rem;
+	--marge-cote: 1rem;
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background: var(--couleur-fond);
+	color: var(--couleur-texte);
+	font-family: var(--police-texte);
+	line-height: 1.5;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+/* Lien d'évitement : invisible tant qu'on ne navigue pas au clavier */
+.skip-link {
+	position: absolute;
+	left: -9999px;
+}
+
+.skip-link:focus {
+	left: var(--marge-cote);
+	top: var(--marge-cote);
+}
+
+main {
+	max-width: var(--largeur-max);
+	margin: 0 auto;
+	padding: 0 var(--marge-cote);
+}
+
+.header,
+.footer {
+	max-width: var(--largeur-max);
+	margin: 0 auto;
+	padding: var(--marge-cote);
+}
+
+.header__liste {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	padding: 0;
+	list-style: none;
+}
+
+.header__lien[aria-current='page'] {
+	font-weight: 700;
+}
