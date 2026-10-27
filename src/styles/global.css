@@ -1,14 +1,45 @@
 /* Styles communs à tout le site.
-   Couleurs et typos : valeurs provisoires, à remplacer par celles de la maquette Figma (mer. 28).
+   Base visuelle provisoire (mar. 27) en attendant les retouches de Noah et Lucas.
+   Couleurs : palette du Figma « Logo Agence ». Typo : police système en attendant le choix
+   (à héberger dans public/fonts, pas de Google Fonts : RGPD, voir le kit).
    Règle : jamais de couleur en dur dans une page, toujours une variable d'ici. */
 
 :root {
-	--couleur-fond: #ffffff;
-	--couleur-texte: #1a1a1a;
-	--couleur-accent: #1a1a1a;
-	--police-texte: system-ui, sans-serif;
+	/* Couleurs */
+	--couleur-violet: #6e2fef;
+	--couleur-bleu: #0307fd;
+	--couleur-noir: #0d0d12;
+	--couleur-blanc: #ffffff;
+	--couleur-fond: var(--couleur-blanc);
+	--couleur-fond-doux: #f5f2fe; /* violet très clair, pour les blocs */
+	--couleur-texte: var(--couleur-noir);
+	--couleur-texte-doux: #4a4a57;
+	--couleur-bordure: #e3def5;
+	--couleur-accent: var(--couleur-violet);
+	--degrade: linear-gradient(120deg, var(--couleur-violet), var(--couleur-bleu));
+
+	/* Typo (provisoire) */
+	--police-texte: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	--police-titre: var(--police-texte);
+	--taille-h1: clamp(2rem, 1.2rem + 4vw, 3.5rem);
+	--taille-h2: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
+	--taille-h3: 1.25rem;
+
+	/* Espacements et formes */
 	--largeur-max: 72rem;
+	--largeur-texte: 42rem;
 	--marge-cote: 1rem;
+	--espace-section: clamp(3rem, 2rem + 4vw, 6rem);
+	--rayon: 0.75rem;
+	--ombre: 0 0.5rem 1.5rem rgb(13 13 18 / 0.08);
+	/* Marges latérales qui centrent le contenu tout en laissant les fonds prendre toute la largeur */
+	--marge-pleine: max(var(--marge-cote), (100% - var(--largeur-max)) / 2 + var(--marge-cote));
+}
+
+@media (min-width: 48rem) {
+	:root {
+		--marge-cote: 2rem;
+	}
 }
 
 *,
@@ -22,13 +53,56 @@ body {
 	background: var(--couleur-fond);
 	color: var(--couleur-texte);
 	font-family: var(--police-texte);
-	line-height: 1.5;
+	line-height: 1.6;
+	-webkit-font-smoothing: antialiased;
 }
 
 img {
 	max-width: 100%;
 	height: auto;
 	display: block;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--police-titre);
+	line-height: 1.15;
+	letter-spacing: -0.02em;
+	margin: 0 0 1rem;
+}
+
+h1 {
+	font-size: var(--taille-h1);
+	font-weight: 800;
+}
+
+h2 {
+	font-size: var(--taille-h2);
+	font-weight: 800;
+}
+
+h3 {
+	font-size: var(--taille-h3);
+	font-weight: 700;
+}
+
+p {
+	margin: 0 0 1rem;
+}
+
+a {
+	color: var(--couleur-accent);
+	text-underline-offset: 0.2em;
+}
+
+a:hover {
+	color: var(--couleur-bleu);
+}
+
+:focus-visible {
+	outline: 3px solid var(--couleur-bleu);
+	outline-offset: 3px;
 }
 
 /* Lien d'évitement : invisible tant qu'on ne navigue pas au clavier */
@@ -40,29 +114,134 @@ img {
 .skip-link:focus {
 	left: var(--marge-cote);
 	top: var(--marge-cote);
+	z-index: 10;
+	padding: 0.5rem 1rem;
+	background: var(--couleur-blanc);
 }
 
 main {
 	max-width: var(--largeur-max);
 	margin: 0 auto;
-	padding: 0 var(--marge-cote);
+	padding: 0 var(--marge-cote) var(--espace-section);
 }
 
-.header,
-.footer {
-	max-width: var(--largeur-max);
-	margin: 0 auto;
-	padding: var(--marge-cote);
+/* En-tête */
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem 2rem;
+	padding: 1rem var(--marge-pleine);
+	background: rgb(255 255 255 / 0.92);
+	backdrop-filter: blur(8px);
+	border-bottom: 1px solid var(--couleur-bordure);
+}
+
+.header__logo {
+	font-size: 1.375rem;
+	font-weight: 900;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: var(--degrade);
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
 }
 
 .header__liste {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 1rem;
+	gap: 0.25rem 1.25rem;
+	margin: 0;
 	padding: 0;
 	list-style: none;
 }
 
+.header__lien {
+	display: inline-block;
+	padding: 0.25rem 0;
+	color: var(--couleur-texte);
+	font-weight: 500;
+	text-decoration: none;
+	border-bottom: 2px solid transparent;
+}
+
+.header__lien:hover {
+	color: var(--couleur-accent);
+}
+
 .header__lien[aria-current='page'] {
+	color: var(--couleur-accent);
 	font-weight: 700;
+	border-bottom-color: currentColor;
+}
+
+/* Pied de page */
+.footer {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 2.5rem var(--marge-pleine);
+	background: var(--couleur-noir);
+	color: var(--couleur-blanc);
+}
+
+.footer p {
+	margin: 0;
+}
+
+.footer a {
+	color: var(--couleur-blanc);
+}
+
+/* Boutons (liens ou <button>) */
+.bouton {
+	display: inline-block;
+	padding: 0.85rem 1.5rem;
+	border: 2px solid var(--couleur-accent);
+	border-radius: 999px;
+	background: transparent;
+	color: var(--couleur-accent);
+	font: inherit;
+	font-weight: 700;
+	text-decoration: none;
+	cursor: pointer;
+	transition:
+		background-color 0.2s,
+		color 0.2s,
+		transform 0.2s;
+}
+
+.bouton:hover {
+	background: var(--couleur-fond-doux);
+	color: var(--couleur-accent);
+	transform: translateY(-2px);
+}
+
+.bouton--principal {
+	border-color: transparent;
+	background: var(--degrade);
+	color: var(--couleur-blanc);
+}
+
+.bouton--principal:hover {
+	background: var(--degrade);
+	color: var(--couleur-blanc);
+	box-shadow: var(--ombre);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bouton {
+		transition: none;
+	}
+
+	.bouton:hover {
+		transform: none;
+	}
 }
