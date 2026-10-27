@@ -5,7 +5,8 @@
 // arrivent dans l'onglet Forms de Netlify. Après envoi, redirection vers /merci.
 import Layout from '../layouts/Layout.astro';
 
-// Coordonnées : null tant qu'elles ne sont pas décidées, la ligne ne s'affiche pas.
+// Coordonnées : null tant qu'elles ne sont pas décidées. Mail et téléphone affichent alors un
+// [À COMPLÉTER] (à remplir avant la mise en ligne), la ligne Instagram ne s'affiche pas.
 // Les mêmes valeurs sont dans mentions-legales.astro : changer les deux.
 const coordonnees = {
 	mail: null as string | null, // adresse en .fr une fois le domaine acheté
@@ -95,21 +96,22 @@ const coordonnees = {
 			<h2 id="titre-coordonnees">Nous joindre directement</h2>
 			<address>
 				<ul class="contact__liste">
-					{
-						coordonnees.mail && (
-							<li>
-								E-mail : <a href={`mailto:${coordonnees.mail}`}>{coordonnees.mail}</a>
-							</li>
-						)
-					}
-					{
-						coordonnees.telephone && (
-							<li>
-								Téléphone :{' '}
-								<a href={`tel:${coordonnees.telephone.replace(/\s/g, '')}`}>{coordonnees.telephone}</a>
-							</li>
-						)
-					}
+					<li>
+						E-mail :{' '}
+						{coordonnees.mail ? (
+							<a href={`mailto:${coordonnees.mail}`}>{coordonnees.mail}</a>
+						) : (
+							'[À COMPLÉTER : adresse e-mail]'
+						)}
+					</li>
+					<li>
+						Téléphone :{' '}
+						{coordonnees.telephone ? (
+							<a href={`tel:${coordonnees.telephone.replace(/\s/g, '')}`}>{coordonnees.telephone}</a>
+						) : (
+							'[À COMPLÉTER : téléphone]'
+						)}
+					</li>
 					{
 						coordonnees.instagram && (
 							<li>
