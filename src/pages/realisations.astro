@@ -1,12 +1,71 @@
 ---
-// Page Réalisations — responsable : Ouassim
+// Page Réalisations
+// Pas encore de clients : on montre nos meilleurs projets de cours et perso, présentés comme des projets de l'équipe.
+// Duplique le bloc <article class="project"> pour chaque projet. Les "[À compléter]" sont à remplacer.
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout
-	title="Réalisations"
-	description="[À COMPLÉTER] Les projets réalisés par l'équipe."
+  title="Réalisations"
+  description="Découvrez les projets de l’équipe Narukla, réalisés en cours ou à titre personnel."
 >
-	<h1>Réalisations</h1>
-	<p>[À COMPLÉTER]</p>
+  <div class="realisations">
+    <section class="realisations__intro" aria-labelledby="realisations-title">
+      <h1 id="realisations-title" class="realisations__title">Réalisations</h1>
+      <p class="realisations__lead">
+        Voici les projets de l’équipe, réalisés en cours ou à titre personnel.
+      </p>
+    </section>
+
+    <section class="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title" class="projects__title">Nos projets</h2>
+
+      <article class="project">
+        <h3 class="project__title">[À compléter : nom du projet 1]</h3>
+        <p class="project__type">[À compléter : type, ex. site web, identité visuelle]</p>
+        <p class="project__description">[À compléter : description courte du projet.]</p>
+        <dl class="project__meta">
+          <dt>Rôle</dt>
+          <dd>[À compléter : qui a fait quoi]</dd>
+          <dt>Outils</dt>
+          <dd>[À compléter : ex. Astro, Figma]</dd>
+        </dl>
+        <a class="project__link" href="#">Voir le projet</a>
+      </article>
+
+      <article class="project">
+        <h3 class="project__title">[À compléter : nom du projet 2]</h3>
+        <p class="project__type">[À compléter : type]</p>
+        <p class="project__description">[À compléter : description courte du projet.]</p>
+        <dl class="project__meta">
+          <dt>Rôle</dt>
+          <dd>[À compléter]</dd>
+          <dt>Outils</dt>
+          <dd>[À compléter]</dd>
+        </dl>
+        <a class="project__link" href="#">Voir le projet</a>
+      </article>
+
+      <article class="project">
+        <h3 class="project__title">[À compléter : nom du projet 3]</h3>
+        <p class="project__type">[À compléter : type]</p>
+        <p class="project__description">[À compléter : description courte du projet.]</p>
+        <dl class="project__meta">
+          <dt>Rôle</dt>
+          <dd>[À compléter]</dd>
+          <dt>Outils</dt>
+          <dd>[À compléter]</dd>
+        </dl>
+        <a class="project__link" href="#">Voir le projet</a>
+      </article>
+
+      <!-- À ajouter dès que c'est terminé : le projet kebab -->
+    </section>
+
+    <section class="cta" aria-labelledby="cta-title">
+      <h2 id="cta-title" class="cta__title">Envie de travailler avec nous ?</h2>
+      <p class="cta__text">Dites-nous ce dont vous avez besoin, on en discute ensemble.</p>
+      <a class="cta__link" href="/contact">Contactez-nous</a>
+    </section>
+  </div>
 </Layout>
