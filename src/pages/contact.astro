@@ -1,12 +1,122 @@
 ---
 // Page Contact — responsable : Jimmy
+// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
+// Formulaire géré par Netlify Forms (data-netlify) : rien à coder côté serveur, les messages
+// arrivent dans l'onglet Forms de Netlify. Après envoi, redirection vers /merci.
 import Layout from '../layouts/Layout.astro';
+
+// Coordonnées : null tant qu'elles ne sont pas décidées, la ligne ne s'affiche pas.
+// Les mêmes valeurs sont dans mentions-legales.astro : changer les deux.
+const coordonnees = {
+	mail: null as string | null, // adresse en .fr une fois le domaine acheté
+	telephone: null as string | null,
+	instagram: null as string | null, // lien complet du compte
+};
 ---
 
 <Layout
 	title="Contact"
-	description="[À COMPLÉTER] Nous écrire ou nous appeler pour votre projet."
+	description="Contactez Narukla pour votre site vitrine ou votre identité visuelle à Troyes. Premier échange et devis gratuits."
 >
-	<h1>Contact</h1>
-	<p>[À COMPLÉTER]</p>
+	<section class="contact__intro" aria-labelledby="titre-contact">
+		<h1 id="titre-contact">Contact</h1>
+		<p>
+			Un site à créer, un logo à refaire ou juste une question ? Écrivez-nous, on vous répond sous
+			48 h. Le premier échange et le devis sont gratuits.
+		</p>
+	</section>
+
+	<section class="contact__formulaire" aria-labelledby="titre-formulaire">
+		<h2 id="titre-formulaire">Parlez-nous de votre projet</h2>
+		<form
+			class="formulaire"
+			name="contact"
+			method="POST"
+			action="/merci"
+			data-netlify="true"
+			netlify-honeypot="champ-robot"
+		>
+			<input type="hidden" name="form-name" value="contact" />
+			<!-- Piège à robots : caché aux humains, Netlify rejette les envois qui le remplissent -->
+			<p class="formulaire__piege" hidden>
+				<label>Ne pas remplir : <input name="champ-robot" tabindex="-1" autocomplete="off" /></label>
+			</p>
+
+			<p class="formulaire__champ">
+				<label for="nom">Nom et prénom</label>
+				<input id="nom" name="nom" type="text" autocomplete="name" required />
+			</p>
+
+			<p class="formulaire__champ">
+				<label for="entreprise">Entreprise ou activité (facultatif)</label>
+				<input id="entreprise" name="entreprise" type="text" autocomplete="organization" />
+			</p>
+
+			<p class="formulaire__champ">
+				<label for="mail">Adresse e-mail</label>
+				<input id="mail" name="mail" type="email" autocomplete="email" required />
+			</p>
+
+			<p class="formulaire__champ">
+				<label for="telephone">Téléphone (facultatif)</label>
+				<input id="telephone" name="telephone" type="tel" autocomplete="tel" />
+			</p>
+
+			<p class="formulaire__champ">
+				<label for="besoin">Votre besoin</label>
+				<select id="besoin" name="besoin" required>
+					<option value="">Choisir une option</option>
+					<option value="site-vitrine">Site vitrine</option>
+					<option value="identite-visuelle">Identité visuelle</option>
+					<option value="site-et-identite">Site vitrine et identité visuelle</option>
+					<option value="maintenance">Maintenance d'un site existant</option>
+					<option value="autre">Autre</option>
+				</select>
+			</p>
+
+			<p class="formulaire__champ">
+				<label for="message">Votre message</label>
+				<textarea id="message" name="message" rows="6" required></textarea>
+			</p>
+
+			<!-- Mention d'information RGPD (skill livraison du kit) -->
+			<p class="formulaire__mention">
+				Vos données servent uniquement à répondre à votre demande. Pour en savoir plus et exercer vos
+				droits, consultez nos <a href="/mentions-legales#donnees">mentions légales</a>.
+			</p>
+
+			<button class="formulaire__envoyer" type="submit">Envoyer</button>
+		</form>
+	</section>
+
+	<section class="contact__coordonnees" aria-labelledby="titre-coordonnees">
+		<h2 id="titre-coordonnees">Nous joindre directement</h2>
+		<address>
+			<ul class="contact__liste">
+				{
+					coordonnees.mail && (
+						<li>
+							E-mail : <a href={`mailto:${coordonnees.mail}`}>{coordonnees.mail}</a>
+						</li>
+					)
+				}
+				{
+					coordonnees.telephone && (
+						<li>
+							Téléphone :{' '}
+							<a href={`tel:${coordonnees.telephone.replace(/\s/g, '')}`}>{coordonnees.telephone}</a>
+						</li>
+					)
+				}
+				{
+					coordonnees.instagram && (
+						<li>
+							<a href={coordonnees.instagram} rel="noopener">Narukla sur Instagram</a>
+						</li>
+					)
+				}
+				<li>Basés à Troyes, rendez-vous possible sur place.</li>
+			</ul>
+		</address>
+	</section>
 </Layout>

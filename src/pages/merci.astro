@@ -1,0 +1,13 @@
+---
+// Page Merci — responsable : Jimmy
+// Affichée après l'envoi du formulaire de contact (action="/merci" dans contact.astro).
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Message envoyé" description="Votre message a bien été envoyé à Narukla.">
+	<section class="merci" aria-labelledby="titre-merci">
+		<h1 id="titre-merci">Merci, votre message est bien parti</h1>
+		<p>On revient vers vous sous 48 h.</p>
+		<p><a href="/">Retour à l'accueil</a></p>
+	</section>
+</Layout>
