@@ -8,9 +8,11 @@ import '../styles/global.css';
 interface Props {
 	title: string;
 	description: string;
+	// true pour les pages à ne pas afficher dans Google (ex. /merci)
+	noindex?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, noindex = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,6 +25,7 @@ const { title, description } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title} | Narukla</title>
 		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex" />}
 	</head>
 	<body>
 		<a class="skip-link" href="#contenu">Aller au contenu</a>
