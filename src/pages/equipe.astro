@@ -1,12 +1,128 @@
 ---
 // Page L'équipe — responsable : Jibril
+// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
 import Layout from '../layouts/Layout.astro';
+
+// Les 5 associés, par ordre alphabétique (pas de hiérarchie : parts égales).
+// Rôles : ceux du prompt d'équipe de Jimmy. Présentations : à recevoir de chacun (avant mer. 28 au soir).
+// photo : chemin dans public/ (ex. '/equipe/jibril.webp'), null en attendant la photo commune (lun. 2/11, idée de Noah).
+// mail, linkedin, portfolio : facultatifs, seulement pour ceux qui le veulent (idée de Noah), null sinon.
+const associes = [
+	{
+		prenom: 'Jibril',
+		role: 'Président, développeur',
+		presentation: '[À COMPLÉTER]',
+		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
+	},
+	{
+		prenom: 'Jimmy',
+		role: 'Chef de projet, développeur, commercial',
+		presentation: '[À COMPLÉTER]',
+		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
+	},
+	{
+		prenom: 'Lucas',
+		role: 'Gestion de projet, graphiste',
+		presentation: '[À COMPLÉTER]',
+		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
+	},
+	{
+		prenom: 'Noah',
+		role: 'Trésorier, graphiste',
+		presentation: '[À COMPLÉTER]',
+		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
+	},
+	{
+		prenom: 'Ouassim',
+		role: 'Développeur, marketing',
+		presentation: '[À COMPLÉTER]',
+		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
+	},
+];
 ---
 
 <Layout
 	title="L'équipe"
-	description="[À COMPLÉTER] Les cinq associés de l'agence et leurs rôles."
+	description="Narukla, c'est cinq associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
 >
-	<h1>L'équipe</h1>
-	<p>[À COMPLÉTER]</p>
+	<section class="equipe__intro">
+		<h1>L'équipe</h1>
+		<!-- Décision de Jimmy (27/10) : on dit qu'on est étudiants ici, pas en gros sur l'Accueil -->
+		<p>
+			Narukla est une jeune agence web installée à Troyes. Nous sommes cinq associés, étudiants en
+			BUT MMI (Métiers du multimédia et de l'internet) à l'IUT de Troyes : développement, graphisme
+			et marketing réunis dans une même équipe.
+		</p>
+	</section>
+
+	<section class="equipe__associes" aria-labelledby="titre-associes">
+		<h2 id="titre-associes">Les associés</h2>
+		<ul class="equipe__liste">
+			{
+				associes.map((associe) => (
+					<li>
+						<article class="equipe__carte">
+							{associe.photo && (
+								<img
+									class="equipe__photo"
+									src={associe.photo}
+									alt={`Portrait de ${associe.prenom}`}
+									width="400"
+									height="400"
+									loading="lazy"
+								/>
+							)}
+							<h3 class="equipe__prenom">{associe.prenom}</h3>
+							<p class="equipe__role">{associe.role}</p>
+							<p class="equipe__presentation">{associe.presentation}</p>
+							{(associe.mail || associe.linkedin || associe.portfolio) && (
+								<ul class="equipe__liens">
+									{associe.mail && (
+										<li>
+											<a href={`mailto:${associe.mail}`}>Écrire à {associe.prenom}</a>
+										</li>
+									)}
+									{associe.linkedin && (
+										<li>
+											<a href={associe.linkedin}>LinkedIn de {associe.prenom}</a>
+										</li>
+									)}
+									{associe.portfolio && (
+										<li>
+											<a href={associe.portfolio}>Portfolio de {associe.prenom}</a>
+										</li>
+									)}
+								</ul>
+							)}
+						</article>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="equipe__approche" aria-labelledby="titre-approche">
+		<h2 id="titre-approche">Notre façon de travailler</h2>
+		<p>[À COMPLÉTER : notre approche, à valider avec l'équipe]</p>
+	</section>
+
+	<section class="equipe__contact" aria-labelledby="titre-contact">
+		<h2 id="titre-contact">Un projet en tête ?</h2>
+		<p><a href="/contact">Contactez-nous</a></p>
+	</section>
 </Layout>
