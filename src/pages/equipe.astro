@@ -4,38 +4,54 @@
 import Layout from '../layouts/Layout.astro';
 
 // Les 5 associés, par ordre alphabétique (pas de hiérarchie : parts égales).
-// Rôles : ceux du prompt d'équipe de Jimmy. Présentations et photos : à demander à chacun.
-// photo : chemin dans public/ (ex. '/equipe/jibril.webp'), null tant qu'elle n'existe pas.
+// Rôles : ceux du prompt d'équipe de Jimmy. Présentations : à recevoir de chacun (avant mer. 28 au soir).
+// photo : chemin dans public/ (ex. '/equipe/jibril.webp'), null en attendant la photo commune (lun. 2/11, idée de Noah).
+// mail, linkedin, portfolio : facultatifs, seulement pour ceux qui le veulent (idée de Noah), null sinon.
 const associes = [
 	{
 		prenom: 'Jibril',
 		role: 'Président, développeur',
 		presentation: '[À COMPLÉTER]',
 		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
 	},
 	{
 		prenom: 'Jimmy',
 		role: 'Chef de projet, développeur, commercial',
 		presentation: '[À COMPLÉTER]',
 		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
 	},
 	{
 		prenom: 'Lucas',
 		role: 'Gestion de projet, graphiste',
 		presentation: '[À COMPLÉTER]',
 		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
 	},
 	{
 		prenom: 'Noah',
 		role: 'Trésorier, graphiste',
 		presentation: '[À COMPLÉTER]',
 		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
 	},
 	{
 		prenom: 'Ouassim',
 		role: 'Développeur, marketing',
 		presentation: '[À COMPLÉTER]',
 		photo: null,
+		mail: null,
+		linkedin: null,
+		portfolio: null,
 	},
 ];
 ---
@@ -46,7 +62,12 @@ const associes = [
 >
 	<section class="equipe__intro">
 		<h1>L'équipe</h1>
-		<p>[À COMPLÉTER : qui on est, en 2 ou 3 phrases]</p>
+		<!-- Décision de Jimmy (27/10) : on dit qu'on est étudiants ici, pas en gros sur l'Accueil -->
+		<p>
+			Narukla est une jeune agence web installée à Troyes. Nous sommes cinq associés, étudiants en
+			BUT MMI (Métiers du multimédia et de l'internet) à l'IUT de Troyes : développement, graphisme
+			et marketing réunis dans une même équipe.
+		</p>
 	</section>
 
 	<section class="equipe__associes" aria-labelledby="titre-associes">
@@ -69,6 +90,25 @@ const associes = [
 							<h3 class="equipe__prenom">{associe.prenom}</h3>
 							<p class="equipe__role">{associe.role}</p>
 							<p class="equipe__presentation">{associe.presentation}</p>
+							{(associe.mail || associe.linkedin || associe.portfolio) && (
+								<ul class="equipe__liens">
+									{associe.mail && (
+										<li>
+											<a href={`mailto:${associe.mail}`}>Écrire à {associe.prenom}</a>
+										</li>
+									)}
+									{associe.linkedin && (
+										<li>
+											<a href={associe.linkedin}>LinkedIn de {associe.prenom}</a>
+										</li>
+									)}
+									{associe.portfolio && (
+										<li>
+											<a href={associe.portfolio}>Portfolio de {associe.prenom}</a>
+										</li>
+									)}
+								</ul>
+							)}
 						</article>
 					</li>
 				))
