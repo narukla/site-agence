@@ -14,8 +14,10 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
 <header class="header">
-	<!-- Logo de Noah à venir (jeu. 29) : remplacer ce texte par l'image -->
-	<a class="header__logo" href="/">Narukla</a>
+	<!-- Logo provisoire : piste « tag » du Figma de Noah, à remplacer par la version finale -->
+	<a class="header__logo" href="/">
+		<img src="/images/logo-narukla-blanc.webp" alt="Narukla, retour à l'accueil" width="720" height="273" />
+	</a>
 	<nav class="header__nav" aria-label="Navigation principale">
 		<ul class="header__liste">
 			{

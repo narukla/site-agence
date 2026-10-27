@@ -1,44 +1,68 @@
 /* Styles communs à tout le site.
-   Base visuelle provisoire (mar. 27) en attendant les retouches de Noah et Lucas.
-   Couleurs : palette du Figma « Logo Agence ». Typo : police système en attendant le choix
-   (à héberger dans public/fonts, pas de Google Fonts : RGPD, voir le kit).
+   Direction visuelle provisoire (mar. 27), tirée du Figma « Logo Agence » : le logo tag,
+   le bandeau « Agence web », la palette. À retoucher par Noah et Lucas.
+   Polices hébergées dans public/fonts (licence OFL), pas de Google Fonts : RGPD, voir le kit.
    Règle : jamais de couleur en dur dans une page, toujours une variable d'ici. */
 
+@font-face {
+	font-family: 'Anton';
+	src: url('/fonts/anton-400.woff2') format('woff2');
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-400.woff2') format('woff2');
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-700.woff2') format('woff2');
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-800.woff2') format('woff2');
+	font-weight: 800;
+	font-display: swap;
+}
+
 :root {
-	/* Couleurs */
+	/* Couleurs : les 4 de la palette, rien d'autre */
 	--couleur-violet: #6e2fef;
 	--couleur-bleu: #0307fd;
-	--couleur-noir: #0d0d12;
+	--couleur-noir: #000000;
 	--couleur-blanc: #ffffff;
 	--couleur-fond: var(--couleur-blanc);
-	--couleur-fond-doux: #f5f2fe; /* violet très clair, pour les blocs */
 	--couleur-texte: var(--couleur-noir);
-	--couleur-texte-doux: #4a4a57;
-	--couleur-bordure: #e3def5;
 	--couleur-accent: var(--couleur-violet);
-	--degrade: linear-gradient(120deg, var(--couleur-violet), var(--couleur-bleu));
 
-	/* Typo (provisoire) */
-	--police-texte: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-	--police-titre: var(--police-texte);
-	--taille-h1: clamp(2rem, 1.2rem + 4vw, 3.5rem);
-	--taille-h2: clamp(1.5rem, 1.2rem + 1.5vw, 2.25rem);
-	--taille-h3: 1.25rem;
+	/* Typo */
+	--police-titre: 'Anton', Impact, 'Arial Narrow', sans-serif;
+	--police-texte: 'Archivo', system-ui, sans-serif;
+	--taille-h1: clamp(3rem, 1.5rem + 7vw, 7.5rem);
+	--taille-h2: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
+	--taille-h3: clamp(1.5rem, 1.25rem + 1vw, 2rem);
 
-	/* Espacements et formes */
-	--largeur-max: 72rem;
-	--largeur-texte: 42rem;
-	--marge-cote: 1rem;
-	--espace-section: clamp(3rem, 2rem + 4vw, 6rem);
-	--rayon: 0.75rem;
-	--ombre: 0 0.5rem 1.5rem rgb(13 13 18 / 0.08);
-	/* Marges latérales qui centrent le contenu tout en laissant les fonds prendre toute la largeur */
+	/* Espacements et traits */
+	--largeur-max: 76rem;
+	--largeur-texte: 40rem;
+	--marge-cote: 1.25rem;
+	--espace-section: clamp(4rem, 3rem + 5vw, 8rem);
+	--trait: 3px;
+	--decalage: 6px; /* ombre pleine des boutons, comme le contour du logo */
+	/* Marges latérales qui alignent les bandes pleine largeur sur le contenu */
 	--marge-pleine: max(var(--marge-cote), (100% - var(--largeur-max)) / 2 + var(--marge-cote));
 }
 
 @media (min-width: 48rem) {
 	:root {
-		--marge-cote: 2rem;
+		--marge-cote: 2.5rem;
 	}
 }
 
@@ -53,8 +77,8 @@ body {
 	background: var(--couleur-fond);
 	color: var(--couleur-texte);
 	font-family: var(--police-texte);
+	font-size: 1.0625rem;
 	line-height: 1.6;
-	-webkit-font-smoothing: antialiased;
 }
 
 img {
@@ -67,24 +91,24 @@ h1,
 h2,
 h3 {
 	font-family: var(--police-titre);
-	line-height: 1.15;
-	letter-spacing: -0.02em;
-	margin: 0 0 1rem;
+	font-weight: 400;
+	line-height: 0.95;
+	text-transform: uppercase;
+	margin: 0 0 1.5rem;
 }
 
 h1 {
 	font-size: var(--taille-h1);
-	font-weight: 800;
 }
 
 h2 {
 	font-size: var(--taille-h2);
-	font-weight: 800;
 }
 
 h3 {
 	font-size: var(--taille-h3);
-	font-weight: 700;
+	line-height: 1.05;
+	margin-bottom: 0.75rem;
 }
 
 p {
@@ -92,16 +116,17 @@ p {
 }
 
 a {
-	color: var(--couleur-accent);
+	color: inherit;
+	text-decoration-thickness: 2px;
 	text-underline-offset: 0.2em;
 }
 
 a:hover {
-	color: var(--couleur-bleu);
+	color: var(--couleur-accent);
 }
 
 :focus-visible {
-	outline: 3px solid var(--couleur-bleu);
+	outline: var(--trait) solid var(--couleur-bleu);
 	outline-offset: 3px;
 }
 
@@ -117,46 +142,41 @@ a:hover {
 	z-index: 10;
 	padding: 0.5rem 1rem;
 	background: var(--couleur-blanc);
+	color: var(--couleur-noir);
 }
 
 main {
 	max-width: var(--largeur-max);
 	margin: 0 auto;
-	padding: 0 var(--marge-cote) var(--espace-section);
+	padding: 0 var(--marge-cote);
 }
 
-/* En-tête */
+/* En-tête : bande noire, logo tag, navigation en capitales */
 .header {
-	position: sticky;
-	top: 0;
-	z-index: 5;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	gap: 0.5rem 2rem;
+	gap: 1rem 2rem;
 	padding: 1rem var(--marge-pleine);
-	background: rgb(255 255 255 / 0.92);
-	backdrop-filter: blur(8px);
-	border-bottom: 1px solid var(--couleur-bordure);
+	background: var(--couleur-noir);
+	color: var(--couleur-blanc);
 }
 
-.header__logo {
-	font-size: 1.375rem;
-	font-weight: 900;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	text-decoration: none;
-	background: var(--degrade);
-	background-clip: text;
-	-webkit-background-clip: text;
-	color: transparent;
+.header__logo img {
+	width: 8rem;
+}
+
+@media (min-width: 48rem) {
+	.header__logo img {
+		width: 10rem;
+	}
 }
 
 .header__liste {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.25rem 1.25rem;
+	gap: 0.25rem;
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -164,21 +184,22 @@ main {
 
 .header__lien {
 	display: inline-block;
-	padding: 0.25rem 0;
-	color: var(--couleur-texte);
-	font-weight: 500;
+	padding: 0.35rem 0.6rem;
+	font-family: var(--police-titre);
+	font-size: 1.125rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
 	text-decoration: none;
-	border-bottom: 2px solid transparent;
 }
 
 .header__lien:hover {
-	color: var(--couleur-accent);
+	color: var(--couleur-noir);
+	background: var(--couleur-blanc);
 }
 
 .header__lien[aria-current='page'] {
-	color: var(--couleur-accent);
-	font-weight: 700;
-	border-bottom-color: currentColor;
+	color: var(--couleur-blanc);
+	background: var(--couleur-violet);
 }
 
 /* Pied de page */
@@ -186,62 +207,106 @@ main {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+	align-items: center;
 	gap: 1rem;
-	padding: 2.5rem var(--marge-pleine);
+	padding: 2rem var(--marge-pleine);
 	background: var(--couleur-noir);
 	color: var(--couleur-blanc);
+	font-weight: 700;
 }
 
 .footer p {
 	margin: 0;
 }
 
-.footer a {
+/* Bande pleine largeur dans <main> : fond qui déborde jusqu'aux bords de l'écran.
+   La couleur se règle avec --aplat (noir, violet ou bleu). */
+.aplat {
+	--aplat: var(--couleur-noir);
+	background: var(--aplat);
+	box-shadow: 0 0 0 100vmax var(--aplat);
+	clip-path: inset(0 -100vmax);
 	color: var(--couleur-blanc);
 }
 
-/* Boutons (liens ou <button>) */
+/* Bandeau penché, repris du « Agence web » du logo */
+.bandeau {
+	display: inline-block;
+	padding: 0.3rem 1.4rem 0.2rem;
+	background: var(--couleur-noir);
+	color: var(--couleur-blanc);
+	font-family: var(--police-titre);
+	font-size: 1.125rem;
+	letter-spacing: 0.06em;
+	line-height: 1.2;
+	text-transform: uppercase;
+	transform: rotate(-2deg);
+	/* Bouts taillés en biais comme le bandeau dessiné */
+	clip-path: polygon(0 8%, 100% 0, 97% 100%, 3% 92%);
+}
+
+.bandeau--blanc {
+	background: var(--couleur-blanc);
+	color: var(--couleur-noir);
+}
+
+/* Boutons : rectangles francs, ombre pleine décalée (effet autocollant du logo) */
 .bouton {
 	display: inline-block;
-	padding: 0.85rem 1.5rem;
-	border: 2px solid var(--couleur-accent);
-	border-radius: 999px;
-	background: transparent;
-	color: var(--couleur-accent);
-	font: inherit;
-	font-weight: 700;
+	padding: 0.9rem 1.6rem 0.8rem;
+	border: var(--trait) solid var(--couleur-noir);
+	background: var(--couleur-blanc);
+	color: var(--couleur-noir);
+	box-shadow: var(--decalage) var(--decalage) 0 var(--couleur-noir);
+	font-family: var(--police-titre);
+	font-size: 1.25rem;
+	letter-spacing: 0.04em;
+	line-height: 1;
+	text-transform: uppercase;
 	text-decoration: none;
 	cursor: pointer;
 	transition:
-		background-color 0.2s,
-		color 0.2s,
-		transform 0.2s;
+		transform 0.12s,
+		box-shadow 0.12s;
 }
 
 .bouton:hover {
-	background: var(--couleur-fond-doux);
-	color: var(--couleur-accent);
-	transform: translateY(-2px);
+	color: var(--couleur-noir);
+	transform: translate(var(--decalage), var(--decalage));
+	box-shadow: 0 0 0 var(--couleur-noir);
 }
 
 .bouton--principal {
-	border-color: transparent;
-	background: var(--degrade);
+	background: var(--couleur-violet);
 	color: var(--couleur-blanc);
 }
 
 .bouton--principal:hover {
-	background: var(--degrade);
 	color: var(--couleur-blanc);
-	box-shadow: var(--ombre);
+}
+
+/* Sur fond noir, l'ombre passe en blanc pour rester visible */
+.aplat .bouton {
+	border-color: var(--couleur-blanc);
+	box-shadow: var(--decalage) var(--decalage) 0 var(--couleur-blanc);
+}
+
+.aplat .bouton:hover {
+	box-shadow: 0 0 0 var(--couleur-blanc);
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.bouton {
 		transition: none;
 	}
+}
 
-	.bouton:hover {
-		transform: none;
-	}
+/* Texte lu par les lecteurs d'écran mais caché à l'écran */
+.visuellement-cache {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
 }
