@@ -126,3 +126,129 @@ const associes = [
 		<p><a href="/contact">Contactez-nous</a></p>
 	</section>
 </Layout>
+
+<style>
+	/* Direction visuelle provisoire (mar. 27, Jimmy), à retoucher par Noah et Lucas.
+	   Style seulement : le contenu et la structure de la page sont ceux de Jibril. */
+	section {
+		padding-block: var(--espace-section);
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* Intro : bande noire comme le haut de l'Accueil */
+	.equipe__intro {
+		padding-top: clamp(2.5rem, 2rem + 4vw, 5rem);
+		background: var(--couleur-noir);
+		box-shadow: 0 0 0 100vmax var(--couleur-noir);
+		clip-path: inset(0 -100vmax);
+		color: var(--couleur-blanc);
+	}
+
+	.equipe__intro p {
+		max-width: var(--largeur-texte);
+		margin: 0;
+		font-size: 1.1875rem;
+	}
+
+	/* Associés : grille de fiches à traits noirs */
+	.equipe__liste {
+		display: grid;
+		gap: 1.5rem;
+	}
+
+	.equipe__carte {
+		height: 100%;
+		padding: 1.5rem;
+		border: var(--trait) solid var(--couleur-noir);
+		box-shadow: var(--decalage) var(--decalage) 0 var(--couleur-noir);
+	}
+
+	.equipe__photo {
+		width: 100%;
+		margin-bottom: 1.25rem;
+		aspect-ratio: 1;
+		object-fit: cover;
+		filter: grayscale(1);
+	}
+
+	.equipe__prenom {
+		margin: 0 0 0.5rem;
+		font-size: clamp(2.25rem, 1.75rem + 2vw, 3rem);
+	}
+
+	.equipe__role {
+		display: inline-block;
+		padding: 0.15rem 0.6rem;
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+		font-weight: 800;
+		font-size: 0.875rem;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.equipe__presentation {
+		margin: 0;
+	}
+
+	.equipe__liens {
+		margin-top: 1rem;
+		font-weight: 800;
+	}
+
+	/* Approche : bande bleue */
+	.equipe__approche {
+		background: var(--couleur-bleu);
+		box-shadow: 0 0 0 100vmax var(--couleur-bleu);
+		clip-path: inset(0 -100vmax);
+		color: var(--couleur-blanc);
+	}
+
+	.equipe__approche p {
+		max-width: var(--largeur-texte);
+		font-size: 1.1875rem;
+	}
+
+	/* Contact : bande violette, lien en bouton */
+	.equipe__contact {
+		background: var(--couleur-violet);
+		box-shadow: 0 0 0 100vmax var(--couleur-violet);
+		clip-path: inset(0 -100vmax);
+		color: var(--couleur-blanc);
+	}
+
+	.equipe__contact h2 {
+		font-size: var(--taille-h1);
+	}
+
+	.equipe__contact a {
+		display: inline-block;
+		margin-top: 1rem;
+		padding: 0.9rem 1.6rem 0.8rem;
+		border: var(--trait) solid var(--couleur-blanc);
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+		box-shadow: var(--decalage) var(--decalage) 0 var(--couleur-noir);
+		font-family: var(--police-titre);
+		font-size: 1.25rem;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	@media (min-width: 48rem) {
+		.equipe__liste {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.equipe__liste {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>

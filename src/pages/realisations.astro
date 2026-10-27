@@ -69,3 +69,141 @@ import Layout from '../layouts/Layout.astro';
     </section>
   </div>
 </Layout>
+
+<style>
+  /* Direction visuelle provisoire (mar. 27, Jimmy), à retoucher par Noah et Lucas.
+     Style seulement : le contenu et la structure de la page sont ceux d'Ouassim. */
+
+  /* Intro : bande noire */
+  .realisations__intro {
+    padding-block: clamp(2.5rem, 2rem + 4vw, 5rem) var(--espace-section);
+    background: var(--couleur-noir);
+    box-shadow: 0 0 0 100vmax var(--couleur-noir);
+    clip-path: inset(0 -100vmax);
+    color: var(--couleur-blanc);
+  }
+
+  .realisations__lead {
+    max-width: var(--largeur-texte);
+    margin: 0;
+    font-size: 1.1875rem;
+  }
+
+  /* Projets : lignes numérotées séparées par des traits */
+  .projects {
+    padding-block: var(--espace-section);
+    counter-reset: projet;
+  }
+
+  .project {
+    counter-increment: projet;
+    display: grid;
+    gap: 0.5rem 3rem;
+    padding-block: 2.5rem;
+    border-top: var(--trait) solid var(--couleur-noir);
+  }
+
+  .project:last-of-type {
+    border-bottom: var(--trait) solid var(--couleur-noir);
+  }
+
+  .project::before {
+    content: counter(projet, decimal-leading-zero);
+    font-family: var(--police-titre);
+    font-size: 4rem;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--couleur-noir);
+  }
+
+  .project__title {
+    margin: 0;
+  }
+
+  .project__type {
+    justify-self: start;
+    margin: 0;
+    padding: 0.15rem 0.6rem;
+    background: var(--couleur-violet);
+    color: var(--couleur-blanc);
+    font-weight: 800;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .project__description {
+    margin: 0.5rem 0 0;
+    max-width: var(--largeur-texte);
+  }
+
+  .project__meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 1rem;
+    margin: 0.5rem 0 0;
+  }
+
+  .project__meta dt {
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.04em;
+  }
+
+  .project__meta dd {
+    margin: 0;
+  }
+
+  .project__link {
+    justify-self: start;
+    margin-top: 0.75rem;
+    font-weight: 800;
+  }
+
+  /* Appel final : bande violette */
+  .cta {
+    padding-block: var(--espace-section);
+    background: var(--couleur-violet);
+    box-shadow: 0 0 0 100vmax var(--couleur-violet);
+    clip-path: inset(0 -100vmax);
+    color: var(--couleur-blanc);
+  }
+
+  .cta__title {
+    font-size: var(--taille-h1);
+  }
+
+  .cta__text {
+    font-size: 1.1875rem;
+  }
+
+  .cta__link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.9rem 1.6rem 0.8rem;
+    border: var(--trait) solid var(--couleur-blanc);
+    background: var(--couleur-blanc);
+    color: var(--couleur-noir);
+    box-shadow: var(--decalage) var(--decalage) 0 var(--couleur-noir);
+    font-family: var(--police-titre);
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  @media (min-width: 64rem) {
+    /* Numéro à gauche, projet à droite */
+    .project {
+      grid-template-columns: 8rem 1fr;
+    }
+
+    .project::before {
+      grid-row: 1 / span 6;
+    }
+
+    .project > * {
+      grid-column: 2;
+    }
+  }
+</style>

@@ -96,3 +96,190 @@ import Layout from '../layouts/Layout.astro';
     </section>
   </div>
 </Layout>
+
+<style>
+  /* Direction visuelle provisoire (mar. 27, Jimmy), à retoucher par Noah et Lucas.
+     Style seulement : le contenu et la structure de la page sont ceux d'Ouassim. */
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Intro : bande noire */
+  .services__intro {
+    padding-block: clamp(2.5rem, 2rem + 4vw, 5rem) var(--espace-section);
+    background: var(--couleur-noir);
+    box-shadow: 0 0 0 100vmax var(--couleur-noir);
+    clip-path: inset(0 -100vmax);
+    color: var(--couleur-blanc);
+  }
+
+  .services__lead {
+    max-width: var(--largeur-texte);
+    margin: 0;
+    font-size: 1.1875rem;
+  }
+
+  /* Offres : un bloc par offre, séparés par des traits, prix en très gros */
+  .offer {
+    display: grid;
+    gap: 1rem 3rem;
+    padding-block: 3rem;
+    border-bottom: var(--trait) solid var(--couleur-noir);
+  }
+
+  .offer:first-of-type {
+    margin-top: var(--espace-section);
+    border-top: var(--trait) solid var(--couleur-noir);
+  }
+
+  .offer__title {
+    margin: 0;
+    font-size: var(--taille-h2);
+  }
+
+  .offer__price {
+    margin: 0;
+    font-family: var(--police-titre);
+    font-size: clamp(2.5rem, 2rem + 2.5vw, 4rem);
+    line-height: 1;
+    color: var(--couleur-violet);
+  }
+
+  .offer__feature {
+    padding-block: 0.6rem;
+    border-bottom: 1px solid var(--couleur-noir);
+  }
+
+  .offer__feature::before {
+    content: '';
+    display: inline-block;
+    width: 0.55em;
+    height: 0.55em;
+    margin-right: 0.6rem;
+    background: var(--couleur-noir);
+  }
+
+  .offer__delay {
+    margin: 0;
+    font-weight: 800;
+  }
+
+  .offer__cta {
+    justify-self: start;
+    padding: 0.9rem 1.6rem 0.8rem;
+    border: var(--trait) solid var(--couleur-noir);
+    background: var(--couleur-violet);
+    color: var(--couleur-blanc);
+    box-shadow: var(--decalage) var(--decalage) 0 var(--couleur-noir);
+    font-family: var(--police-titre);
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .offer__cta:hover {
+    color: var(--couleur-blanc);
+    transform: translate(var(--decalage), var(--decalage));
+    box-shadow: none;
+  }
+
+  /* Étapes : bande bleue, numéros en contour */
+  .process {
+    margin-top: var(--espace-section);
+    padding-block: var(--espace-section);
+    background: var(--couleur-bleu);
+    box-shadow: 0 0 0 100vmax var(--couleur-bleu);
+    clip-path: inset(0 -100vmax);
+    color: var(--couleur-blanc);
+  }
+
+  .process__steps {
+    display: grid;
+    gap: 2.5rem 2rem;
+    counter-reset: etape;
+  }
+
+  .process__step {
+    counter-increment: etape;
+    padding-top: 1rem;
+    border-top: var(--trait) solid var(--couleur-blanc);
+  }
+
+  .process__step::before {
+    content: counter(etape, decimal-leading-zero);
+    display: block;
+    margin-bottom: 0.75rem;
+    font-family: var(--police-titre);
+    font-size: 4rem;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--couleur-blanc);
+  }
+
+  .process__step-text {
+    margin: 0;
+  }
+
+  /* Appel final : bande violette */
+  .cta {
+    padding-block: var(--espace-section);
+    background: var(--couleur-violet);
+    box-shadow: 0 0 0 100vmax var(--couleur-violet);
+    clip-path: inset(0 -100vmax);
+    color: var(--couleur-blanc);
+  }
+
+  .cta__title {
+    font-size: var(--taille-h1);
+  }
+
+  .cta__text {
+    font-size: 1.1875rem;
+  }
+
+  .cta__link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.9rem 1.6rem 0.8rem;
+    border: var(--trait) solid var(--couleur-blanc);
+    background: var(--couleur-blanc);
+    color: var(--couleur-noir);
+    box-shadow: var(--decalage) var(--decalage) 0 var(--couleur-noir);
+    font-family: var(--police-titre);
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  @media (min-width: 48rem) {
+    .process__steps {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    /* Titre et prix à gauche, contenu de l'offre à droite */
+    .offer {
+      grid-template-columns: 1fr 1.4fr;
+    }
+
+    .offer__title,
+    .offer__price {
+      grid-column: 1;
+    }
+
+    .offer__features {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+    }
+
+    .offer__delay,
+    .offer__cta {
+      grid-column: 1;
+    }
+  }
+</style>
