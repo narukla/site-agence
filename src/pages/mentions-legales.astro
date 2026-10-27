@@ -1,6 +1,6 @@
 ---
 // Page Mentions légales — responsable : Jimmy
-// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
+// Direction visuelle provisoire (mar. 27) tirée du Figma, à retoucher par Noah et Lucas.
 // Les [À COMPLÉTER] dépendent de la création de la SAS (Kbis) : à remplir avant la mise en ligne.
 import Layout from '../layouts/Layout.astro';
 
@@ -110,20 +110,24 @@ const hebergeur = {
 </Layout>
 
 <style>
-	/* Base visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
+	/* Direction visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
 	.mentions {
-		max-width: var(--largeur-texte);
-		padding-top: var(--espace-section);
+		padding-block: clamp(2.5rem, 2rem + 4vw, 5rem) var(--espace-section);
+	}
+
+	.mentions h1 {
+		margin-bottom: 3rem;
 	}
 
 	.mentions__section {
-		padding-top: 2rem;
-		margin-top: 2rem;
-		border-top: 1px solid var(--couleur-bordure);
+		max-width: var(--largeur-texte);
+		padding-top: 1.5rem;
+		margin-top: 2.5rem;
+		border-top: var(--trait) solid var(--couleur-noir);
 	}
 
 	.mentions__section h2 {
-		font-size: 1.5rem;
+		font-size: var(--taille-h3);
 	}
 
 	.mentions__section ul {
@@ -132,5 +136,24 @@ const hebergeur = {
 
 	.mentions__section li + li {
 		margin-top: 0.25rem;
+	}
+
+	.mentions__section a {
+		color: var(--couleur-violet);
+	}
+
+	@media (min-width: 64rem) {
+		/* Titre de section à gauche, texte à droite */
+		.mentions__section {
+			display: grid;
+			grid-template-columns: 16rem 1fr;
+			gap: 0 3rem;
+			max-width: none;
+		}
+
+		.mentions__section > :not(h2) {
+			grid-column: 2;
+			max-width: var(--largeur-texte);
+		}
 	}
 </style>

@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Message envoyé" description="Votre message a bien été envoyé à Narukla.">
-	<section class="merci" aria-labelledby="titre-merci">
+	<section class="merci aplat" aria-labelledby="titre-merci">
 		<h1 id="titre-merci">Merci, votre message est bien parti</h1>
 		<p>On revient vers vous sous 48 h.</p>
 		<p><a class="bouton bouton--principal" href="/">Retour à l'accueil</a></p>
@@ -13,14 +13,20 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
-	/* Base visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
+	/* Direction visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
 	.merci {
-		padding-top: var(--espace-section);
-		text-align: center;
+		padding-block: var(--espace-section);
+	}
+
+	.merci h1 {
+		max-width: 14ch;
 	}
 
 	.merci p {
-		color: var(--couleur-texte-doux);
-		font-size: 1.125rem;
+		font-size: 1.1875rem;
+	}
+
+	.merci .bouton {
+		margin-top: 1rem;
 	}
 </style>

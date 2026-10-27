@@ -1,6 +1,6 @@
 ---
 // Page Accueil — responsable : Jimmy
-// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
+// Direction visuelle provisoire (mar. 27) tirée du Figma, à retoucher par Noah et Lucas.
 // Prix et étapes repris de la page Services et tarifs : les garder identiques si l'une change.
 import Layout from '../layouts/Layout.astro';
 
@@ -53,8 +53,11 @@ const etapes = [
 	title="Accueil"
 	description="Narukla, agence web à Troyes : sites vitrines, identités visuelles et maintenance pour les commerces, artisans et indépendants."
 >
-	<section class="accueil__hero" aria-labelledby="titre-accueil">
-		<h1 id="titre-accueil">Votre site web, pensé pour vos clients et livré sans prise de tête</h1>
+	<section class="accueil__hero aplat" aria-labelledby="titre-accueil">
+		<p class="bandeau bandeau--blanc">Agence web · Troyes</p>
+		<h1 id="titre-accueil">
+			Votre site web, pensé pour vos clients et livré <span class="accueil__surligne">sans prise de tête</span>
+		</h1>
 		<!-- Décision de Jimmy (27/10) : le statut d'étudiants est dit sur L'équipe, pas ici -->
 		<p class="accueil__accroche">
 			Narukla est une agence web installée à Troyes. Nous créons des sites vitrines et des identités
@@ -64,29 +67,35 @@ const etapes = [
 			<li><a class="bouton bouton--principal" href="/contact">Demander un devis</a></li>
 			<li><a class="bouton" href="/services">Voir nos offres</a></li>
 		</ul>
+		<!-- Logo en grand, décoratif (déjà annoncé par l'en-tête) -->
+		<img
+			class="accueil__logo"
+			src="/images/logo-narukla-blanc.webp"
+			alt=""
+			width="720"
+			height="273"
+		/>
 	</section>
 
 	<section class="accueil__offres" aria-labelledby="titre-offres">
 		<h2 id="titre-offres">Ce qu'on fait pour vous</h2>
-		<ul class="accueil__liste-offres">
+		<ol class="accueil__liste-offres">
 			{
 				offres.map((offre) => (
-					<li>
-						<article class="accueil__offre">
-							<h3 class="accueil__offre-titre">{offre.titre}</h3>
-							<p class="accueil__offre-texte">{offre.texte}</p>
-							<p class="accueil__offre-prix">{offre.prix}</p>
-							<a class="accueil__offre-lien" href={offre.ancre}>
-								En savoir plus sur l'offre {offre.titre.toLowerCase()}
-							</a>
-						</article>
+					<li class="accueil__offre">
+						<h3 class="accueil__offre-titre">{offre.titre}</h3>
+						<p class="accueil__offre-texte">{offre.texte}</p>
+						<p class="accueil__offre-prix">{offre.prix}</p>
+						<a class="accueil__offre-lien" href={offre.ancre}>
+							En savoir plus<span class="visuellement-cache"> sur l'offre {offre.titre.toLowerCase()}</span>
+						</a>
 					</li>
 				))
 			}
-		</ul>
+		</ol>
 	</section>
 
-	<section class="accueil__etapes" aria-labelledby="titre-etapes">
+	<section class="accueil__etapes aplat" aria-labelledby="titre-etapes">
 		<h2 id="titre-etapes">Comment ça se passe</h2>
 		<ol class="accueil__liste-etapes">
 			{
@@ -102,37 +111,39 @@ const etapes = [
 
 	<section class="accueil__pourquoi" aria-labelledby="titre-pourquoi">
 		<h2 id="titre-pourquoi">Pourquoi nous choisir</h2>
-		<ul class="accueil__liste-pourquoi">
-			<li class="accueil__argument">
-				<h3>Des prix pensés pour les petites structures</h3>
-				<p>Des tarifs fixes, annoncés à l'avance, sans mauvaise surprise.</p>
-			</li>
-			<li class="accueil__argument">
-				<h3>Une équipe complète</h3>
-				<p>
-					Développement, graphisme et marketing : cinq associés qui suivent votre projet du premier
-					rendez-vous à la mise en ligne.
-				</p>
-			</li>
-			<li class="accueil__argument">
-				<h3>Des interlocuteurs proches</h3>
-				<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
-			</li>
-		</ul>
-		<p><a class="accueil__lien-equipe" href="/equipe">Découvrir l'équipe</a></p>
+		<div class="accueil__pourquoi-contenu">
+			<ul class="accueil__liste-pourquoi">
+				<li class="accueil__argument">
+					<h3>Des prix pensés pour les petites structures</h3>
+					<p>Des tarifs fixes, annoncés à l'avance, sans mauvaise surprise.</p>
+				</li>
+				<li class="accueil__argument">
+					<h3>Une équipe complète</h3>
+					<p>
+						Développement, graphisme et marketing : cinq associés qui suivent votre projet du premier
+						rendez-vous à la mise en ligne.
+					</p>
+				</li>
+				<li class="accueil__argument">
+					<h3>Des interlocuteurs proches</h3>
+					<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
+				</li>
+			</ul>
+			<p><a class="accueil__lien-equipe" href="/equipe">Découvrir l'équipe</a></p>
+		</div>
 	</section>
 
-	<section class="accueil__contact" aria-labelledby="titre-contact">
+	<section class="accueil__contact aplat" aria-labelledby="titre-contact">
 		<h2 id="titre-contact">Un projet en tête ?</h2>
 		<p>Parlez-nous de votre activité, on vous répond sous 48 h.</p>
-		<p><a class="bouton bouton--principal" href="/contact">Contactez-nous</a></p>
+		<p><a class="bouton" href="/contact">Contactez-nous</a></p>
 	</section>
 </Layout>
 
 <style>
-	/* Base visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
+	/* Direction visuelle provisoire (mar. 27), à retoucher par Noah et Lucas */
 	section {
-		padding-top: var(--espace-section);
+		padding-block: var(--espace-section);
 	}
 
 	ul,
@@ -142,146 +153,179 @@ const etapes = [
 		list-style: none;
 	}
 
+	/* Hero : bande noire collée à l'en-tête, texte calé à gauche */
 	.accueil__hero {
-		position: relative;
-		isolation: isolate;
-		padding-bottom: 0;
-		text-align: center;
+		padding-top: clamp(2.5rem, 2rem + 4vw, 5rem);
 	}
 
-	/* Halo de couleur derrière le titre */
-	.accueil__hero::before {
-		content: '';
-		position: absolute;
-		inset: 10% 15% auto;
-		height: 60%;
-		z-index: -1;
-		background: var(--degrade);
-		opacity: 0.12;
-		filter: blur(60px);
-		border-radius: 50%;
+	.accueil__hero {
+		position: relative;
 	}
 
 	.accueil__hero h1 {
-		max-width: 18ch;
-		margin-inline: auto;
+		max-width: 14ch;
+		margin-top: 1.5rem;
+		line-height: 1.02;
+	}
+
+	.accueil__logo {
+		display: none;
+	}
+
+	.accueil__surligne {
+		color: var(--couleur-violet);
 	}
 
 	.accueil__accroche {
-		max-width: var(--largeur-texte);
-		margin: 0 auto 2rem;
-		color: var(--couleur-texte-doux);
-		font-size: 1.125rem;
+		max-width: 34rem;
+		margin-bottom: 2.5rem;
+		font-size: 1.1875rem;
 	}
 
 	.accueil__actions {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
-		gap: 0.75rem;
-	}
-
-	.accueil__liste-offres {
-		display: grid;
 		gap: 1.25rem;
 	}
 
+	/* Offres : lignes séparées par des traits, numéros, prix en gros */
+	.accueil__liste-offres {
+		counter-reset: offre;
+		border-bottom: var(--trait) solid var(--couleur-noir);
+	}
+
 	.accueil__offre {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-		padding: 1.75rem;
-		border: 1px solid var(--couleur-bordure);
-		border-radius: var(--rayon);
-		background: var(--couleur-blanc);
-		box-shadow: var(--ombre);
+		counter-increment: offre;
+		display: grid;
+		gap: 0.5rem 2rem;
+		padding-block: 2rem;
+		border-top: var(--trait) solid var(--couleur-noir);
+	}
+
+	.accueil__offre::before {
+		content: counter(offre, decimal-leading-zero);
+		font-family: var(--police-titre);
+		font-size: 1.25rem;
+		color: var(--couleur-violet);
+	}
+
+	.accueil__offre-titre {
+		margin: 0;
+		font-size: var(--taille-h3);
 	}
 
 	.accueil__offre-texte {
-		color: var(--couleur-texte-doux);
+		margin: 0;
+		max-width: 28rem;
 	}
 
 	.accueil__offre-prix {
-		margin-top: auto;
-		font-size: 1.5rem;
-		font-weight: 800;
-		color: var(--couleur-accent);
+		margin: 0;
+		font-family: var(--police-titre);
+		font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+		line-height: 1;
+		white-space: nowrap;
+	}
+
+	@media (min-width: 48rem) {
+		.accueil__offre-prix {
+			text-align: right;
+		}
 	}
 
 	.accueil__offre-lien {
-		font-weight: 600;
+		font-weight: 800;
+	}
+
+	/* Étapes : bande bleue, gros numéros en contour comme les lettres du logo */
+	.accueil__etapes {
+		--aplat: var(--couleur-bleu);
 	}
 
 	.accueil__liste-etapes {
 		display: grid;
-		gap: 1.25rem;
+		gap: 2.5rem 2rem;
 		counter-reset: etape;
 	}
 
 	.accueil__etape {
 		counter-increment: etape;
-		padding: 1.5rem;
-		border-radius: var(--rayon);
-		background: var(--couleur-fond-doux);
+		padding-top: 1rem;
+		border-top: var(--trait) solid var(--couleur-blanc);
 	}
 
-	/* Numéro de l'étape en pastille */
 	.accueil__etape::before {
-		content: counter(etape);
-		display: grid;
-		place-items: center;
-		width: 2.5rem;
-		height: 2.5rem;
-		margin-bottom: 1rem;
-		border-radius: 50%;
-		background: var(--degrade);
-		color: var(--couleur-blanc);
-		font-weight: 800;
+		content: counter(etape, decimal-leading-zero);
+		display: block;
+		margin-bottom: 0.75rem;
+		font-family: var(--police-titre);
+		font-size: 4.5rem;
+		line-height: 1;
+		color: transparent;
+		-webkit-text-stroke: 2px var(--couleur-blanc);
 	}
 
 	.accueil__etape-texte {
 		margin: 0;
-		color: var(--couleur-texte-doux);
 	}
 
-	.accueil__liste-pourquoi {
-		display: grid;
-		gap: 1.5rem;
-		margin-bottom: 1.5rem;
-	}
-
+	/* Pourquoi : titre à gauche, arguments à droite */
 	.accueil__argument {
-		padding-left: 1rem;
-		border-left: 4px solid var(--couleur-accent);
+		padding-block: 1.25rem;
+		border-bottom: var(--trait) solid var(--couleur-noir);
+	}
+
+	.accueil__argument:first-child {
+		padding-top: 0;
+	}
+
+	.accueil__argument h3::before {
+		content: '';
+		display: inline-block;
+		width: 0.6em;
+		height: 0.6em;
+		margin-right: 0.5rem;
+		background: var(--couleur-violet);
+		vertical-align: 0.05em;
 	}
 
 	.accueil__argument p {
 		margin: 0;
-		color: var(--couleur-texte-doux);
+	}
+
+	.accueil__pourquoi-contenu > p {
+		margin-top: 1.5rem;
 	}
 
 	.accueil__lien-equipe {
-		font-weight: 600;
+		font-weight: 800;
 	}
 
+	/* Appel à l'action : bande violette */
 	.accueil__contact {
-		margin-top: var(--espace-section);
-		padding: var(--espace-section) var(--marge-cote);
-		border-radius: calc(var(--rayon) * 2);
-		background: var(--degrade);
-		color: var(--couleur-blanc);
-		text-align: center;
+		--aplat: var(--couleur-violet);
 	}
 
-	.accueil__contact .bouton--principal {
-		background: var(--couleur-blanc);
-		color: var(--couleur-violet);
+	.accueil__contact h2 {
+		font-size: var(--taille-h1);
+	}
+
+	.accueil__contact p {
+		font-size: 1.1875rem;
+	}
+
+	.accueil__contact .bouton {
+		margin-top: 1rem;
 	}
 
 	@media (min-width: 48rem) {
-		.accueil__liste-offres,
-		.accueil__liste-pourquoi {
-			grid-template-columns: repeat(3, 1fr);
+		.accueil__offre {
+			grid-template-columns: 3rem 1fr 1.4fr 13rem;
+			align-items: baseline;
+		}
+
+		.accueil__offre-lien {
+			grid-column: 2 / -1;
 		}
 
 		.accueil__liste-etapes {
@@ -292,6 +336,27 @@ const etapes = [
 	@media (min-width: 64rem) {
 		.accueil__liste-etapes {
 			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.accueil__logo {
+			display: block;
+			position: absolute;
+			right: 0;
+			top: 50%;
+			width: 32%;
+			transform: translateY(-50%) rotate(-4deg);
+		}
+
+		.accueil__hero h1,
+		.accueil__accroche {
+			max-width: 62%;
+		}
+
+		.accueil__pourquoi {
+			display: grid;
+			grid-template-columns: 1fr 1.3fr;
+			gap: 4rem;
+			align-items: start;
 		}
 	}
 </style>
