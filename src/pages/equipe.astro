@@ -8,6 +8,10 @@ import Layout from '../layouts/Layout.astro';
 // nom : facultatif, seulement pour ceux qui veulent leur nom complet affiché.
 // photo : chemin dans public/ (ex. '/equipe/jibril.webp'), null en attendant la photo commune (lun. 2/11, idée de Noah).
 // mail, linkedin, portfolio : facultatifs, seulement pour ceux qui le veulent (idée de Noah), null sinon.
+// « de » ou « d' » selon la première lettre : « Portfolio d'Ouassim », « Portfolio de Jibril »
+// (le h n'est pas élidé : « de Hugo »)
+const de = (prenom: string) => (/^[aeiouyàâäéèêëîïôöùûü]/i.test(prenom) ? `d'${prenom}` : `de ${prenom}`);
+
 const associes = [
 	{
 		prenom: 'Jibril',
@@ -110,12 +114,12 @@ const associes = [
 									)}
 									{associe.linkedin && (
 										<li>
-											<a href={associe.linkedin} rel="noopener">LinkedIn de {associe.prenom}</a>
+											<a href={associe.linkedin} rel="noopener">LinkedIn {de(associe.prenom)}</a>
 										</li>
 									)}
 									{associe.portfolio && (
 										<li>
-											<a href={associe.portfolio} rel="noopener">Portfolio de {associe.prenom}</a>
+											<a href={associe.portfolio} rel="noopener">Portfolio {de(associe.prenom)}</a>
 										</li>
 									)}
 								</ul>
