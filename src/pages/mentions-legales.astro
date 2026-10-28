@@ -74,14 +74,21 @@ const hebergeur = {
 			<p>
 				Les informations envoyées par le formulaire de contact (nom, entreprise, e-mail, téléphone,
 				message) servent uniquement à répondre à votre demande et à vous établir un devis. Elles ne
-				sont ni vendues ni cédées. Seul notre hébergeur, qui reçoit les messages du formulaire, y a
-				accès pour notre compte.
+				sont ni vendues ni cédées. Elles ne sont accessibles qu'aux associés de Narukla et à nos
+				prestataires techniques, qui les traitent pour notre compte.
 			</p>
-			<!-- Garanties du transfert à vérifier dans l'accord de traitement des données (DPA) de Netlify -->
+			<!-- Ajouté avec la notification Discord (netlify/functions/submission-created.js) :
+			     le salon Discord doit rester privé, réservé aux associés -->
 			<p>
-				Les messages du formulaire sont stockés par {hebergeur.nom}, aux États-Unis. Il s'agit donc
-				d'un transfert de données hors de l'Union européenne, encadré par les garanties prévues par
-				le RGPD pour ce type de transfert.
+				Pour que l'équipe soit prévenue rapidement, une copie de votre demande (nom, entreprise,
+				e-mail, téléphone, besoin et message) est transmise dans un espace de discussion privé de
+				l'équipe, hébergé par Discord Inc.
+			</p>
+			<!-- Garanties des transferts à vérifier dans les accords de traitement des données (DPA) de Netlify et de Discord -->
+			<p>
+				Les messages du formulaire sont stockés par {hebergeur.nom} et copiés chez Discord Inc., deux
+				sociétés situées aux États-Unis. Il s'agit donc de transferts de données hors de l'Union
+				européenne, encadrés par les garanties prévues par le RGPD pour ce type de transfert.
 			</p>
 			<!-- Durée de conservation à valider en réunion -->
 			<p>
