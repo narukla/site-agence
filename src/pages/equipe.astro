@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 // Les 5 associés, par ordre alphabétique (pas de hiérarchie : parts égales).
 // Rôles : ceux du prompt d'équipe de Jimmy. Présentations : à recevoir de chacun (avant mer. 28 au soir).
+// nom : facultatif, seulement pour ceux qui veulent leur nom complet affiché.
 // photo : chemin dans public/ (ex. '/equipe/jibril.webp'), null en attendant la photo commune (lun. 2/11, idée de Noah).
 // mail, linkedin, portfolio : facultatifs, seulement pour ceux qui le veulent (idée de Noah), null sinon.
 const associes = [
@@ -21,12 +22,15 @@ const associes = [
 	},
 	{
 		prenom: 'Jimmy',
+		nom: 'Bomy',
 		role: 'Chef de projet, développeur, commercial',
-		presentation: '[À COMPLÉTER]',
+		// Texte et liens envoyés par Jimmy (28/10), nom complet
+		presentation:
+			'Chef de projet et développeur, je fais le lien entre vos idées et le site final, du premier rendez-vous à la mise en ligne.',
 		photo: null,
 		mail: null,
-		linkedin: null,
-		portfolio: null,
+		linkedin: 'https://www.linkedin.com/in/jimmy-bomy-1037453a8/',
+		portfolio: 'https://jimmybomy.fr/',
 	},
 	{
 		prenom: 'Lucas',
@@ -39,12 +43,15 @@ const associes = [
 	},
 	{
 		prenom: 'Noah',
+		nom: 'Mathias',
 		role: 'Trésorier, graphiste',
-		presentation: '[À COMPLÉTER]',
+		// Texte et liens envoyés par Noah (28/10), nom complet
+		presentation:
+			"Designer graphique passionné, je conçois des identités visuelles fortes et cohérentes, en accordant une attention particulière aux détails, à l'esthétique et à l'impact visuel. Créatif et curieux, j'aime transformer les idées en concepts visuels originaux qui associent modernité, sens et personnalité.",
 		photo: null,
 		mail: null,
-		linkedin: null,
-		portfolio: null,
+		linkedin: 'https://www.linkedin.com/in/noah-mathias-8270733ab/',
+		portfolio: 'https://mmi25f09.mmi-troyes.fr/portfolio/',
 	},
 	{
 		prenom: 'Ouassim',
@@ -54,7 +61,7 @@ const associes = [
 			"Chez Narukla, je suis développeur et je participe à la partie marketing. Je construis les pages du site pour qu'elles soient claires, simples et agréables à utiliser.",
 		photo: null,
 		mail: null,
-		linkedin: null,
+		linkedin: 'https://www.linkedin.com/in/ouassim-b-bba0633ab',
 		portfolio: 'https://ouassimboulacheb.github.io/',
 	},
 ];
@@ -91,7 +98,7 @@ const associes = [
 									loading="lazy"
 								/>
 							)}
-							<h3 class="equipe__prenom">{associe.prenom}</h3>
+							<h3 class="equipe__prenom">{associe.nom ? `${associe.prenom} ${associe.nom}` : associe.prenom}</h3>
 							<p class="equipe__role">{associe.role}</p>
 							<p class="equipe__presentation">{associe.presentation}</p>
 							{(associe.mail || associe.linkedin || associe.portfolio) && (
