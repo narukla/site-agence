@@ -4,25 +4,24 @@
 // Les [À COMPLÉTER] dépendent de la création de la SAS (Kbis) : à remplir avant la mise en ligne.
 import Layout from '../layouts/Layout.astro';
 
+// Société en cours de constitution (Kbis attendu mi-novembre) : pas encore de SIREN, de RCS ni de TVA.
+// Dès l'immatriculation : ajouter SIREN, RCS et TVA, et retirer « en cours de constitution ».
 const editeur = {
-	forme: 'SAS',
-	capital: '[À COMPLÉTER : capital] €',
-	rcs: 'RCS [À COMPLÉTER : ville du greffe]',
-	siren: '[À COMPLÉTER : SIREN]',
-	siege: '[À COMPLÉTER : adresse du siège social]',
-	tva: '[À COMPLÉTER : n° de TVA intracommunautaire]',
-	president: 'Jibril [À COMPLÉTER : nom]',
+	forme: 'société par actions simplifiée (SAS) en cours de constitution',
+	capital: '[À COMPLÉTER : capital, voté le 29/10] €',
+	siege: '[À COMPLÉTER : adresse du siège social, votée le 29/10]',
+	president: 'Jibril Filali',
 	// Mêmes valeurs que dans contact.astro
-	mail: '[À COMPLÉTER : adresse e-mail]',
+	mail: 'narukla@proton.me',
 	telephone: '[À COMPLÉTER : téléphone]',
-	site: '[À COMPLÉTER : nom de domaine .fr]',
 };
 
 const hebergeur = {
-	// Adresse et téléphone à vérifier sur le site officiel de Netlify avant la mise en ligne
+	// Adresse vérifiée le 28/10/2026 (netlify.com/privacy, mise à jour du 10/04/2026, et conditions d'utilisation).
+	// Netlify ne publie aucun téléphone dans ses documents légaux : à faire trancher par l'avocate.
 	nom: 'Netlify, Inc.',
-	adresse: '512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis',
-	telephone: '[À COMPLÉTER : téléphone de Netlify, obligatoire (LCEN)]',
+	adresse: '101 2nd Street, San Francisco, CA 94105, États-Unis',
+	telephone: "[À COMPLÉTER : téléphone de Netlify, non publié par Netlify : voir avec l'avocate]",
 	site: 'https://www.netlify.com',
 };
 ---
@@ -37,13 +36,13 @@ const hebergeur = {
 		<section class="mentions__section" id="editeur" aria-labelledby="titre-editeur">
 			<h2 id="titre-editeur">Éditeur du site</h2>
 			<p>
-				Le site {editeur.site} est édité par Narukla, {editeur.forme} au capital de {editeur.capital},
-				immatriculée au {editeur.rcs} sous le numéro {editeur.siren}.
+				Ce site est édité par Narukla, {editeur.forme}, au capital de {editeur.capital}. Son
+				immatriculation au registre du commerce et des sociétés est en cours : le numéro SIREN sera
+				indiqué ici dès sa délivrance.
 			</p>
 			<ul>
 				<li>Siège social : {editeur.siege}</li>
-				<li>TVA intracommunautaire : {editeur.tva}</li>
-				<li>E-mail : {editeur.mail}</li>
+				<li>E-mail : <a href={`mailto:${editeur.mail}`}>{editeur.mail}</a></li>
 				<li>Téléphone : {editeur.telephone}</li>
 				<li>Président et directeur de la publication : {editeur.president}</li>
 			</ul>
