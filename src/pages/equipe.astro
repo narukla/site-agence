@@ -126,3 +126,100 @@ const associes = [
 		<p><a href="/contact">Contactez-nous</a></p>
 	</section>
 </Layout>
+
+<style>
+	/* Mise en page de L'équipe, mobile d'abord (étape 1, sans la maquette).
+	   Couleurs et typos : uniquement les variables de global.css (ou currentColor),
+	   pour que la maquette de Lucas se branche en changeant les valeurs, pas ce fichier. */
+
+	section {
+		margin-block: 2.5rem;
+	}
+
+	/* Une ligne de texte trop longue se lit mal : ~65 caractères maximum */
+	.equipe__intro p,
+	.equipe__approche p {
+		max-width: 65ch;
+	}
+
+	/* Les cartes : une colonne sur téléphone */
+	.equipe__liste {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* Tablette : 2 colonnes */
+	@media (min-width: 40rem) {
+		.equipe__liste {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	/* Ordinateur : 3 colonnes (5 associés = une ligne de 3, une ligne de 2) */
+	@media (min-width: 64rem) {
+		.equipe__liste {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	.equipe__carte {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		height: 100%;
+		padding: 1.5rem;
+		border: 1px solid currentColor;
+		border-radius: 0.75rem;
+	}
+
+	/* Photo carrée, recadrée sans déformation (photo commune prévue le lun. 2/11) */
+	.equipe__photo {
+		width: 100%;
+		aspect-ratio: 1;
+		object-fit: cover;
+		border-radius: 0.5rem;
+	}
+
+	.equipe__prenom,
+	.equipe__role,
+	.equipe__presentation {
+		margin: 0;
+	}
+
+	.equipe__prenom {
+		font-size: 1.25rem;
+	}
+
+	.equipe__role {
+		font-weight: 700;
+	}
+
+	/* Liens mail / LinkedIn / portfolio poussés en bas de la carte */
+	.equipe__liens {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1rem;
+		margin: auto 0 0;
+		padding: 0.5rem 0 0;
+		list-style: none;
+	}
+
+	/* Zone de clic confortable au doigt (44 px recommandés) */
+	.equipe__liens a,
+	.equipe__contact a {
+		display: inline-block;
+		min-height: 2.75rem;
+		padding-block: 0.6rem;
+	}
+
+	/* Focus clavier bien visible */
+	a:focus-visible {
+		outline: 3px solid var(--couleur-accent);
+		outline-offset: 3px;
+		border-radius: 0.25rem;
+	}
+</style>
