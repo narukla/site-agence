@@ -178,7 +178,8 @@ const associes = [
 		gap: 0.5rem;
 		height: 100%;
 		padding: 1.5rem;
-		border: 1px solid currentColor;
+		/* Couleurs du Figma (provisoire : l'usage exact viendra de la maquette) */
+		border: 2px solid var(--couleur-violet);
 		border-radius: 0.75rem;
 	}
 
@@ -202,6 +203,7 @@ const associes = [
 
 	.equipe__role {
 		font-weight: 700;
+		color: var(--couleur-violet);
 	}
 
 	/* Liens mail / LinkedIn / portfolio poussés en bas de la carte */
@@ -224,7 +226,7 @@ const associes = [
 
 	/* Focus clavier bien visible */
 	a:focus-visible {
-		outline: 3px solid var(--couleur-accent);
+		outline: 3px solid var(--couleur-bleu);
 		outline-offset: 3px;
 		border-radius: 0.25rem;
 	}

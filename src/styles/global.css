@@ -6,6 +6,12 @@
 	--couleur-fond: #ffffff;
 	--couleur-texte: #1a1a1a;
 	--couleur-accent: #1a1a1a;
+	/* Palette du Figma des graphistes (relevée le 28/10, cadre « Frame 20 ») : mêmes noms que la PR #4.
+	   Contraste sur blanc : violet 6,33 et bleu 8,56 (AA OK) ; sur noir : 3,32 et 2,45 (insuffisant pour du texte). */
+	--couleur-violet: #6e2fef;
+	--couleur-bleu: #0307fd;
+	--couleur-noir: #000000;
+	--couleur-blanc: #ffffff;
 	--police-texte: system-ui, sans-serif;
 	--largeur-max: 72rem;
 	--marge-cote: 1rem;
