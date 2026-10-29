@@ -2,11 +2,50 @@
    Couleurs et typos : valeurs provisoires, à remplacer par celles de la maquette Figma (mer. 28).
    Règle : jamais de couleur en dur dans une page, toujours une variable d'ici. */
 
+/* Polices de la maquette Figma (Anton pour les titres, Archivo pour le texte), hébergées dans
+   public/fonts (pas de Google Fonts : RGPD). Fichiers et licences OFL repris de la PR #4 de Jimmy. */
+@font-face {
+	font-family: 'Anton';
+	src: url('/fonts/anton-400.woff2') format('woff2');
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-400.woff2') format('woff2');
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-700.woff2') format('woff2');
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-800.woff2') format('woff2');
+	font-weight: 800;
+	font-display: swap;
+}
+
 :root {
 	--couleur-fond: #ffffff;
 	--couleur-texte: #1a1a1a;
 	--couleur-accent: #1a1a1a;
+	/* Palette du Figma des graphistes (relevée le 28/10, cadre « Frame 20 ») : mêmes noms que la PR #4.
+	   Contraste sur blanc : violet 6,33 et bleu 8,56 (AA OK) ; sur noir : 3,32 et 2,45 (insuffisant pour du texte). */
+	--couleur-violet: #6e2fef;
+	--couleur-bleu: #0307fd;
+	--couleur-noir: #000000;
+	--couleur-blanc: #ffffff;
 	--police-texte: system-ui, sans-serif;
+	/* Polices de la maquette (29/10) : à utiliser dans les pages mises en forme */
+	--police-titre: 'Anton', 'Arial Narrow', sans-serif;
+	--police-corps: 'Archivo', system-ui, sans-serif;
 	--largeur-max: 72rem;
 	--marge-cote: 1rem;
 }
@@ -40,6 +79,10 @@ img {
 .skip-link:focus {
 	left: var(--marge-cote);
 	top: var(--marge-cote);
+	z-index: 10;
+	padding: 0.5rem 1rem;
+	background: var(--couleur-blanc);
+	color: var(--couleur-noir);
 }
 
 main {
@@ -48,21 +91,4 @@ main {
 	padding: 0 var(--marge-cote);
 }
 
-.header,
-.footer {
-	max-width: var(--largeur-max);
-	margin: 0 auto;
-	padding: var(--marge-cote);
-}
-
-.header__liste {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 1rem;
-	padding: 0;
-	list-style: none;
-}
-
-.header__lien[aria-current='page'] {
-	font-weight: 700;
-}
+/* En-tête et pied de page : styles dans src/components/Header.astro et Footer.astro (maquette Figma, 29/10) */

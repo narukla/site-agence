@@ -1,9 +1,260 @@
 ---
-// Pied de page commun.
+// Pied de page commun, d'après la maquette Figma de Noah (footer desktop et mobile, 29/10).
 const annee = new Date().getFullYear();
+
+const liens = [
+	{ href: '/', label: 'Accueil' },
+	{ href: '/services', label: 'Services et tarifs' },
+	{ href: '/realisations', label: 'Réalisations' },
+	{ href: '/equipe', label: "L'équipe" },
+	{ href: '/contact', label: 'Contact' },
+];
+
+// Mêmes coordonnées que src/pages/contact.astro et mentions-legales.astro : changer les trois.
+const contact = {
+	mail: 'narukla@proton.me',
+	telephone: '07 88 02 16 76',
+};
+
+// Réseaux : seulement ceux qui existent vraiment. Ajouter { label: 'Instagram', href: '…' } quand le compte sera créé.
+const reseaux: { label: string; href: string }[] = [];
 ---
 
-<footer class="footer">
-	<p>&copy; {annee} Narukla</p>
-	<a href="/mentions-legales">Mentions légales</a>
+<footer class="pied">
+	<div class="pied__contenu">
+		<div class="pied__colonnes">
+			<div class="pied__marque">
+				<a class="pied__logo" href="/">
+					<img src="/logo/narukla-blanc.svg" alt="Narukla, retour à l'accueil" width="339" height="116" loading="lazy" />
+				</a>
+				<p class="pied__phrase">
+					Agence web à Troyes : sites vitrines, identités visuelles et maintenance pour les commerces,
+					artisans et indépendants.
+				</p>
+			</div>
+
+			<nav class="pied__bloc" aria-labelledby="pied-navigation">
+				<h2 id="pied-navigation" class="pied__titre">Navigation</h2>
+				<ul class="pied__liste">
+					{
+						liens.map((lien) => (
+							<li>
+								<a class="pied__lien" href={lien.href}>
+									{lien.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<div class="pied__bloc">
+				<h2 class="pied__titre">Contact</h2>
+				<ul class="pied__liste">
+					<li>
+						<a class="pied__lien pied__lien--normal" href={`mailto:${contact.mail}`}>{contact.mail}</a>
+					</li>
+					<li>
+						<a
+							class="pied__lien pied__lien--normal"
+							href={`tel:+33${contact.telephone.replace(/\s/g, '').slice(1)}`}
+						>
+							{contact.telephone}
+						</a>
+					</li>
+					<li class="pied__texte">Troyes (10)</li>
+				</ul>
+			</div>
+
+			<div class="pied__bloc">
+				{
+					reseaux.length > 0 && (
+						<>
+							<h2 class="pied__titre">Suivez-nous</h2>
+							<ul class="pied__liste">
+								{reseaux.map((reseau) => (
+									<li>
+										<a class="pied__lien pied__lien--souligne" href={reseau.href} rel="noopener">
+											{reseau.label}
+										</a>
+									</li>
+								))}
+							</ul>
+						</>
+					)
+				}
+				<a class="pied__bouton" href="/contact">Demander un devis</a>
+			</div>
+		</div>
+
+		<div class="pied__bas">
+			<p>&copy; {annee} Narukla – Tous droits réservés.</p>
+			<a class="pied__lien pied__lien--souligne" href="/mentions-legales">Mentions légales</a>
+		</div>
+	</div>
 </footer>
+
+<style>
+	/* Mobile d'abord (bas du cadre Mobile 390), puis desktop */
+	.pied {
+		background: var(--couleur-noir);
+		color: var(--couleur-blanc);
+		font-family: var(--police-corps);
+	}
+
+	.pied__contenu {
+		max-width: var(--largeur-max);
+		margin: 0 auto;
+		padding: 3.5rem var(--marge-cote) 1.75rem;
+	}
+
+	.pied__colonnes {
+		display: grid;
+		gap: 2.25rem;
+	}
+
+	.pied__logo {
+		display: block;
+		width: 10rem;
+	}
+
+	.pied__logo img {
+		width: 100%;
+		height: auto;
+	}
+
+	.pied__phrase {
+		max-width: 24rem;
+		margin: 1rem 0 0;
+		font-size: 1.0625rem;
+		line-height: 1.6;
+	}
+
+	/* Titres de colonnes : violet sur noir (3,32), lisible car en grand (Anton 20 px et plus) */
+	.pied__titre {
+		margin: 0 0 0.5rem;
+		color: var(--couleur-violet);
+		font-family: var(--police-titre);
+		font-size: 1.25rem;
+		font-weight: 400;
+		line-height: 1.2;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.pied__liste {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.pied__lien,
+	.pied__texte {
+		display: inline-block;
+		min-height: 2.75rem;
+		padding-block: 0.6rem;
+		color: var(--couleur-blanc);
+		font-size: 1.0625rem;
+	}
+
+	.pied__lien {
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.pied__lien--normal {
+		font-weight: 400;
+	}
+
+	.pied__lien--souligne,
+	.pied__lien:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+
+	/* Bouton violet à bordure et ombre blanches */
+	.pied__bouton {
+		display: inline-block;
+		margin-top: 0.875rem;
+		padding: 0.95rem 1.625rem 0.8rem;
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+		border: 3px solid var(--couleur-blanc);
+		box-shadow: 6px 6px 0 var(--couleur-blanc);
+		font-family: var(--police-titre);
+		font-size: 1.125rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.pied__bouton:hover {
+		box-shadow: 3px 3px 0 var(--couleur-blanc);
+		transform: translate(3px, 3px);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.pied__bouton {
+			transition:
+				transform 0.15s ease,
+				box-shadow 0.15s ease;
+		}
+	}
+
+	.pied a:focus-visible {
+		outline: 3px solid var(--couleur-blanc);
+		outline-offset: 3px;
+	}
+
+	/* Bas de page : copyright et mentions légales, sous un filet blanc */
+	.pied__bas {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+		margin-top: 2.5rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--couleur-blanc);
+		font-size: 0.9375rem;
+		font-weight: 700;
+	}
+
+	.pied__bas p {
+		margin: 0;
+		padding-block: 0.6rem;
+	}
+
+	.pied__bas .pied__lien {
+		font-size: 0.9375rem;
+	}
+
+	/* Desktop : logo + 3 colonnes sur une ligne */
+	@media (min-width: 64rem) {
+		.pied__colonnes {
+			grid-template-columns: 1.4fr 1fr 1.2fr 1fr;
+			align-items: start;
+			gap: 2.5rem;
+		}
+
+		.pied__logo {
+			width: clamp(12rem, 20vw, 17rem);
+		}
+
+		.pied__titre {
+			font-size: 1.75rem;
+		}
+
+		.pied__lien,
+		.pied__texte {
+			min-height: auto;
+			padding-block: 0.2rem;
+		}
+
+		.pied__bas {
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			gap: 1.5rem;
+		}
+	}
+</style>
