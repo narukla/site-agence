@@ -21,7 +21,7 @@ const associes = [
 			"Chez Narukla, je suis développeur : je construis les sites et je m'assure que tout fonctionne, du code à la mise en ligne. Je suis aussi président de la société et je m'occupe de ses démarches administratives.",
 		photo: null,
 		mail: null,
-		linkedin: null,
+		linkedin: 'https://www.linkedin.com/in/jibril-filali-59b02b390/',
 		portfolio: 'https://jibril-filali.page.gd',
 	},
 	{
@@ -179,9 +179,9 @@ const associes = [
 		--fond-bande: var(--couleur-noir);
 	}
 
-	/* « Notre façon de travailler » : bleu sur mobile, noir sur desktop (comme la maquette) */
+	/* Couleurs : celles de la maquette desktop, la seule terminée au 29/10 (Noah finit le mobile) */
 	.equipe__bande--sombre {
-		--fond-bande: var(--couleur-bleu);
+		--fond-bande: var(--couleur-noir);
 	}
 
 	.equipe__bande--violet {
@@ -278,15 +278,6 @@ const associes = [
 		background: var(--couleur-violet);
 		border: 3px solid var(--couleur-noir);
 		box-shadow: 6px 6px 0 var(--couleur-noir);
-	}
-
-	/* Mobile : les cadres alternent violet, bleu, noir (maquette Mobile 390) */
-	.equipe__liste > li:nth-child(3n + 2) .equipe__cadre {
-		background: var(--couleur-bleu);
-	}
-
-	.equipe__liste > li:nth-child(3n) .equipe__cadre {
-		background: var(--couleur-noir);
 	}
 
 	.equipe__photo {
@@ -408,20 +399,13 @@ const associes = [
 			padding-block: 5rem 6rem;
 		}
 
-		.equipe__bande--sombre {
-			--fond-bande: var(--couleur-noir);
-		}
-
 		.equipe__liste {
 			grid-template-columns: repeat(3, 1fr);
 		}
 
-		/* Desktop : tous les cadres en violet, carrés */
-		.equipe__liste > li .equipe__cadre,
-		.equipe__liste > li:nth-child(3n + 2) .equipe__cadre,
-		.equipe__liste > li:nth-child(3n) .equipe__cadre {
+		/* Desktop : cadres carrés */
+		.equipe__cadre {
 			aspect-ratio: 1;
-			background: var(--couleur-violet);
 		}
 
 		.equipe__prenom {
