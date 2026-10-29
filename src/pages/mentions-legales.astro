@@ -13,7 +13,7 @@ const editeur = {
 	president: 'Jibril Filali',
 	// Mêmes valeurs que dans contact.astro
 	mail: 'narukla@proton.me',
-	telephone: '[À COMPLÉTER : téléphone]',
+	telephone: '07 88 02 16 76',
 };
 
 const hebergeur = {
@@ -43,7 +43,10 @@ const hebergeur = {
 			<ul>
 				<li>Siège social : {editeur.siege}</li>
 				<li>E-mail : <a href={`mailto:${editeur.mail}`}>{editeur.mail}</a></li>
-				<li>Téléphone : {editeur.telephone}</li>
+				<li>
+					Téléphone :{' '}
+					<a href={`tel:${editeur.telephone.replace(/\s/g, '')}`}>{editeur.telephone}</a>
+				</li>
 				<li>Président et directeur de la publication : {editeur.president}</li>
 			</ul>
 		</section>
