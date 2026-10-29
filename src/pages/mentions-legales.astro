@@ -45,7 +45,7 @@ const hebergeur = {
 				<li>E-mail : <a href={`mailto:${editeur.mail}`}>{editeur.mail}</a></li>
 				<li>
 					Téléphone :{' '}
-					<a href={`tel:${editeur.telephone.replace(/\s/g, '')}`}>{editeur.telephone}</a>
+					<a href={`tel:+33${editeur.telephone.replace(/\s/g, '').slice(1)}`}>{editeur.telephone}</a>
 				</li>
 				<li>Président et directeur de la publication : {editeur.president}</li>
 			</ul>
