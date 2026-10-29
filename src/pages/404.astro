@@ -1,0 +1,22 @@
+---
+// Page 404 — responsable : Jibril
+// Astro la génère en dist/404.html : Netlify l'affiche pour toute adresse qui n'existe pas.
+// Structure en HTML brut, le CSS arrive avec la maquette.
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+	title="Page introuvable"
+	description="Cette page n'existe pas ou a été déplacée."
+	noindex
+>
+	<section class="erreur" aria-labelledby="titre-erreur">
+		<h1 id="titre-erreur">Cette page est introuvable</h1>
+		<p>L'adresse est peut-être mal écrite, ou la page a été déplacée.</p>
+		<ul class="erreur__liens">
+			<li><a href="/">Retour à l'accueil</a></li>
+			<li><a href="/services">Voir nos offres</a></li>
+			<li><a href="/contact">Nous contacter</a></li>
+		</ul>
+	</section>
+</Layout>
