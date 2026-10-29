@@ -2,6 +2,36 @@
    Couleurs et typos : valeurs provisoires, à remplacer par celles de la maquette Figma (mer. 28).
    Règle : jamais de couleur en dur dans une page, toujours une variable d'ici. */
 
+/* Polices de la maquette Figma (Anton pour les titres, Archivo pour le texte), hébergées dans
+   public/fonts (pas de Google Fonts : RGPD). Fichiers et licences OFL repris de la PR #4 de Jimmy. */
+@font-face {
+	font-family: 'Anton';
+	src: url('/fonts/anton-400.woff2') format('woff2');
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-400.woff2') format('woff2');
+	font-weight: 400;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-700.woff2') format('woff2');
+	font-weight: 700;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Archivo';
+	src: url('/fonts/archivo-800.woff2') format('woff2');
+	font-weight: 800;
+	font-display: swap;
+}
+
 :root {
 	--couleur-fond: #ffffff;
 	--couleur-texte: #1a1a1a;
@@ -13,6 +43,9 @@
 	--couleur-noir: #000000;
 	--couleur-blanc: #ffffff;
 	--police-texte: system-ui, sans-serif;
+	/* Polices de la maquette (29/10) : à utiliser dans les pages mises en forme */
+	--police-titre: 'Anton', 'Arial Narrow', sans-serif;
+	--police-corps: 'Archivo', system-ui, sans-serif;
 	--largeur-max: 72rem;
 	--marge-cote: 1rem;
 }
