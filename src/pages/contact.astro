@@ -8,8 +8,9 @@ import Layout from '../layouts/Layout.astro';
 // Coordonnées : null tant qu'elles ne sont pas décidées, la ligne ne s'affiche pas.
 // Les mêmes valeurs sont dans mentions-legales.astro : changer les deux.
 const coordonnees = {
-	mail: null as string | null, // adresse en .fr une fois le domaine acheté
-	telephone: null as string | null,
+	mail: 'narukla@proton.me' as string | null, // à remplacer par l'adresse en .fr une fois le domaine acheté
+	// Numéro de Jimmy (commercial), donné le 28/10. Format français : le lien tel: le passe en +33 (appel depuis l'étranger)
+	telephone: '07 88 02 16 76' as string | null,
 	instagram: null as string | null, // lien complet du compte
 };
 ---
@@ -104,7 +105,7 @@ const coordonnees = {
 					coordonnees.telephone && (
 						<li>
 							Téléphone :{' '}
-							<a href={`tel:${coordonnees.telephone.replace(/\s/g, '')}`}>{coordonnees.telephone}</a>
+							<a href={`tel:+33${coordonnees.telephone.replace(/\s/g, '').slice(1)}`}>{coordonnees.telephone}</a>
 						</li>
 					)
 				}
