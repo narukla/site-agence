@@ -90,8 +90,8 @@ const associes = [
 		<h2 id="titre-associes" class="equipe__titre-section">Les associés</h2>
 		<ul class="equipe__liste">
 			{
-				associes.map((associe) => (
-					<li>
+				associes.map((associe, i) => (
+					<li style={`--i: ${i}`}>
 						<article class="equipe__carte">
 							<div class="equipe__cadre">
 								{associe.photo ? (
@@ -373,6 +373,40 @@ const associes = [
 			transition:
 				transform 0.15s ease,
 				box-shadow 0.15s ease;
+		}
+	}
+
+	/* Effets du labo d'effets : « carte qui se soulève » (Survol 01) et « cartes en cascade » (Entrées 03).
+	   Seulement si la personne accepte les animations ; sinon les cartes sont simplement là. */
+	@media (prefers-reduced-motion: no-preference) {
+		.equipe__cadre {
+			transition:
+				transform 0.2s ease,
+				box-shadow 0.2s ease;
+		}
+
+		.equipe__carte:hover .equipe__cadre,
+		.equipe__carte:focus-within .equipe__cadre {
+			transform: translate(-4px, -4px);
+			box-shadow: 10px 10px 0 var(--couleur-noir);
+		}
+
+		.equipe__carte:hover .equipe__initiale,
+		.equipe__carte:focus-within .equipe__initiale {
+			color: var(--couleur-blanc);
+		}
+
+		/* Les 5 cartes arrivent l'une après l'autre (--i = position dans la liste) */
+		.equipe__liste > li {
+			animation: equipe-cascade 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+			animation-delay: calc(var(--i) * 0.09s);
+		}
+
+		@keyframes equipe-cascade {
+			from {
+				opacity: 0;
+				transform: translateY(2rem) scale(0.95);
+			}
 		}
 	}
 
