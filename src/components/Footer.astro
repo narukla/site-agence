@@ -127,12 +127,13 @@ const reseaux: { label: string; href: string }[] = [];
 		line-height: 1.6;
 	}
 
-	/* Titres de colonnes : violet sur noir (3,32), lisible car en grand (Anton 20 px et plus) */
+	/* Titres de colonnes : violet sur noir (contraste 3,32). Autorisé seulement en « grand texte » WCAG,
+	   soit 24 px minimum en graisse normale : jamais en dessous (relecture de Jimmy, #15) */
 	.pied__titre {
 		margin: 0 0 0.5rem;
 		color: var(--couleur-violet);
 		font-family: var(--police-titre);
-		font-size: 1.25rem;
+		font-size: 1.5rem;
 		font-weight: 400;
 		line-height: 1.2;
 		letter-spacing: 0.04em;
