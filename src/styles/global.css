@@ -56,6 +56,18 @@
 	box-sizing: border-box;
 }
 
+/* Fondu entre les pages quand on clique sur un lien du site (View Transitions).
+   Chrome, Edge, Safari ; les autres navigateurs l'ignorent et changent de page normalement. */
+@view-transition {
+	navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	@view-transition {
+		navigation: none;
+	}
+}
+
 body {
 	margin: 0;
 	background: var(--couleur-fond);

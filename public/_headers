@@ -1,0 +1,16 @@
+# En-têtes de sécurité du site Narukla (Netlify lit ce fichier à chaque déploiement).
+# Le HTTPS forcé (Strict-Transport-Security) est déjà envoyé par Netlify.
+#
+# X-Frame-Options et frame-ancestors : le site ne peut pas être affiché dans un cadre d'un autre site (clickjacking)
+# X-Content-Type-Options : le navigateur ne devine pas le type d'un fichier
+# Referrer-Policy : vers un autre site, on n'envoie que le nom de domaine, pas l'adresse complète de la page
+# Permissions-Policy : le site n'a besoin ni de caméra, ni de micro, ni de localisation, ni de paiement
+# Content-Security-Policy : volontairement léger (pas de restriction des scripts et styles) pour ne rien casser
+#   avant la mise en ligne ; base-uri, form-action et object-src limitent les détournements de liens et du formulaire
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
