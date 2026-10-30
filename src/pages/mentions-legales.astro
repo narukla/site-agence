@@ -4,6 +4,7 @@
 // Les [À COMPLÉTER] dépendent de la création de la SAS (Kbis) : à remplir avant la mise en ligne.
 import Layout from '../layouts/Layout.astro';
 import Intro from '../components/Intro.astro';
+import { coordonnees, lienTelephone } from '../config/coordonnees';
 
 // Société en cours de constitution (Kbis attendu mi-novembre) : pas encore de SIREN, de RCS ni de TVA.
 // Dès l'immatriculation : ajouter SIREN, RCS et TVA, et retirer « en cours de constitution ».
@@ -12,9 +13,9 @@ const editeur = {
 	capital: '[À COMPLÉTER : capital, voté le 29/10] €',
 	siege: '[À COMPLÉTER : adresse du siège social, votée le 29/10]',
 	president: 'Jibril Filali',
-	// Mêmes valeurs que dans contact.astro
-	mail: 'narukla@proton.me',
-	telephone: '07 88 02 16 76',
+	// Depuis src/config/coordonnees.ts (un seul endroit pour tout le site)
+	mail: coordonnees.mail,
+	telephone: coordonnees.telephone,
 };
 
 // Sommaire : mêmes ids et même ordre que les sections ci-dessous
@@ -75,7 +76,7 @@ const hebergeur = {
 				<li>E-mail : <a href={`mailto:${editeur.mail}`}>{editeur.mail}</a></li>
 				<li>
 					Téléphone :{' '}
-					<a href={`tel:+33${editeur.telephone.replace(/\s/g, '').slice(1)}`}>{editeur.telephone}</a>
+					<a href={lienTelephone(editeur.telephone)}>{editeur.telephone}</a>
 				</li>
 				<li>Président et directeur de la publication : {editeur.president}</li>
 			</ul>
