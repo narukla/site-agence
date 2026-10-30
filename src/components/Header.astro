@@ -1,6 +1,6 @@
 ---
-// En-tête commun : logo + navigation principale.
-// La page en cours reçoit aria-current="page" (lu par les lecteurs d'écran, stylable en CSS).
+// En-tête commun : logo + navigation principale, d'après la maquette Figma de Noah (cadre « Header », 29/10).
+// La page en cours reçoit aria-current="page" (lu par les lecteurs d'écran, et surlignée en violet).
 const liens = [
 	{ href: '/', label: 'Accueil' },
 	{ href: '/services', label: 'Services et tarifs' },
@@ -13,24 +13,119 @@ const liens = [
 const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
-<header class="header">
-	<!-- Logo de Noah à venir (jeu. 29) : remplacer ce texte par l'image -->
-	<a class="header__logo" href="/">Narukla</a>
-	<nav class="header__nav" aria-label="Navigation principale">
-		<ul class="header__liste">
-			{
-				liens.map((lien) => (
-					<li>
-						<a
-							class="header__lien"
-							href={lien.href}
-							aria-current={cheminActuel === lien.href ? 'page' : undefined}
-						>
-							{lien.label}
-						</a>
-					</li>
-				))
-			}
-		</ul>
-	</nav>
+<header class="entete">
+	<div class="entete__contenu">
+		<!-- Logo final de Noah (SVG du 29/10), version blanche pour le fond noir -->
+		<a class="entete__logo" href="/">
+			<img src="/logo/narukla-blanc.svg" alt="Narukla, retour à l'accueil" width="339" height="116" />
+		</a>
+		<nav aria-label="Navigation principale">
+			<ul class="entete__liste">
+				{
+					liens.map((lien) => (
+						<li>
+							<a
+								class="entete__lien"
+								href={lien.href}
+								aria-current={cheminActuel === lien.href ? 'page' : undefined}
+							>
+								{lien.label}
+							</a>
+						</li>
+					))
+				}
+			</ul>
+		</nav>
+	</div>
 </header>
+
+<style>
+	/* Mobile d'abord (maquette Mobile 390), puis desktop (cadre Header, 1440) */
+	.entete {
+		background: var(--couleur-noir);
+		color: var(--couleur-blanc);
+	}
+
+	.entete__contenu {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		max-width: var(--largeur-max);
+		margin: 0 auto;
+		padding: 1rem var(--marge-cote);
+	}
+
+	.entete__logo {
+		display: block;
+		width: 8rem;
+	}
+
+	.entete__logo img {
+		width: 100%;
+		height: auto;
+	}
+
+	.entete__liste {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.entete__lien {
+		display: inline-block;
+		/* Zone de clic confortable au doigt */
+		min-height: 2.75rem;
+		padding: 0.6rem 0.625rem 0.5rem;
+		color: var(--couleur-blanc);
+		font-family: var(--police-titre);
+		font-size: 1rem;
+		line-height: 1.2;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	/* Page en cours : fond violet (blanc sur violet : contraste 6,33) */
+	.entete__lien[aria-current='page'] {
+		background: var(--couleur-violet);
+	}
+
+	.entete__lien:hover {
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+
+	.entete__lien:focus-visible,
+	.entete__logo:focus-visible {
+		outline: 3px solid var(--couleur-blanc);
+		outline-offset: 3px;
+	}
+
+	/* Desktop : logo à gauche, navigation à droite */
+	@media (min-width: 64rem) {
+		.entete__contenu {
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			gap: 2rem;
+			padding-block: 1.5rem;
+		}
+
+		.entete__logo {
+			width: clamp(10rem, 18vw, 15rem);
+			flex-shrink: 0;
+		}
+
+		.entete__liste {
+			gap: 0.5rem;
+		}
+
+		.entete__lien {
+			font-size: clamp(1.125rem, 1.6vw, 1.875rem);
+			padding: 0.35rem 0.875rem 0.25rem;
+		}
+	}
+</style>
