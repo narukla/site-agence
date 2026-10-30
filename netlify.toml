@@ -1,0 +1,11 @@
+# Configuration Netlify du site Narukla
+# Netlify lit ce fichier à chaque build (main et chaque PR).
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  # Astro 7 demande Node 22.23.4 minimum (champ "engines" du package.json).
+  # On fixe la version que Netlify utilise déjà (24.x au 28/10), pour qu'elle ne change pas sans nous.
+  NODE_VERSION = "24"
