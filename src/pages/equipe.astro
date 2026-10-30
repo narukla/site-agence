@@ -6,6 +6,7 @@ import Layout from '../layouts/Layout.astro';
 // Les 5 associés, par ordre alphabétique (pas de hiérarchie : parts égales).
 // Rôles : ceux du prompt d'équipe de Jimmy. Présentations : à recevoir de chacun (avant mer. 28 au soir).
 // nom : facultatif, seulement pour ceux qui veulent leur nom complet affiché.
+// presentation : null tant que l'associé ne l'a pas envoyée, le paragraphe ne s'affiche pas (jamais de repère en ligne).
 // photo : chemin dans public/ (ex. '/equipe/jibril.webp'), null en attendant la photo commune (lun. 2/11, idée de Noah).
 // mail, linkedin, portfolio : facultatifs, seulement pour ceux qui le veulent (idée de Noah), null sinon.
 // « de » ou « d' » selon la première lettre : « Portfolio d'Ouassim », « Portfolio de Jibril »
@@ -39,7 +40,8 @@ const associes = [
 	{
 		prenom: 'Lucas',
 		role: 'Gestion de projet, graphiste',
-		presentation: '[À COMPLÉTER]',
+		// En attente de son texte : remplacer null par sa présentation (2 ou 3 phrases)
+		presentation: null,
 		photo: null,
 		mail: null,
 		linkedin: null,
@@ -111,7 +113,7 @@ const associes = [
 							</div>
 							<h3 class="equipe__prenom">{associe.nom ? `${associe.prenom} ${associe.nom}` : associe.prenom}</h3>
 							<p class="equipe__role">{associe.role}</p>
-							<p class="equipe__presentation">{associe.presentation}</p>
+							{associe.presentation && <p class="equipe__presentation">{associe.presentation}</p>}
 							{(associe.mail || associe.linkedin || associe.portfolio) && (
 								<ul class="equipe__liens">
 									{associe.mail && (
