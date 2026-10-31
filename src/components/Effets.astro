@@ -269,6 +269,20 @@
 </script>
 
 <style is:global>
+	/* Filet de sécurité : si la personne a activé « réduire les animations » dans son système, tous les
+	   mouvements des effets s'arrêtent (transitions et animations jouées instantanément, à leur état final).
+	   Chaque effet est déjà prévu pour, mais une transition oubliée ne doit jamais passer. */
+	@media (prefers-reduced-motion: reduce) {
+		html[class*='avec-'] *,
+		html[class*='avec-'] *::before,
+		html[class*='avec-'] *::after {
+			transition-duration: 0s !important;
+			animation-duration: 0s !important;
+			animation-iteration-count: 1 !important;
+			scroll-behavior: auto !important;
+		}
+	}
+
 	.fx-cache {
 		position: absolute;
 		width: 1px;
