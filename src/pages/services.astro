@@ -1,6 +1,8 @@
 ---
 // Page Services et tarifs
 // Contenu fourni par Jimmy, pas encore validé par toute l'équipe (point jeudi) : à revérifier.
+// Mise en page : maquette Figma « Services et tarifs » (Desktop 1440 et Mobile 390), styles en bas de ce fichier.
+// Les textes validés par le sondage du 29/10 priment sur la maquette (2 jours ouvrés, TVA art. 293 B, domaine compris dans la maintenance).
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -10,7 +12,8 @@ import Layout from '../layouts/Layout.astro';
 >
 	<div class="services">
 		<section class="services__intro" aria-labelledby="services-title">
-			<h1 id="services-title" class="services__title">Services et tarifs</h1>
+			<p class="services__tag">Nos offres</p>
+			<h1 id="services-title" class="services__title">Services et <span>tarifs</span></h1>
 			<p class="services__lead">
 				Nous sommes une jeune agence web à Troyes.
 				Nous créons des sites vitrines et des identités visuelles, et nous en assurons ensuite la maintenance.
@@ -19,50 +22,54 @@ import Layout from '../layouts/Layout.astro';
 			<p class="services__note">Prix nets : TVA non applicable, art. 293 B du CGI.</p>
 		</section>
 
-		<section class="offer" id="site-vitrine" aria-labelledby="offer-vitrine-title">
-			<h2 id="offer-vitrine-title" class="offer__title">Site vitrine</h2>
-			<p class="offer__price">800 €</p>
-			<ul class="offer__features">
-				<li class="offer__feature">Jusqu’à 5 pages</li>
-				<li class="offer__feature">Site responsive, adapté aux mobiles et aux tablettes</li>
-				<li class="offer__feature">SEO de base : titres, balises et fiche Google Business</li>
-				<li class="offer__feature">Formulaire de contact</li>
-				<!-- Sondage du 29/10, question 3 : ensuite compris dans la maintenance (A) -->
-				<li class="offer__feature">Nom de domaine .fr et hébergement la première année, puis compris dans la maintenance</li>
-				<li class="offer__feature">3 tours de modifications</li>
-			</ul>
-			<p class="offer__delay">Livraison en 3 à 4 semaines</p>
-			<a class="offer__cta" href="/contact">Demander un devis</a>
-		</section>
+		<!-- Les numéros 01, 02, 03 sont générés en CSS (compteur) -->
+		<div class="offers">
+			<section class="offer" id="site-vitrine" aria-labelledby="offer-vitrine-title">
+				<h2 id="offer-vitrine-title" class="offer__title">Site vitrine</h2>
+				<p class="offer__price">800 €</p>
+				<ul class="offer__features">
+					<li class="offer__feature">Jusqu’à 5 pages</li>
+					<li class="offer__feature">Site responsive, adapté aux mobiles et aux tablettes</li>
+					<li class="offer__feature">SEO de base : titres, balises et fiche Google Business</li>
+					<li class="offer__feature">Formulaire de contact</li>
+					<!-- Sondage du 29/10, question 3 : ensuite compris dans la maintenance (A) -->
+					<li class="offer__feature">Nom de domaine .fr et hébergement la première année, puis compris dans la maintenance</li>
+					<li class="offer__feature">3 tours de modifications</li>
+				</ul>
+				<p class="offer__delay">Livraison en 3 à 4 semaines</p>
+				<a class="offer__cta offer__cta--violet" href="/contact">Demander un devis</a>
+			</section>
 
-		<section class="offer" id="identite-visuelle" aria-labelledby="offer-identite-title">
-			<h2 id="offer-identite-title" class="offer__title">Identité visuelle</h2>
-			<p class="offer__price">De 600 à 1 000 €</p>
-			<ul class="offer__features">
-				<li class="offer__feature">
-					<strong>À partir de 600 €</strong> : logo, couleurs et typographies
-				</li>
-				<li class="offer__feature">
-					<strong>Jusqu’à 1 000 €</strong> : charte graphique complète et déclinaisons
-					(cartes de visite, réseaux sociaux, menu, etc.)
-				</li>
-			</ul>
-			<a class="offer__cta" href="/contact">Demander un devis</a>
-		</section>
+			<section class="offer" id="identite-visuelle" aria-labelledby="offer-identite-title">
+				<h2 id="offer-identite-title" class="offer__title">Identité visuelle</h2>
+				<p class="offer__price">De 600 à 1 000 €</p>
+				<ul class="offer__features">
+					<li class="offer__feature">
+						<strong>À partir de 600 €</strong> : logo, couleurs et typographies
+					</li>
+					<li class="offer__feature">
+						<strong>Jusqu’à 1 000 €</strong> : charte graphique complète et déclinaisons
+						(cartes de visite, réseaux sociaux, menu, etc.)
+					</li>
+				</ul>
+				<a class="offer__cta" href="/contact">Demander un devis</a>
+			</section>
 
-		<section class="offer" id="maintenance" aria-labelledby="offer-maintenance-title">
-			<h2 id="offer-maintenance-title" class="offer__title">Maintenance</h2>
-			<p class="offer__price">40 €/mois</p>
-			<ul class="offer__features">
-				<li class="offer__feature">Nom de domaine et hébergement</li>
-				<li class="offer__feature">Mises à jour</li>
-				<li class="offer__feature">Sauvegardes</li>
-				<li class="offer__feature">Petites modifications de contenu (horaires, prix, etc.)</li>
-				<li class="offer__feature">Réponse sous 2 jours ouvrés</li>
-			</ul>
-			<a class="offer__cta" href="/contact">Nous contacter</a>
-		</section>
+			<section class="offer" id="maintenance" aria-labelledby="offer-maintenance-title">
+				<h2 id="offer-maintenance-title" class="offer__title">Maintenance</h2>
+				<p class="offer__price">40 €/mois</p>
+				<ul class="offer__features">
+					<li class="offer__feature">Nom de domaine et hébergement</li>
+					<li class="offer__feature">Mises à jour</li>
+					<li class="offer__feature">Sauvegardes</li>
+					<li class="offer__feature">Petites modifications de contenu (horaires, prix, etc.)</li>
+					<li class="offer__feature">Réponse sous 2 jours ouvrés</li>
+				</ul>
+				<a class="offer__cta" href="/contact">Nous contacter</a>
+			</section>
+		</div>
 
+		<!-- Les numéros des étapes sont générés en CSS (compteur) -->
 		<section class="process" aria-labelledby="process-title">
 			<h2 id="process-title" class="process__title">Comment se passe un projet ?</h2>
 			<ol class="process__steps">
@@ -100,3 +107,391 @@ import Layout from '../layouts/Layout.astro';
 		</section>
 	</div>
 </Layout>
+
+<style>
+	/* Couleurs et polices : uniquement les variables de global.css (--couleur-*, --police-*).
+	   Mobile d'abord (maquette 390), puis 48rem (tablette) et 72rem (desktop 1440). */
+
+	/* Cette page a des bandes de couleur pleine largeur : <main> (défini dans global.css avec une largeur
+	   maximale et des marges) devient pleine largeur quand il contient la page Services. */
+	:global(main:has(.services)) {
+		max-width: none;
+		padding-inline: 0;
+	}
+
+	.services {
+		/* Marge latérale des bandes : 20 px sur mobile, 112 px à 1440 px (contenu de 76rem de large).
+		   Le % se calcule sur la largeur de chaque bande, donc sur celle de la page. */
+		--services-marge: max(1.25rem, calc((100% - 76rem) / 2));
+		font-family: var(--police-corps);
+		font-size: 1.0625rem;
+		line-height: 1.5;
+		color: var(--couleur-noir);
+	}
+
+	/* Bandes pleine largeur : le fond prend toute la largeur, le contenu reste aligné */
+	.services__intro,
+	.offers,
+	.process,
+	.cta {
+		padding-inline: var(--services-marge);
+	}
+
+	/* Police des titres (Anton, une seule graisse : pas de faux gras) */
+	.services__tag,
+	.services__title,
+	.offer::before,
+	.offer__title,
+	.offer__price,
+	.offer__cta,
+	.process__step::before,
+	.process__title,
+	.process__step-title,
+	.cta__title,
+	.cta__link {
+		font-family: var(--police-titre);
+		font-weight: 400;
+		text-transform: uppercase;
+	}
+
+	/* ---------- Introduction (bande noire) ---------- */
+
+	.services__intro {
+		padding-block: 2.5rem 3.5rem;
+		background: var(--couleur-noir);
+		color: var(--couleur-blanc);
+	}
+
+	/* Étiquette inclinée */
+	.services__tag {
+		display: inline-block;
+		margin: 0.375rem 0 1.5rem;
+		padding: 0.3125rem 1.375rem 0.1875rem;
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+		font-size: 1.125rem;
+		line-height: 1.2;
+		letter-spacing: 0.06em;
+		transform: rotate(-2deg);
+	}
+
+	.services__title {
+		margin: 0;
+		font-size: clamp(3.125rem, 8vw, 7rem);
+		line-height: 1;
+	}
+
+	/* Violet sur noir : contraste 3,3, suffisant pour un très grand titre */
+	.services__title span {
+		color: var(--couleur-violet);
+	}
+
+	.services__lead {
+		max-width: 40rem;
+		margin: 1.5rem 0 0;
+		font-size: 1.1875rem;
+		line-height: 1.6;
+	}
+
+	.services__note {
+		max-width: 40rem;
+		margin: 1rem 0 0;
+		padding-left: 1rem;
+		border-left: 4px solid var(--couleur-violet);
+		line-height: 1.6;
+	}
+
+	/* ---------- Offres (3 cartes) ---------- */
+
+	.offers {
+		counter-reset: offre;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+		gap: 1.75rem 2rem;
+		padding-block: 4.25rem;
+	}
+
+	.offer {
+		counter-increment: offre;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.875rem;
+		padding: 1.375rem;
+		background: var(--couleur-blanc);
+		border: 3px solid var(--couleur-noir);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
+	}
+
+	/* Numéro 01 / 02 / 03 (ignoré par les lecteurs d'écran là où le navigateur le permet) */
+	.offer::before {
+		content: counter(offre, decimal-leading-zero);
+		content: counter(offre, decimal-leading-zero) / '';
+		color: var(--couleur-violet);
+		font-size: 1.25rem;
+		line-height: 1;
+	}
+
+	.offer__title {
+		margin: 0;
+		font-size: 2rem;
+		line-height: 1;
+	}
+
+	.offer__price {
+		margin: 0;
+		color: var(--couleur-violet);
+		font-size: 2.375rem;
+		line-height: 1;
+	}
+
+	.offer__features {
+		display: grid;
+		gap: 0.625rem;
+		align-self: stretch;
+		margin: 0;
+		padding: 1.125rem 0 0.375rem;
+		list-style: none;
+		border-top: 3px solid var(--couleur-noir);
+	}
+
+	.offer__feature {
+		position: relative;
+		padding-left: 1.25rem;
+	}
+
+	/* Petit carré violet à la place de la puce */
+	.offer__feature::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.5rem;
+		width: 0.625rem;
+		height: 0.625rem;
+		background: var(--couleur-violet);
+	}
+
+	.offer__feature strong,
+	.offer__delay {
+		font-weight: 800;
+	}
+
+	.offer__delay {
+		margin: 0;
+		line-height: normal;
+	}
+
+	/* ---------- Boutons (frame « Boutons » de Noah) ---------- */
+	/* Blanc avec contour noir par défaut, violet pour l'offre principale, blanc sur la bande violette. */
+	/* Hauteur d'environ 54 px : au-dessus des 44 px conseillés pour le doigt. */
+
+	.offer__cta,
+	.cta__link {
+		display: inline-flex;
+		align-items: center;
+		min-height: 2.75rem;
+		padding: 0.9375rem 1.625rem 0.8125rem;
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+		border: 3px solid var(--couleur-noir);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
+		font-size: 1.25rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-decoration: none;
+		transition:
+			transform 0.1s,
+			box-shadow 0.1s;
+	}
+
+	.offer__cta {
+		margin-top: 0.375rem;
+	}
+
+	.offer__cta--violet {
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+	}
+
+	.cta__link {
+		border-color: var(--couleur-blanc);
+	}
+
+	.offer__cta:hover,
+	.cta__link:hover {
+		transform: translate(3px, 3px);
+		box-shadow: 3px 3px 0 var(--couleur-noir);
+	}
+
+	.offer__cta:focus-visible {
+		outline: 3px solid var(--couleur-violet);
+		outline-offset: 4px;
+	}
+
+	.cta__link:focus-visible {
+		outline: 3px solid var(--couleur-blanc);
+		outline-offset: 4px;
+	}
+
+	/* ---------- Étapes du projet (bande noire) ---------- */
+
+	.process {
+		counter-reset: etape;
+		padding-block: 4.25rem;
+		background: var(--couleur-noir);
+		color: var(--couleur-blanc);
+	}
+
+	.process__title {
+		margin: 0 0 1.5rem;
+		font-size: clamp(2.375rem, 5vw, 4.5rem);
+		line-height: 0.95;
+	}
+
+	.process__steps {
+		display: grid;
+		gap: 3rem 2rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* Version mobile : chiffre en contour, trait blanc au-dessus, sans carte */
+	.process__step {
+		counter-increment: etape;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		padding-top: 1rem;
+		border-top: 3px solid var(--couleur-blanc);
+	}
+
+	.process__step::before {
+		content: counter(etape, decimal-leading-zero);
+		content: counter(etape, decimal-leading-zero) / '';
+		color: transparent;
+		-webkit-text-stroke: 2px var(--couleur-blanc);
+		font-size: 4.5rem;
+		line-height: 1;
+	}
+
+	.process__step-title {
+		margin: 0;
+		font-size: 1.5rem;
+		line-height: 1.05;
+	}
+
+	.process__step-text {
+		margin: 0;
+		line-height: 1.6;
+	}
+
+	/* ---------- Appel à l'action (bande violette) ---------- */
+
+	.cta {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+		padding-block: 4.25rem;
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+	}
+
+	.cta__title {
+		margin: 0;
+		font-size: clamp(3.125rem, 8vw, 7rem);
+		line-height: 0.95;
+	}
+
+	.cta__text {
+		max-width: 40rem;
+		margin: 0;
+		font-size: 1.1875rem;
+		line-height: 1.6;
+	}
+
+	.cta__link {
+		margin-top: 0.5rem;
+	}
+
+	/* ---------- Tablette ---------- */
+
+	@media (min-width: 40rem) {
+		.process__steps {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 48rem) {
+		.services__intro {
+			padding-block: 5rem 6rem;
+		}
+
+		.offers,
+		.cta {
+			padding-block: 7.5rem;
+		}
+
+		.offer {
+			padding: 1.75rem;
+		}
+
+		.offer__title {
+			font-size: 2.5rem;
+		}
+
+		.offer__price {
+			font-size: 2.75rem;
+		}
+	}
+
+	/* ---------- Desktop : les étapes passent en cartes blanches, 3 par ligne ---------- */
+
+	@media (min-width: 72rem) {
+		.process {
+			padding-block: 6.75rem 7.5rem;
+		}
+
+		.process__title {
+			margin-bottom: 3rem;
+		}
+
+		.process__steps {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 3rem 2.5rem;
+		}
+
+		.process__step {
+			display: grid;
+			grid-template-columns: auto 1fr;
+			align-items: start;
+			gap: 1rem 1.5rem;
+			min-height: 11.8rem;
+			padding: 1.4375rem 1.75rem 1.5rem;
+			background: var(--couleur-blanc);
+			color: var(--couleur-noir);
+			border-top: 0;
+		}
+
+		.process__step::before {
+			color: var(--couleur-noir);
+			-webkit-text-stroke: 0;
+		}
+
+		.process__step-title {
+			font-size: 2rem;
+		}
+
+		.process__step-text {
+			grid-column: 1 / -1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.offer__cta,
+		.cta__link {
+			transition: none;
+		}
+	}
+</style>

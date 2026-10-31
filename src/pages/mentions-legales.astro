@@ -1,27 +1,41 @@
 ---
 // Page Mentions légales — responsable : Jimmy
 // Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
-// Les [À COMPLÉTER] dépendent de la création de la SAS (Kbis) : à remplir avant la mise en ligne.
+// Ce qui n'est pas encore décidé vaut null : la ligne ne s'affiche pas (jamais de [À COMPLÉTER] en ligne).
 import Layout from '../layouts/Layout.astro';
+import Intro from '../components/Intro.astro';
+import { coordonnees, lienTelephone } from '../config/coordonnees';
 
 // Société en cours de constitution (Kbis attendu mi-novembre) : pas encore de SIREN, de RCS ni de TVA.
 // Dès l'immatriculation : ajouter SIREN, RCS et TVA, et retirer « en cours de constitution ».
 const editeur = {
 	forme: 'société par actions simplifiée (SAS) en cours de constitution',
-	capital: '[À COMPLÉTER : capital, voté le 29/10] €',
-	siege: '[À COMPLÉTER : adresse du siège social, votée le 29/10]',
+	// Votés à la réunion du lun. 2/11 : remplacer null par la valeur (ex. '500 €', '12 rue …, 10000 Troyes')
+	capital: null as string | null,
+	siege: null as string | null,
 	president: 'Jibril Filali',
-	// Mêmes valeurs que dans contact.astro
-	mail: 'narukla@proton.me',
-	telephone: '07 88 02 16 76',
+	// Depuis src/config/coordonnees.ts (un seul endroit pour tout le site)
+	mail: coordonnees.mail,
+	telephone: coordonnees.telephone,
 };
+
+// Sommaire : mêmes ids et même ordre que les sections ci-dessous
+const sommaire = [
+	{ id: 'editeur', titre: 'Éditeur du site' },
+	{ id: 'hebergeur', titre: 'Hébergeur' },
+	{ id: 'propriete', titre: 'Propriété intellectuelle' },
+	{ id: 'donnees', titre: 'Données personnelles' },
+	{ id: 'cookies', titre: 'Cookies' },
+	{ id: 'responsabilite', titre: 'Responsabilité' },
+];
 
 const hebergeur = {
 	// Adresse vérifiée le 28/10/2026 (netlify.com/privacy, mise à jour du 10/04/2026, et conditions d'utilisation).
 	// Netlify ne publie aucun téléphone dans ses documents légaux : à faire trancher par l'avocate.
 	nom: 'Netlify, Inc.',
 	adresse: '101 2nd Street, San Francisco, CA 94105, États-Unis',
-	telephone: "[À COMPLÉTER : téléphone de Netlify, non publié par Netlify : voir avec l'avocate]",
+	// Netlify ne publie aucun téléphone : null tant que l'avocate n'a pas tranché (on n'en invente pas)
+	telephone: null as string | null,
 	site: 'https://www.netlify.com',
 };
 ---
@@ -30,37 +44,56 @@ const hebergeur = {
 	title="Mentions légales"
 	description="Mentions légales du site de Narukla : éditeur, hébergeur, propriété intellectuelle et données personnelles."
 >
-	<article class="mentions">
-		<h1>Mentions légales</h1>
+	<!-- Mise en forme d'après la maquette Figma de Noah (Mentions légales Desktop 1440), 29/10.
+	     Les textes restent ceux du code (plus à jour que la maquette). -->
+	<Intro etiquette="Informations légales" titre="Mentions légales" />
+
+	<div class="mentions">
+		<nav class="mentions__sommaire" aria-labelledby="titre-sommaire">
+			<h2 id="titre-sommaire" class="mentions__sommaire-titre">Sommaire</h2>
+			<ol class="mentions__sommaire-liste">
+				{
+					sommaire.map((entree, i) => (
+						<li>
+							<a href={`#${entree.id}`}>
+								<span class="mentions__numero">{String(i + 1).padStart(2, '0')}</span> {entree.titre}
+							</a>
+						</li>
+					))
+				}
+			</ol>
+		</nav>
+
+		<article class="mentions__article">
 
 		<section class="mentions__section" id="editeur" aria-labelledby="titre-editeur">
-			<h2 id="titre-editeur">Éditeur du site</h2>
+			<h2 id="titre-editeur" class="mentions__titre"><span class="mentions__numero">01</span> Éditeur du site</h2>
 			<p>
-				Ce site est édité par Narukla, {editeur.forme}, au capital de {editeur.capital}. Son
+				Ce site est édité par Narukla, {editeur.forme}{editeur.capital && `, au capital de ${editeur.capital}`}. Son
 				immatriculation au registre du commerce et des sociétés est en cours : le numéro SIREN sera
 				indiqué ici dès sa délivrance.
 			</p>
 			<ul>
-				<li>Siège social : {editeur.siege}</li>
+				{editeur.siege && <li>Siège social : {editeur.siege}</li>}
 				<li>E-mail : <a href={`mailto:${editeur.mail}`}>{editeur.mail}</a></li>
 				<li>
 					Téléphone :{' '}
-					<a href={`tel:+33${editeur.telephone.replace(/\s/g, '').slice(1)}`}>{editeur.telephone}</a>
+					<a href={lienTelephone(editeur.telephone)}>{editeur.telephone}</a>
 				</li>
 				<li>Président et directeur de la publication : {editeur.president}</li>
 			</ul>
 		</section>
 
 		<section class="mentions__section" id="hebergeur" aria-labelledby="titre-hebergeur">
-			<h2 id="titre-hebergeur">Hébergeur</h2>
+			<h2 id="titre-hebergeur" class="mentions__titre"><span class="mentions__numero">02</span> Hébergeur</h2>
 			<p>
-				Le site est hébergé par {hebergeur.nom}, {hebergeur.adresse}, téléphone : {hebergeur.telephone}
+				Le site est hébergé par {hebergeur.nom}, {hebergeur.adresse}{hebergeur.telephone && `, téléphone : ${hebergeur.telephone}`}{' '}
 				(<a href={hebergeur.site} rel="noopener">{hebergeur.site}</a>).
 			</p>
 		</section>
 
 		<section class="mentions__section" id="propriete" aria-labelledby="titre-propriete">
-			<h2 id="titre-propriete">Propriété intellectuelle</h2>
+			<h2 id="titre-propriete" class="mentions__titre"><span class="mentions__numero">03</span> Propriété intellectuelle</h2>
 			<p>
 				Les contenus de ce site (textes, images, logo, graphismes, code) appartiennent à Narukla,
 				sauf mention contraire. Toute reproduction, totale ou partielle, sans autorisation écrite
@@ -73,7 +106,7 @@ const hebergeur = {
 		</section>
 
 		<section class="mentions__section" id="donnees" aria-labelledby="titre-donnees">
-			<h2 id="titre-donnees">Données personnelles</h2>
+			<h2 id="titre-donnees" class="mentions__titre"><span class="mentions__numero">04</span> Données personnelles</h2>
 			<p>
 				Les informations envoyées par le formulaire de contact (nom, entreprise, e-mail, téléphone,
 				message) servent uniquement à répondre à votre demande et à vous établir un devis. Elles ne
@@ -107,7 +140,7 @@ const hebergeur = {
 		</section>
 
 		<section class="mentions__section" id="cookies" aria-labelledby="titre-cookies">
-			<h2 id="titre-cookies">Cookies</h2>
+			<h2 id="titre-cookies" class="mentions__titre"><span class="mentions__numero">05</span> Cookies</h2>
 			<p>
 				Ce site n'utilise ni cookies publicitaires ni outil de mesure d'audience. Si cela change, un
 				bandeau vous demandera votre accord avant tout dépôt.
@@ -115,12 +148,138 @@ const hebergeur = {
 		</section>
 
 		<section class="mentions__section" id="responsabilite" aria-labelledby="titre-responsabilite">
-			<h2 id="titre-responsabilite">Responsabilité</h2>
+			<h2 id="titre-responsabilite" class="mentions__titre"><span class="mentions__numero">06</span> Responsabilité</h2>
 			<p>
 				Narukla veille à ce que les informations de ce site soient exactes et à jour, sans pouvoir
 				garantir l'absence d'erreur. Les liens vers des sites externes n'engagent pas sa
 				responsabilité.
 			</p>
 		</section>
-	</article>
+		</article>
+	</div>
 </Layout>
+
+<style>
+	/* Mentions légales, d'après la maquette Figma (Desktop 1440) ; mobile : sommaire au-dessus du texte */
+	.mentions {
+		display: grid;
+		gap: 2.5rem;
+		padding-block: 4.25rem;
+		font-family: var(--police-corps);
+	}
+
+	/* Sommaire encadré, ombre violette */
+	.mentions__sommaire {
+		align-self: start;
+		padding: 1.375rem 1.5rem 1.5rem;
+		background: var(--couleur-blanc);
+		border: 3px solid var(--couleur-noir);
+		box-shadow: 6px 6px 0 var(--couleur-violet);
+	}
+
+	.mentions__sommaire-titre {
+		margin: 0 0 0.375rem;
+		color: var(--couleur-violet);
+		font-family: var(--police-titre);
+		font-size: 1.375rem;
+		font-weight: 400;
+		line-height: 1.2;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.mentions__sommaire-liste {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.mentions__sommaire-liste a {
+		display: block;
+		padding-block: 0.6rem;
+		color: var(--couleur-noir);
+		font-size: 1.0625rem;
+		font-weight: 700;
+		line-height: 1.4;
+		text-decoration: none;
+	}
+
+	.mentions__sommaire-liste a:hover {
+		text-decoration: underline;
+	}
+
+	.mentions__sommaire .mentions__numero {
+		color: var(--couleur-noir);
+		margin-right: 0.5rem;
+	}
+
+	/* Sections séparées par un filet noir */
+	.mentions__article :global(.mentions__section) {
+		padding-block: 2rem;
+		border-bottom: 3px solid var(--couleur-noir);
+		/* le titre ne passe pas sous le haut de l'écran quand on clique dans le sommaire */
+		scroll-margin-top: 1.5rem;
+	}
+
+	.mentions__article :global(.mentions__section:first-child) {
+		padding-top: 0;
+	}
+
+	.mentions__titre {
+		margin: 0 0 0.875rem;
+		font-family: var(--police-titre);
+		font-size: clamp(1.75rem, 3vw, 2.5rem);
+		font-weight: 400;
+		line-height: 1.05;
+		text-transform: uppercase;
+	}
+
+	.mentions__titre .mentions__numero {
+		color: var(--couleur-violet);
+	}
+
+	.mentions__article p,
+	.mentions__article li {
+		font-size: 1.0625rem;
+		line-height: 1.65;
+	}
+
+	.mentions__article p {
+		margin: 0 0 0.875rem;
+	}
+
+	/* Liste de l'éditeur : tirets comme la maquette */
+	.mentions__article ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.mentions__article li::before {
+		content: '— ';
+	}
+
+	.mentions__article a {
+		color: var(--couleur-noir);
+		font-weight: 700;
+	}
+
+	.mentions a:focus-visible {
+		outline: 3px solid var(--couleur-violet);
+		outline-offset: 3px;
+	}
+
+	/* Desktop : sommaire à gauche (qui reste visible en défilant), texte à droite */
+	@media (min-width: 64rem) {
+		.mentions {
+			grid-template-columns: 18.75rem minmax(0, 47.5rem);
+			gap: 5rem;
+			padding-block: 7.5rem;
+		}
+
+		.mentions__sommaire {
+			position: sticky;
+			top: 1.5rem;
+		}
+	}
+</style>

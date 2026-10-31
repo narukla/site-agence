@@ -1,0 +1,75 @@
+---
+// Bandeau d'intro des pages (maquette Figma de Noah) : bande noire pleine largeur, étiquette blanche
+// penchée, grand titre en Anton. Utilisation :
+//   <Intro etiquette="Informations légales" titre="Mentions légales" />
+//   <Intro etiquette="…" titre="…"><p>Texte sous le titre</p></Intro>
+//   <Intro etiquette="…" titre="Début du titre" accent="fin en violet" />  (Accueil)
+interface Props {
+	etiquette: string;
+	titre: string;
+	// Fin du titre en violet (facultatif)
+	accent?: string;
+}
+
+const { etiquette, titre, accent } = Astro.props;
+---
+
+<section class="intro">
+	<p class="intro__etiquette">{etiquette}</p>
+	<h1 class="intro__titre">{titre}{accent && <> <span class="intro__accent">{accent}</span></>}</h1>
+	<div class="intro__texte">
+		<slot />
+	</div>
+</section>
+
+<style>
+	/* Bande noire sur toute la largeur de l'écran, sans défilement horizontal :
+	   border-image peint le fond au-delà du contenu sans agrandir la page */
+	.intro {
+		padding-block: 2.5rem 3.5rem;
+		color: var(--couleur-blanc);
+		border-image: conic-gradient(var(--couleur-noir) 0 0) fill 0 / / 0 100vw;
+	}
+
+	.intro__etiquette {
+		display: inline-block;
+		margin: 0.4rem 0 1.5rem;
+		padding: 0.3rem 1.4rem 0.2rem;
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+		font-family: var(--police-titre);
+		font-size: 1.125rem;
+		line-height: 1.2;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		transform: rotate(-2deg);
+	}
+
+	.intro__titre {
+		margin: 0;
+		font-family: var(--police-titre);
+		font-size: clamp(3.125rem, 7.8vw, 7rem);
+		font-weight: 400;
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	/* Violet sur noir (3,32) : autorisé ici car le titre fait au moins 50 px (grand texte WCAG) */
+	.intro__accent {
+		color: var(--couleur-violet);
+	}
+
+	.intro__texte :global(p) {
+		max-width: 40rem;
+		margin: 1.5rem 0 0;
+		font-family: var(--police-corps);
+		font-size: 1.1875rem;
+		line-height: 1.6;
+	}
+
+	@media (min-width: 64rem) {
+		.intro {
+			padding-block: 5rem 6rem;
+		}
+	}
+</style>

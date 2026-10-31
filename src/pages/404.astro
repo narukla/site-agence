@@ -1,8 +1,10 @@
 ---
 // Page 404 — responsable : Jibril
 // Astro la génère en dist/404.html : Netlify l'affiche pour toute adresse qui n'existe pas.
-// Structure en HTML brut, le CSS arrive avec la maquette.
+// Pas de maquette pour cette page : même style que les autres (bandeau d'intro + boutons).
 import Layout from '../layouts/Layout.astro';
+import Intro from '../components/Intro.astro';
+import Bouton from '../components/Bouton.astro';
 ---
 
 <Layout
@@ -10,13 +12,36 @@ import Layout from '../layouts/Layout.astro';
 	description="Cette page n'existe pas ou a été déplacée."
 	noindex
 >
-	<section class="erreur" aria-labelledby="titre-erreur">
-		<h1 id="titre-erreur">Cette page est introuvable</h1>
+	<Intro etiquette="Erreur 404" titre="Cette page est introuvable">
 		<p>L'adresse est peut-être mal écrite, ou la page a été déplacée.</p>
+	</Intro>
+
+	<section class="erreur" aria-label="Où aller ?">
 		<ul class="erreur__liens">
-			<li><a href="/">Retour à l'accueil</a></li>
-			<li><a href="/services">Voir nos offres</a></li>
-			<li><a href="/contact">Nous contacter</a></li>
+			<li><Bouton href="/">Retour à l'accueil</Bouton></li>
+			<li><Bouton href="/services" variante="contour">Voir nos offres</Bouton></li>
+			<li><Bouton href="/contact" variante="contour">Nous contacter</Bouton></li>
 		</ul>
 	</section>
 </Layout>
+
+<style>
+	.erreur {
+		padding-block: 4.25rem;
+	}
+
+	.erreur__liens {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	@media (min-width: 64rem) {
+		.erreur {
+			padding-block: 7.5rem;
+		}
+	}
+</style>
