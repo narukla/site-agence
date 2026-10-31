@@ -1,9 +1,11 @@
 ---
 // Page Contact — responsable : Jimmy
-// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
+// Mise en page d'après la maquette Figma de Noah (Contact desktop 1440 et mobile 390), contenu inchangé.
 // Formulaire géré par Netlify Forms (data-netlify) : rien à coder côté serveur, les messages
 // arrivent dans l'onglet Forms de Netlify. Après envoi, redirection vers /merci.
+// Ne pas renommer les champs (name="…") : la notification Discord et l'onglet Forms s'en servent.
 import Layout from '../layouts/Layout.astro';
+import Intro from '../components/Intro.astro';
 import { coordonnees as agence, lienTelephone } from '../config/coordonnees';
 
 // Coordonnées : null tant qu'elles ne sont pas décidées, la ligne ne s'affiche pas.
@@ -19,105 +21,294 @@ const coordonnees = {
 	title="Contact"
 	description="Contactez Narukla pour votre site vitrine ou votre identité visuelle à Troyes. Premier échange et devis gratuits."
 >
-	<section class="contact__intro" aria-labelledby="titre-contact">
-		<h1 id="titre-contact">Contact</h1>
+	<Intro etiquette="Devis gratuit" titre="Contact">
 		<p>
 			Un site à créer, un logo à refaire ou juste une question ? Écrivez-nous, on vous répond sous
 			2 jours ouvrés. Le premier échange et le devis sont gratuits.
 		</p>
-	</section>
+	</Intro>
 
-	<section class="contact__formulaire" aria-labelledby="titre-formulaire">
-		<h2 id="titre-formulaire">Parlez-nous de votre projet</h2>
-		<form
-			class="formulaire"
-			name="contact"
-			method="POST"
-			action="/merci"
-			data-netlify="true"
-			netlify-honeypot="champ-robot"
-		>
-			<input type="hidden" name="form-name" value="contact" />
-			<!-- Piège à robots : caché aux humains, Netlify rejette les envois qui le remplissent -->
-			<p class="formulaire__piege" hidden>
-				<label>Ne pas remplir : <input name="champ-robot" tabindex="-1" autocomplete="off" /></label>
-			</p>
+	<div class="contact__colonnes">
+		<section class="contact__formulaire" aria-labelledby="titre-formulaire">
+			<h2 id="titre-formulaire" class="contact__titre">Parlez-nous de votre projet</h2>
+			<form
+				class="formulaire"
+				name="contact"
+				method="POST"
+				action="/merci"
+				data-netlify="true"
+				netlify-honeypot="champ-robot"
+			>
+				<input type="hidden" name="form-name" value="contact" />
+				<!-- Piège à robots : caché aux humains, Netlify rejette les envois qui le remplissent -->
+				<p class="formulaire__piege" hidden>
+					<label>Ne pas remplir : <input name="champ-robot" tabindex="-1" autocomplete="off" /></label>
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="nom">Nom et prénom</label>
-				<input id="nom" name="nom" type="text" autocomplete="name" required />
-			</p>
+				<p class="formulaire__champ">
+					<label for="nom">Nom et prénom</label>
+					<input id="nom" name="nom" type="text" autocomplete="name" required />
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="entreprise">Entreprise ou activité (facultatif)</label>
-				<input id="entreprise" name="entreprise" type="text" autocomplete="organization" />
-			</p>
+				<p class="formulaire__champ">
+					<label for="entreprise">Entreprise ou activité (facultatif)</label>
+					<input id="entreprise" name="entreprise" type="text" autocomplete="organization" />
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="mail">Adresse e-mail</label>
-				<input id="mail" name="mail" type="email" autocomplete="email" required />
-			</p>
+				<p class="formulaire__champ">
+					<label for="mail">Adresse e-mail</label>
+					<input id="mail" name="mail" type="email" autocomplete="email" required />
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="telephone">Téléphone (facultatif)</label>
-				<input id="telephone" name="telephone" type="tel" autocomplete="tel" />
-			</p>
+				<p class="formulaire__champ">
+					<label for="telephone">Téléphone (facultatif)</label>
+					<input id="telephone" name="telephone" type="tel" autocomplete="tel" />
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="besoin">Votre besoin</label>
-				<select id="besoin" name="besoin" required>
-					<option value="">Choisir une option</option>
-					<option value="site-vitrine">Site vitrine</option>
-					<option value="identite-visuelle">Identité visuelle</option>
-					<option value="site-et-identite">Site vitrine et identité visuelle</option>
-					<option value="maintenance">Maintenance d'un site existant</option>
-					<option value="autre">Autre</option>
-				</select>
-			</p>
+				<p class="formulaire__champ formulaire__champ--large">
+					<label for="besoin">Votre besoin</label>
+					<select id="besoin" name="besoin" required>
+						<option value="">Choisir une option</option>
+						<option value="site-vitrine">Site vitrine</option>
+						<option value="identite-visuelle">Identité visuelle</option>
+						<option value="site-et-identite">Site vitrine et identité visuelle</option>
+						<option value="maintenance">Maintenance d'un site existant</option>
+						<option value="autre">Autre</option>
+					</select>
+				</p>
 
-			<p class="formulaire__champ">
-				<label for="message">Votre message</label>
-				<textarea id="message" name="message" rows="6" required></textarea>
-			</p>
+				<p class="formulaire__champ formulaire__champ--large">
+					<label for="message">Votre message</label>
+					<textarea id="message" name="message" rows="6" required></textarea>
+				</p>
 
-			<!-- Mention d'information RGPD (skill livraison du kit) -->
-			<p class="formulaire__mention">
-				Vos données servent uniquement à répondre à votre demande. Pour en savoir plus et exercer vos
-				droits, consultez nos <a href="/mentions-legales#donnees">mentions légales</a>.
-			</p>
+				<!-- Mention d'information RGPD (skill livraison du kit) -->
+				<p class="formulaire__mention">
+					Vos données servent uniquement à répondre à votre demande. Pour en savoir plus et exercer vos
+					droits, consultez nos <a href="/mentions-legales#donnees">mentions légales</a>.
+				</p>
 
-			<button class="formulaire__envoyer" type="submit">Envoyer</button>
-		</form>
-	</section>
+				<p class="formulaire__champ--large">
+					<button class="formulaire__envoyer" type="submit">Envoyer</button>
+				</p>
+			</form>
+		</section>
 
-	<section class="contact__coordonnees" aria-labelledby="titre-coordonnees">
-		<h2 id="titre-coordonnees">Nous joindre directement</h2>
-		<address>
-			<ul class="contact__liste">
-				{
-					coordonnees.mail && (
-						<li>
-							E-mail : <a href={`mailto:${coordonnees.mail}`}>{coordonnees.mail}</a>
-						</li>
-					)
-				}
-				{
-					coordonnees.telephone && (
-						<li>
-							Téléphone :{' '}
-							<a href={lienTelephone(coordonnees.telephone)}>{coordonnees.telephone}</a>
-						</li>
-					)
-				}
-				{
-					coordonnees.instagram && (
-						<li>
-							<a href={coordonnees.instagram} rel="noopener">Narukla sur Instagram</a>
-						</li>
-					)
-				}
-				<li>Basés à Troyes, rendez-vous possible sur place.</li>
-			</ul>
-		</address>
-	</section>
+		<!-- La maquette affiche naruklastudio@gmail.com : décision de Jimmy (30/10), narukla@proton.me partout -->
+		<section class="contact__coordonnees" aria-labelledby="titre-coordonnees">
+			<h2 id="titre-coordonnees" class="contact__coordonnees-titre">Nous joindre directement</h2>
+			<address>
+				<ul class="contact__liste">
+					{
+						coordonnees.mail && (
+							<li>
+								E-mail : <a href={`mailto:${coordonnees.mail}`}>{coordonnees.mail}</a>
+							</li>
+						)
+					}
+					{
+						coordonnees.telephone && (
+							<li>
+								Téléphone :{' '}
+								<a href={lienTelephone(coordonnees.telephone)}>{coordonnees.telephone}</a>
+							</li>
+						)
+					}
+					{
+						coordonnees.instagram && (
+							<li>
+								<a href={coordonnees.instagram} rel="noopener">Narukla sur Instagram</a>
+							</li>
+						)
+					}
+					<li class="contact__lieu">Basés à Troyes, rendez-vous possible sur place.</li>
+				</ul>
+			</address>
+		</section>
+	</div>
 </Layout>
+
+<style>
+	/* Mise en page d'après la maquette Figma de Noah (Contact), mobile d'abord */
+	.contact__colonnes {
+		display: grid;
+		gap: 3rem;
+		padding-block: 4rem;
+		font-family: var(--police-corps);
+	}
+
+	.contact__titre {
+		margin: 0 0 1.5rem;
+		font-family: var(--police-titre);
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		font-weight: 400;
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	/* Formulaire : champs à bordure noire de 3 px, comme la maquette */
+	.formulaire {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	.formulaire__champ {
+		display: grid;
+		gap: 0.5rem;
+		margin: 0;
+		min-width: 0;
+	}
+
+	.formulaire__champ label {
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	.formulaire input,
+	.formulaire select,
+	.formulaire textarea {
+		width: 100%;
+		min-height: 3.25rem;
+		padding: 0.8rem 1rem;
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+		border: 3px solid var(--couleur-noir);
+		border-radius: 0;
+		font: inherit;
+		font-size: 1.0625rem;
+	}
+
+	.formulaire textarea {
+		min-height: 11.25rem;
+		resize: vertical;
+	}
+
+	/* Focus : l'ombre violette de la maquette, en plus du contour (visible au clavier) */
+	.formulaire input:focus-visible,
+	.formulaire select:focus-visible,
+	.formulaire textarea:focus-visible {
+		outline: 3px solid var(--couleur-violet);
+		outline-offset: 2px;
+		box-shadow: 6px 6px 0 var(--couleur-violet);
+	}
+
+	.formulaire__mention {
+		margin: 0;
+		font-size: 0.9375rem;
+		line-height: 1.5;
+	}
+
+	.formulaire__mention a {
+		color: inherit;
+	}
+
+	.formulaire__champ--large {
+		margin: 0;
+	}
+
+	/* Bouton Envoyer : violet, bordure et ombre noires (même style que Bouton.astro) */
+	.formulaire__envoyer {
+		min-height: 3rem;
+		padding: 0.95rem 1.625rem 0.8rem;
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+		border: 3px solid var(--couleur-noir);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
+		font-family: var(--police-titre);
+		font-size: 1.25rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
+
+	.formulaire__envoyer:hover {
+		box-shadow: 3px 3px 0 var(--couleur-noir);
+		transform: translate(3px, 3px);
+	}
+
+	.formulaire__envoyer:focus-visible {
+		outline: 3px solid var(--couleur-violet);
+		outline-offset: 4px;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.formulaire__envoyer {
+			transition:
+				transform 0.15s ease,
+				box-shadow 0.15s ease;
+		}
+	}
+
+	/* Encadré noir « Nous joindre directement », ombre violette */
+	.contact__coordonnees {
+		align-self: start;
+		padding: 1.75rem 1.75rem 2rem;
+		background: var(--couleur-noir);
+		color: var(--couleur-blanc);
+		box-shadow: 6px 6px 0 var(--couleur-violet);
+	}
+
+	.contact__coordonnees-titre {
+		margin: 0;
+		font-family: var(--police-titre);
+		font-size: 2rem;
+		font-weight: 400;
+		line-height: 1.05;
+		text-transform: uppercase;
+	}
+
+	.contact__coordonnees address {
+		font-style: normal;
+	}
+
+	.contact__liste {
+		display: grid;
+		gap: 0.75rem;
+		margin: 1rem 0 0;
+		padding: 0;
+		list-style: none;
+		font-size: 1.0625rem;
+		line-height: 1.5;
+	}
+
+	/* Mail et téléphone : zone de toucher de 44 px (on les touche souvent au doigt) */
+	.contact__liste a {
+		display: inline-block;
+		padding-block: 0.6rem;
+		color: var(--couleur-blanc);
+		overflow-wrap: anywhere;
+	}
+
+	.contact__liste a:focus-visible {
+		outline: 3px solid var(--couleur-blanc);
+		outline-offset: 3px;
+	}
+
+	.contact__lieu {
+		font-weight: 700;
+	}
+
+	/* Tablette : les champs courts deux par deux */
+	@media (min-width: 40rem) {
+		.formulaire {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			column-gap: 1.25rem;
+		}
+
+		.formulaire__champ--large,
+		.formulaire__mention,
+		.formulaire__piege {
+			grid-column: 1 / -1;
+		}
+	}
+
+	/* Desktop : formulaire à gauche, encadré à droite */
+	@media (min-width: 64rem) {
+		.contact__colonnes {
+			grid-template-columns: minmax(0, 1fr) 25rem;
+			gap: 4rem;
+			padding-block: 7.5rem;
+		}
+	}
+</style>
