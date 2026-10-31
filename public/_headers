@@ -5,8 +5,11 @@
 # X-Content-Type-Options : le navigateur ne devine pas le type d'un fichier
 # Referrer-Policy : vers un autre site, on n'envoie que le nom de domaine, pas l'adresse complète de la page
 # Permissions-Policy : le site n'a besoin ni de caméra, ni de micro, ni de localisation, ni de paiement
-# Content-Security-Policy : volontairement léger (pas de restriction des scripts et styles) pour ne rien casser
-#   avant la mise en ligne ; base-uri, form-action et object-src limitent les détournements de liens et du formulaire
+# Content-Security-Policy : ici, ce qu'une balise <meta> ne sait pas faire (frame-ancestors) ; base-uri, form-action
+#   et object-src limitent les détournements de liens et du formulaire. La restriction des scripts et des styles
+#   (empreinte de chaque script autorisé) est générée par Astro dans chaque page : voir security.csp dans
+#   astro.config.mjs. Les deux politiques s'appliquent en même temps.
+# Cross-Origin-Opener-Policy : une page ouverte depuis le site (ou qui ouvre le site) ne peut pas en prendre le contrôle
 
 /*
   X-Frame-Options: DENY
@@ -14,3 +17,4 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
   Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
+  Cross-Origin-Opener-Policy: same-origin
