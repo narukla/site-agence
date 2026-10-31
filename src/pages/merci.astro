@@ -1,13 +1,43 @@
 ---
-// Page Merci — responsable : Jimmy
+// Page Merci — responsable : Jimmy (mise en forme par Jibril le 29/10, avec son accord)
 // Affichée après l'envoi du formulaire de contact (action="/merci" dans contact.astro).
+// Pas de maquette pour cette page : même style que les autres (bandeau d'intro + bouton).
 import Layout from '../layouts/Layout.astro';
+import Intro from '../components/Intro.astro';
+import Bouton from '../components/Bouton.astro';
 ---
 
 <Layout title="Message envoyé" description="Votre message a bien été envoyé à Narukla." noindex>
-	<section class="merci" aria-labelledby="titre-merci">
-		<h1 id="titre-merci">Merci, votre message est bien parti</h1>
+	<Intro etiquette="Message envoyé" titre="Merci, votre message est bien parti">
+		<!-- « sous 48 h » : en attente du sondage du 29/10 (question 1) -->
 		<p>On revient vers vous sous 48 h.</p>
-		<p><a href="/">Retour à l'accueil</a></p>
+	</Intro>
+
+	<section class="merci" aria-label="Et maintenant ?">
+		<ul class="merci__actions">
+			<li><Bouton href="/">Retour à l'accueil</Bouton></li>
+			<li><Bouton href="/equipe" variante="contour">Découvrir l'équipe</Bouton></li>
+		</ul>
 	</section>
 </Layout>
+
+<style>
+	.merci {
+		padding-block: 4.25rem;
+	}
+
+	.merci__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	@media (min-width: 64rem) {
+		.merci {
+			padding-block: 7.5rem;
+		}
+	}
+</style>
