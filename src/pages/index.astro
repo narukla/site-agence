@@ -64,12 +64,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 			Narukla est une agence web installée à Troyes. Nous créons des sites vitrines et des identités
 			visuelles pour les commerces, artisans et indépendants qui veulent être trouvés en ligne.
 		</p>
-		<!-- Effet du labo « formes qui flottent » (Fonds 02) : décoratif -->
-		<div class="accueil__formes" aria-hidden="true">
-			<span class="accueil__forme accueil__forme--rond"></span>
-			<span class="accueil__forme accueil__forme--carre"></span>
-			<span class="accueil__forme accueil__forme--barre"></span>
-		</div>
 		<ul class="accueil__actions">
 			<li><Bouton href="/contact">Demander un devis</Bouton></li>
 			<li><Bouton href="/services" variante="contour">Voir nos offres</Bouton></li>
@@ -533,11 +527,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		color: var(--couleur-violet);
 	}
 
-	/* 4. Formes qui flottent : à droite du titre, seulement sur grand écran (sur téléphone, elles gêneraient) */
-	.accueil__formes {
-		display: none;
-	}
-
 	/* 5. Bouton qui attire l'œil (Boutons 06) : frétille une fraction de seconde toutes les 4 s */
 	@keyframes accueil-buzz {
 		0%,
@@ -579,27 +568,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		.accueil__bouton-blanc:hover,
 		.accueil__bouton-blanc:focus-visible {
 			animation: none;
-		}
-
-		@keyframes accueil-flotte {
-			from {
-				transform: translate(0, 0) rotate(0deg);
-			}
-			to {
-				transform: translate(1.25rem, -1.5rem) rotate(20deg);
-			}
-		}
-
-		.accueil__forme {
-			animation: accueil-flotte 7s ease-in-out infinite alternate;
-		}
-
-		.accueil__forme--carre {
-			animation-duration: 9s;
-		}
-
-		.accueil__forme--barre {
-			animation-duration: 6s;
 		}
 	}
 
@@ -654,52 +622,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 
 		.accueil__offre-lien {
 			grid-column: 2;
-		}
-
-		/* Formes qui flottent : en bas à droite du bandeau noir, à côté du texte et des boutons (le titre occupe toute la largeur au-dessus) */
-		:global(.intro) {
-			position: relative;
-		}
-
-		.accueil__formes {
-			display: block;
-			position: absolute;
-			bottom: 4rem;
-			right: 0;
-			width: 18rem;
-			height: 14rem;
-			pointer-events: none;
-		}
-
-		.accueil__forme {
-			position: absolute;
-			border: 3px solid var(--couleur-blanc);
-		}
-
-		.accueil__forme--rond {
-			top: 0;
-			right: 2rem;
-			width: 5rem;
-			height: 5rem;
-			border-radius: 50%;
-			background: var(--couleur-violet);
-		}
-
-		.accueil__forme--carre {
-			top: 7rem;
-			right: 10rem;
-			width: 4rem;
-			height: 4rem;
-			background: var(--couleur-bleu);
-			rotate: 12deg;
-		}
-
-		.accueil__forme--barre {
-			top: 11rem;
-			right: 1rem;
-			width: 8rem;
-			height: 1.25rem;
-			background: var(--couleur-violet);
 		}
 
 		/* Cadre en largeur : numéro à gauche, titre et texte à droite */
