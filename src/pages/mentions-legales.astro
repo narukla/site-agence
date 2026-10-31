@@ -1,20 +1,22 @@
 ---
 // Page Mentions légales — responsable : Jimmy
 // Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
-// Les [À COMPLÉTER] dépendent de la création de la SAS (Kbis) : à remplir avant la mise en ligne.
+// Ce qui n'est pas encore décidé vaut null : la ligne ne s'affiche pas (jamais de [À COMPLÉTER] en ligne).
 import Layout from '../layouts/Layout.astro';
 import Intro from '../components/Intro.astro';
+import { coordonnees, lienTelephone } from '../config/coordonnees';
 
 // Société en cours de constitution (Kbis attendu mi-novembre) : pas encore de SIREN, de RCS ni de TVA.
 // Dès l'immatriculation : ajouter SIREN, RCS et TVA, et retirer « en cours de constitution ».
 const editeur = {
 	forme: 'société par actions simplifiée (SAS) en cours de constitution',
-	capital: '[À COMPLÉTER : capital, voté le 29/10] €',
-	siege: '[À COMPLÉTER : adresse du siège social, votée le 29/10]',
+	// Votés à la réunion du lun. 2/11 : remplacer null par la valeur (ex. '500 €', '12 rue …, 10000 Troyes')
+	capital: null as string | null,
+	siege: null as string | null,
 	president: 'Jibril Filali',
-	// Mêmes valeurs que dans contact.astro
-	mail: 'narukla@proton.me',
-	telephone: '07 88 02 16 76',
+	// Depuis src/config/coordonnees.ts (un seul endroit pour tout le site)
+	mail: coordonnees.mail,
+	telephone: coordonnees.telephone,
 };
 
 // Sommaire : mêmes ids et même ordre que les sections ci-dessous
@@ -32,7 +34,8 @@ const hebergeur = {
 	// Netlify ne publie aucun téléphone dans ses documents légaux : à faire trancher par l'avocate.
 	nom: 'Netlify, Inc.',
 	adresse: '101 2nd Street, San Francisco, CA 94105, États-Unis',
-	telephone: "[À COMPLÉTER : téléphone de Netlify, non publié par Netlify : voir avec l'avocate]",
+	// Netlify ne publie aucun téléphone : null tant que l'avocate n'a pas tranché (on n'en invente pas)
+	telephone: null as string | null,
 	site: 'https://www.netlify.com',
 };
 ---
@@ -66,16 +69,16 @@ const hebergeur = {
 		<section class="mentions__section" id="editeur" aria-labelledby="titre-editeur">
 			<h2 id="titre-editeur" class="mentions__titre"><span class="mentions__numero">01</span> Éditeur du site</h2>
 			<p>
-				Ce site est édité par Narukla, {editeur.forme}, au capital de {editeur.capital}. Son
+				Ce site est édité par Narukla, {editeur.forme}{editeur.capital && `, au capital de ${editeur.capital}`}. Son
 				immatriculation au registre du commerce et des sociétés est en cours : le numéro SIREN sera
 				indiqué ici dès sa délivrance.
 			</p>
 			<ul>
-				<li>Siège social : {editeur.siege}</li>
+				{editeur.siege && <li>Siège social : {editeur.siege}</li>}
 				<li>E-mail : <a href={`mailto:${editeur.mail}`}>{editeur.mail}</a></li>
 				<li>
 					Téléphone :{' '}
-					<a href={`tel:+33${editeur.telephone.replace(/\s/g, '').slice(1)}`}>{editeur.telephone}</a>
+					<a href={lienTelephone(editeur.telephone)}>{editeur.telephone}</a>
 				</li>
 				<li>Président et directeur de la publication : {editeur.president}</li>
 			</ul>
@@ -84,7 +87,7 @@ const hebergeur = {
 		<section class="mentions__section" id="hebergeur" aria-labelledby="titre-hebergeur">
 			<h2 id="titre-hebergeur" class="mentions__titre"><span class="mentions__numero">02</span> Hébergeur</h2>
 			<p>
-				Le site est hébergé par {hebergeur.nom}, {hebergeur.adresse}, téléphone : {hebergeur.telephone}
+				Le site est hébergé par {hebergeur.nom}, {hebergeur.adresse}{hebergeur.telephone && `, téléphone : ${hebergeur.telephone}`}{' '}
 				(<a href={hebergeur.site} rel="noopener">{hebergeur.site}</a>).
 			</p>
 		</section>
