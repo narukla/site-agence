@@ -30,13 +30,12 @@ const sommaire = [
 ];
 
 const hebergeur = {
-	// Adresse vérifiée le 28/10/2026 (netlify.com/privacy, mise à jour du 10/04/2026, et conditions d'utilisation).
-	// Netlify ne publie aucun téléphone dans ses documents légaux : à faire trancher par l'avocate.
-	nom: 'Netlify, Inc.',
-	adresse: '101 2nd Street, San Francisco, CA 94105, États-Unis',
-	// Netlify ne publie aucun téléphone : null tant que l'avocate n'a pas tranché (on n'en invente pas)
+	// Adresse vérifiée le 31/10/2026 (cloudflare.com/privacypolicy).
+	nom: 'Cloudflare, Inc.',
+	adresse: '101 Townsend St., San Francisco, CA 94107, États-Unis',
+	// Téléphone non vérifié : null tant que l'avocate n'a pas tranché (on n'en invente pas)
 	telephone: null as string | null,
-	site: 'https://www.netlify.com',
+	site: 'https://www.cloudflare.com',
 };
 ---
 
@@ -113,16 +112,16 @@ const hebergeur = {
 				sont ni vendues ni cédées. Elles ne sont accessibles qu'aux associés de Narukla et à nos
 				prestataires techniques, qui les traitent pour notre compte.
 			</p>
-			<!-- Ajouté avec la notification Discord (netlify/functions/submission-created.js) :
+			<!-- Ajouté avec la notification Discord (functions/api/contact.js) :
 			     le salon Discord doit rester privé, réservé aux associés -->
 			<p>
 				Pour que l'équipe soit prévenue rapidement, une copie de votre demande (nom, entreprise,
 				e-mail, téléphone, besoin et message) est transmise dans un espace de discussion privé de
 				l'équipe, hébergé par Discord Inc.
 			</p>
-			<!-- Garanties des transferts à vérifier dans les accords de traitement des données (DPA) de Netlify et de Discord -->
+			<!-- À relire par l'avocate. Garanties des transferts à vérifier dans les accords de traitement des données (DPA) de Cloudflare et de Discord -->
 			<p>
-				Les messages du formulaire sont stockés par {hebergeur.nom} et copiés chez Discord Inc., deux
+				Les messages du formulaire transitent par {hebergeur.nom} et sont conservés chez Discord Inc., deux
 				sociétés situées aux États-Unis. Il s'agit donc de transferts de données hors de l'Union
 				européenne, encadrés par les garanties prévues par le RGPD pour ce type de transfert.
 			</p>

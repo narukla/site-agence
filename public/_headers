@@ -1,5 +1,5 @@
-# En-têtes de sécurité du site Narukla (Netlify lit ce fichier à chaque déploiement).
-# Le HTTPS forcé (Strict-Transport-Security) est déjà envoyé par Netlify.
+# En-têtes de sécurité du site Narukla (Cloudflare Pages lit ce fichier à chaque déploiement).
+# Strict-Transport-Security : le navigateur n'utilise plus que le HTTPS pour ce domaine et ses sous-domaines.
 #
 # X-Frame-Options et frame-ancestors : le site ne peut pas être affiché dans un cadre d'un autre site (clickjacking)
 # X-Content-Type-Options : le navigateur ne devine pas le type d'un fichier
@@ -12,6 +12,7 @@
 # Cross-Origin-Opener-Policy : une page ouverte depuis le site (ou qui ouvre le site) ne peut pas en prendre le contrôle
 
 /*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
@@ -22,7 +23,7 @@
 # Mise en cache longue (1 an) des fichiers qui ne changent jamais sous le même nom :
 # - /_astro/ : CSS et scripts générés par Astro, leur nom contient une empreinte qui change à chaque modification
 # - /fonts/ : polices du site ; si une police change un jour, lui donner un nouveau nom de fichier
-# Le navigateur ne les redemande plus à chaque visite : pages plus rapides, et moins de requêtes facturées par Netlify.
+# Le navigateur ne les redemande plus à chaque visite : pages plus rapides.
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 

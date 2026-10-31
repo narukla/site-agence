@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	// Adresse publique du site : sert aux balises canonical et de partage, au sitemap et au robots.txt.
-	// Domaine narukla.fr (acheté chez HostMyServer), branché sur Netlify par les DNS.
+	// Domaine narukla.fr (acheté chez HostMyServer), branché sur Cloudflare Pages par les DNS.
 	site: 'https://narukla.fr',
 
 	// Politique de sécurité du contenu (CSP) générée par Astro : au build, Astro calcule l'empreinte (hash)
