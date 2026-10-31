@@ -1,35 +1,47 @@
 ---
 // Page L'équipe — responsable : Jibril
-// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
+// Mise en forme d'après la maquette Figma de Noah (page « Maquette », L'équipe Desktop 1440 et Mobile 390), le 29/10.
 import Layout from '../layouts/Layout.astro';
 
 // Les 5 associés, par ordre alphabétique (pas de hiérarchie : parts égales).
 // Rôles : ceux du prompt d'équipe de Jimmy. Présentations : à recevoir de chacun (avant mer. 28 au soir).
+// nom : facultatif, seulement pour ceux qui veulent leur nom complet affiché.
+// presentation : null tant que l'associé ne l'a pas envoyée, le paragraphe ne s'affiche pas (jamais de repère en ligne).
 // photo : chemin dans public/ (ex. '/equipe/jibril.webp'), null en attendant la photo commune (lun. 2/11, idée de Noah).
 // mail, linkedin, portfolio : facultatifs, seulement pour ceux qui le veulent (idée de Noah), null sinon.
+// « de » ou « d' » selon la première lettre : « Portfolio d'Ouassim », « Portfolio de Jibril »
+// (le h n'est pas élidé : « de Hugo »)
+const de = (prenom: string) => (/^[aeiouyàâäéèêëîïôöùûü]/i.test(prenom) ? `d'${prenom}` : `de ${prenom}`);
+
 const associes = [
 	{
 		prenom: 'Jibril',
-		role: 'Président, développeur',
-		presentation: '[À COMPLÉTER]',
+		role: 'Développeur, président',
+		// Validé par Jibril (28/10) : développeur d'abord, président pour les démarches de la société
+		presentation:
+			"Chez Narukla, je suis développeur : je construis les sites et je m'assure que tout fonctionne, du code à la mise en ligne. Je suis aussi président de la société et je m'occupe de ses démarches administratives.",
 		photo: null,
 		mail: null,
-		linkedin: null,
-		portfolio: null,
+		linkedin: 'https://www.linkedin.com/in/jibril-filali-59b02b390/',
+		portfolio: 'https://jibril-filali.page.gd',
 	},
 	{
 		prenom: 'Jimmy',
+		nom: 'Bomy',
 		role: 'Chef de projet, développeur, commercial',
-		presentation: '[À COMPLÉTER]',
+		// Texte et liens envoyés par Jimmy (28/10), nom complet
+		presentation:
+			'Chef de projet et développeur, je fais le lien entre vos idées et le site final, du premier rendez-vous à la mise en ligne.',
 		photo: null,
 		mail: null,
-		linkedin: null,
-		portfolio: null,
+		linkedin: 'https://www.linkedin.com/in/jimmy-bomy-1037453a8/',
+		portfolio: 'https://jimmybomy.fr/',
 	},
 	{
 		prenom: 'Lucas',
 		role: 'Gestion de projet, graphiste',
-		presentation: '[À COMPLÉTER]',
+		// En attente de son texte : remplacer null par sa présentation (2 ou 3 phrases)
+		presentation: null,
 		photo: null,
 		mail: null,
 		linkedin: null,
@@ -37,21 +49,26 @@ const associes = [
 	},
 	{
 		prenom: 'Noah',
+		nom: 'Mathias',
 		role: 'Trésorier, graphiste',
-		presentation: '[À COMPLÉTER]',
+		// Texte et liens envoyés par Noah (28/10), nom complet
+		presentation:
+			"Designer graphique passionné, je conçois des identités visuelles fortes et cohérentes, en accordant une attention particulière aux détails, à l'esthétique et à l'impact visuel. Créatif et curieux, j'aime transformer les idées en concepts visuels originaux qui associent modernité, sens et personnalité.",
 		photo: null,
 		mail: null,
-		linkedin: null,
-		portfolio: null,
+		linkedin: 'https://www.linkedin.com/in/noah-mathias-8270733ab/',
+		portfolio: 'https://mmi25f09.mmi-troyes.fr/portfolio/',
 	},
 	{
 		prenom: 'Ouassim',
 		role: 'Développeur, marketing',
-		presentation: '[À COMPLÉTER]',
+		// Texte et lien envoyés par Ouassim (28/10), prénom seul. Portfolio bientôt refait : vérifier le lien avant la mise en ligne
+		presentation:
+			"Chez Narukla, je suis développeur et je participe à la partie marketing. Je construis les pages du site pour qu'elles soient claires, simples et agréables à utiliser.",
 		photo: null,
 		mail: null,
-		linkedin: null,
-		portfolio: null,
+		linkedin: 'https://www.linkedin.com/in/ouassim-b-bba0633ab',
+		portfolio: 'https://ouassimboulacheb.github.io/',
 	},
 ];
 ---
@@ -60,51 +77,58 @@ const associes = [
 	title="L'équipe"
 	description="Narukla, c'est cinq associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
 >
-	<section class="equipe__intro">
-		<h1>L'équipe</h1>
+	<section class="equipe__intro equipe__bande equipe__bande--noir">
+		<p class="equipe__etiquette">Cinq associés · Troyes</p>
+		<h1 class="equipe__titre-page">L'équipe</h1>
 		<!-- Décision de Jimmy (27/10) : on dit qu'on est étudiants ici, pas en gros sur l'Accueil -->
-		<p>
+		<p class="equipe__chapo">
 			Narukla est une jeune agence web installée à Troyes. Nous sommes cinq associés, étudiants en
 			BUT MMI (Métiers du multimédia et de l'internet) à l'IUT de Troyes : développement, graphisme
 			et marketing réunis dans une même équipe.
 		</p>
 	</section>
 
-	<section class="equipe__associes" aria-labelledby="titre-associes">
-		<h2 id="titre-associes">Les associés</h2>
+	<section class="equipe__associes equipe__bande" aria-labelledby="titre-associes">
+		<h2 id="titre-associes" class="equipe__titre-section">Les associés</h2>
 		<ul class="equipe__liste">
 			{
-				associes.map((associe) => (
-					<li>
+				associes.map((associe, i) => (
+					<li style={`--i: ${i}`}>
 						<article class="equipe__carte">
-							{associe.photo && (
-								<img
-									class="equipe__photo"
-									src={associe.photo}
-									alt={`Portrait de ${associe.prenom}`}
-									width="400"
-									height="400"
-									loading="lazy"
-								/>
-							)}
-							<h3 class="equipe__prenom">{associe.prenom}</h3>
+							<div class="equipe__cadre">
+								{associe.photo ? (
+									<img
+										class="equipe__photo"
+										src={associe.photo}
+										alt={`Portrait de ${associe.prenom}`}
+										width="400"
+										height="400"
+										loading="lazy"
+									/>
+								) : (
+									<span class="equipe__initiale" aria-hidden="true">
+										{associe.prenom.charAt(0)}
+									</span>
+								)}
+							</div>
+							<h3 class="equipe__prenom">{associe.nom ? `${associe.prenom} ${associe.nom}` : associe.prenom}</h3>
 							<p class="equipe__role">{associe.role}</p>
-							<p class="equipe__presentation">{associe.presentation}</p>
+							{associe.presentation && <p class="equipe__presentation">{associe.presentation}</p>}
 							{(associe.mail || associe.linkedin || associe.portfolio) && (
 								<ul class="equipe__liens">
 									{associe.mail && (
 										<li>
-											<a href={`mailto:${associe.mail}`}>Écrire à {associe.prenom}</a>
+											<a href={`mailto:${associe.mail}`} aria-label={`Mail ${de(associe.prenom)}`}>Mail</a>
 										</li>
 									)}
 									{associe.linkedin && (
 										<li>
-											<a href={associe.linkedin}>LinkedIn de {associe.prenom}</a>
+											<a href={associe.linkedin} rel="noopener" aria-label={`LinkedIn ${de(associe.prenom)}`}>LinkedIn</a>
 										</li>
 									)}
 									{associe.portfolio && (
 										<li>
-											<a href={associe.portfolio}>Portfolio de {associe.prenom}</a>
+											<a href={associe.portfolio} rel="noopener" aria-label={`Portfolio ${de(associe.prenom)}`}>Portfolio</a>
 										</li>
 									)}
 								</ul>
@@ -116,13 +140,319 @@ const associes = [
 		</ul>
 	</section>
 
-	<section class="equipe__approche" aria-labelledby="titre-approche">
-		<h2 id="titre-approche">Notre façon de travailler</h2>
-		<p>[À COMPLÉTER : notre approche, à valider avec l'équipe]</p>
+	<section class="equipe__approche equipe__bande equipe__bande--sombre" aria-labelledby="titre-approche">
+		<h2 id="titre-approche" class="equipe__titre-section">Notre façon de travailler</h2>
+		<!-- Version courte choisie par Jibril (28/10), à valider par l'équipe sur Discord.
+		     Uniquement des faits déjà affichés ailleurs (étapes de l'Accueil et de Services, Contact). -->
+		<p class="equipe__texte-large">
+			Chez Narukla, développement, graphisme et marketing travaillent ensemble sur votre projet. On
+			avance avec vous : un premier rendez-vous, une maquette que vous validez, trois séries de
+			modifications incluses. Et comme on est à Troyes, on peut se rencontrer à chaque étape.
+		</p>
 	</section>
 
-	<section class="equipe__contact" aria-labelledby="titre-contact">
-		<h2 id="titre-contact">Un projet en tête ?</h2>
-		<p><a href="/contact">Contactez-nous</a></p>
+	<section class="equipe__contact equipe__bande equipe__bande--violet" aria-labelledby="titre-contact">
+		<h2 id="titre-contact" class="equipe__titre-page">Un projet en tête ?</h2>
+		<!-- Délai : sondage du 29/10, question 1 (« sous 2 jours ouvrés »), même phrase que l'Accueil (demande de Jimmy) -->
+		<p class="equipe__texte-large">Parlez-nous de votre activité, on vous répond sous 2 jours ouvrés.</p>
+		<a class="equipe__bouton" href="/contact">Contactez-nous</a>
 	</section>
 </Layout>
+
+<style>
+	/* L'équipe, d'après la maquette Figma de Noah (29/10).
+	   Mobile d'abord (cadre Mobile 390), puis desktop (cadre Desktop 1440).
+	   Couleurs et polices : uniquement les variables de global.css. */
+
+	.equipe__bande {
+		padding-block: 4.25rem;
+	}
+
+	/* Bandes de couleur sur toute la largeur de l'écran, sans défilement horizontal :
+	   border-image peint le fond au-delà du contenu sans agrandir la page */
+	.equipe__bande--noir,
+	.equipe__bande--sombre,
+	.equipe__bande--violet {
+		color: var(--couleur-blanc);
+		border-image: conic-gradient(var(--fond-bande) 0 0) fill 0 / / 0 100vw;
+	}
+
+	.equipe__bande--noir {
+		--fond-bande: var(--couleur-noir);
+	}
+
+	/* Couleurs : celles de la maquette desktop, la seule terminée au 29/10 (Noah finit le mobile) */
+	.equipe__bande--sombre {
+		--fond-bande: var(--couleur-noir);
+	}
+
+	.equipe__bande--violet {
+		--fond-bande: var(--couleur-violet);
+	}
+
+	.equipe__intro {
+		padding-block: 2.5rem 3.5rem;
+	}
+
+	/* Étiquette blanche légèrement penchée */
+	.equipe__etiquette {
+		display: inline-block;
+		margin: 0.4rem 0 1.5rem;
+		padding: 0.3rem 1.4rem 0.2rem;
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+		font-family: var(--police-titre);
+		font-size: 1.125rem;
+		line-height: 1.2;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		transform: rotate(-2deg);
+	}
+
+	.equipe__titre-page,
+	.equipe__titre-section,
+	.equipe__prenom,
+	.equipe__bouton {
+		font-family: var(--police-titre);
+		font-weight: 400;
+		text-transform: uppercase;
+	}
+
+	.equipe__titre-page {
+		margin: 0;
+		font-size: clamp(3.125rem, 7.8vw, 7rem);
+		line-height: 0.95;
+	}
+
+	.equipe__titre-section {
+		margin: 0 0 2rem;
+		font-size: clamp(2.375rem, 5vw, 4.5rem);
+		line-height: 0.95;
+	}
+
+	.equipe__approche .equipe__titre-section {
+		margin-bottom: 1.5rem;
+	}
+
+	.equipe__chapo,
+	.equipe__texte-large {
+		max-width: 40rem;
+		margin: 1.5rem 0 0;
+		font-family: var(--police-corps);
+		font-size: 1.1875rem;
+		line-height: 1.6;
+	}
+
+	.equipe__approche .equipe__texte-large {
+		max-width: 47.5rem;
+		margin-top: 0;
+	}
+
+	.equipe__contact .equipe__texte-large {
+		margin: 1rem 0 1.5rem;
+	}
+
+	/* Les cartes : une colonne sur téléphone */
+	.equipe__liste {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem 1.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.equipe__carte {
+		display: flex;
+		flex-direction: column;
+		gap: 0.625rem;
+		height: 100%;
+		font-family: var(--police-corps);
+	}
+
+	/* Cadre de la photo : bordure noire et ombre décalée, comme les boutons */
+	.equipe__cadre {
+		display: grid;
+		place-items: center;
+		aspect-ratio: 7 / 6;
+		margin-bottom: 0.375rem;
+		overflow: hidden;
+		background: var(--couleur-violet);
+		border: 3px solid var(--couleur-noir);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
+	}
+
+	.equipe__photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	/* Initiale en contour blanc, en attendant la photo (décorative : aria-hidden) */
+	.equipe__initiale {
+		font-family: var(--police-titre);
+		font-size: 7.5rem;
+		line-height: 1;
+		text-transform: uppercase;
+		color: transparent;
+		-webkit-text-stroke: 2px var(--couleur-blanc);
+	}
+
+	.equipe__prenom,
+	.equipe__role,
+	.equipe__presentation {
+		margin: 0;
+	}
+
+	.equipe__prenom {
+		font-size: 1.5rem;
+		line-height: 1.05;
+	}
+
+	.equipe__role {
+		font-size: 1.0625rem;
+		font-weight: 800;
+		line-height: 1.4;
+		color: var(--couleur-violet);
+	}
+
+	.equipe__presentation {
+		font-size: 1rem;
+		line-height: 1.5;
+	}
+
+	/* Liens mail / LinkedIn / portfolio, texte court comme la maquette (« LinkedIn · Portfolio ») ;
+	   le nom complet est dans aria-label pour les lecteurs d'écran */
+	.equipe__liens {
+		display: flex;
+		flex-wrap: wrap;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.equipe__liens li {
+		display: flex;
+		align-items: center;
+	}
+
+	.equipe__liens li + li::before {
+		content: '·';
+		padding-inline: 0.35rem;
+		font-weight: 700;
+	}
+
+	.equipe__liens a {
+		display: inline-block;
+		min-height: 2.75rem;
+		padding-block: 0.6rem;
+		font-size: 0.9375rem;
+		font-weight: 700;
+		color: var(--couleur-noir);
+	}
+
+	/* Bouton blanc à ombre noire, qui s'enfonce au survol */
+	.equipe__bouton {
+		display: inline-block;
+		padding: 0.95rem 1.625rem 0.8rem;
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+		border: 3px solid var(--couleur-blanc);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
+		font-size: 1.25rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-decoration: none;
+	}
+
+	.equipe__bouton:hover {
+		box-shadow: 3px 3px 0 var(--couleur-noir);
+		transform: translate(3px, 3px);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.equipe__bouton {
+			transition:
+				transform 0.15s ease,
+				box-shadow 0.15s ease;
+		}
+	}
+
+	/* Effets du labo d'effets : « carte qui se soulève » (Survol 01) et « cartes en cascade » (Entrées 03).
+	   Seulement si la personne accepte les animations ; sinon les cartes sont simplement là. */
+	@media (prefers-reduced-motion: no-preference) {
+		.equipe__cadre {
+			transition:
+				transform 0.2s ease,
+				box-shadow 0.2s ease;
+		}
+
+		.equipe__carte:hover .equipe__cadre,
+		.equipe__carte:focus-within .equipe__cadre {
+			transform: translate(-4px, -4px);
+			box-shadow: 10px 10px 0 var(--couleur-noir);
+		}
+
+		.equipe__carte:hover .equipe__initiale,
+		.equipe__carte:focus-within .equipe__initiale {
+			color: var(--couleur-blanc);
+		}
+
+		/* Les 5 cartes arrivent l'une après l'autre (--i = position dans la liste) */
+		.equipe__liste > li {
+			animation: equipe-cascade 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) both;
+			animation-delay: calc(var(--i) * 0.09s);
+		}
+
+		@keyframes equipe-cascade {
+			from {
+				opacity: 0;
+				transform: translateY(2rem) scale(0.95);
+			}
+		}
+	}
+
+	/* Focus clavier visible, de la couleur du texte (lisible sur chaque fond) */
+	a:focus-visible {
+		outline: 3px solid currentColor;
+		outline-offset: 3px;
+	}
+
+	/* Tablette : 2 colonnes */
+	@media (min-width: 40rem) {
+		.equipe__liste {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	/* Desktop (maquette Desktop 1440) */
+	@media (min-width: 64rem) {
+		.equipe__bande {
+			padding-block: 7.5rem;
+		}
+
+		.equipe__intro {
+			padding-block: 5rem 6rem;
+		}
+
+		.equipe__liste {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		/* Desktop : cadres carrés */
+		.equipe__cadre {
+			aspect-ratio: 1;
+		}
+
+		.equipe__prenom {
+			font-size: 2rem;
+		}
+	}
+
+	/* Grand écran : les 5 associés sur une ligne */
+	@media (min-width: 75rem) {
+		.equipe__liste {
+			grid-template-columns: repeat(5, 1fr);
+		}
+	}
+</style>
