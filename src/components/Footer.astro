@@ -1,20 +1,17 @@
 ---
 // Pied de page commun, d'après la maquette Figma de Noah (footer desktop et mobile, 29/10).
+import { coordonnees as contact, lienTelephone } from '../config/coordonnees';
+
 const annee = new Date().getFullYear();
 
 const liens = [
 	{ href: '/', label: 'Accueil' },
 	{ href: '/services', label: 'Services et tarifs' },
-	{ href: '/realisations', label: 'Réalisations' },
+	// Réalisations cachée jusqu'au premier client (sondage du 29/10, question 7) : remettre la ligne ci-dessous à ce moment-là
+	// { href: '/realisations', label: 'Réalisations' },
 	{ href: '/equipe', label: "L'équipe" },
 	{ href: '/contact', label: 'Contact' },
 ];
-
-// Mêmes coordonnées que src/pages/contact.astro et mentions-legales.astro : changer les trois.
-const contact = {
-	mail: 'narukla@proton.me',
-	telephone: '07 88 02 16 76',
-};
 
 // Réseaux : seulement ceux qui existent vraiment. Ajouter { label: 'Instagram', href: '…' } quand le compte sera créé.
 const reseaux: { label: string; href: string }[] = [];
@@ -57,12 +54,12 @@ const reseaux: { label: string; href: string }[] = [];
 					<li>
 						<a
 							class="pied__lien pied__lien--normal"
-							href={`tel:+33${contact.telephone.replace(/\s/g, '').slice(1)}`}
+							href={lienTelephone(contact.telephone)}
 						>
 							{contact.telephone}
 						</a>
 					</li>
-					<li class="pied__texte">Troyes (10)</li>
+					<li class="pied__texte">{contact.ville}</li>
 				</ul>
 			</div>
 
