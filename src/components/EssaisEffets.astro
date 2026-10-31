@@ -77,20 +77,20 @@ const groupes = [
 	</div>
 </div>
 
-<!-- Pose les classes avec-… sur <html> le plus tôt possible (tous les effets sont allumés par défaut) -->
-<script is:inline>
-	(() => {
-		let eteints = [];
-		try { eteints = JSON.parse(localStorage.getItem('essais-fx-eteints') || '[]'); } catch {}
-		document.querySelectorAll('[data-effet]').forEach((c) => {
-			const actif = !eteints.includes(c.dataset.effet);
-			c.checked = actif;
-			document.documentElement.classList.toggle('avec-' + c.dataset.effet, actif);
-		});
-	})();
-</script>
 
 <script>
+	// Pose les classes avec-… sur <html> (tous les effets sont allumés par défaut).
+	// Script normal (pas is:inline) : compatible avec la CSP stricte d'Astro (PR #24).
+	{
+		let eteints: string[] = [];
+		try { eteints = JSON.parse(localStorage.getItem('essais-fx-eteints') || '[]'); } catch {}
+		document.querySelectorAll<HTMLInputElement>('[data-effet]').forEach((c) => {
+			const allume = !eteints.includes(c.dataset.effet!);
+			c.checked = allume;
+			document.documentElement.classList.toggle('avec-' + c.dataset.effet, allume);
+		});
+	}
+
 	const html = document.documentElement;
 	const actif = (id: string) => html.classList.contains('avec-' + id);
 	const animOk = () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
