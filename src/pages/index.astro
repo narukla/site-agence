@@ -108,7 +108,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		<ol class="accueil__liste-etapes">
 			{
 				etapes.map((etape, i) => (
-					<li class="accueil__etape">
+					<li class="accueil__etape" style={`--i: ${i}`}>
 						<span class="accueil__etape-numero" aria-hidden="true">
 							{numero(i)}
 						</span>
@@ -345,19 +345,26 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		padding-block: 0.6rem;
 	}
 
-	/* Comment ça se passe : 4 cadres à bordure blanche */
+	/* Comment ça se passe : 4 cadres à bordure blanche.
+	   Effet du labo « cartes qui s'empilent » (Défilement 05) : en descendant, chaque cadre se colle en haut
+	   de l'écran (position: sticky), un peu plus bas que le précédent, et le suivant vient se poser dessus.
+	   Sans JavaScript ; une seule colonne pour que l'empilement se voie. */
 	.accueil__liste-etapes {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1.5rem;
+		gap: 2rem;
 		margin: 2.25rem 0 0;
 		padding: 0;
 		list-style: none;
 	}
 
 	.accueil__etape {
+		position: sticky;
+		top: calc(1rem + var(--i) * 1.75rem);
 		padding: 1.5rem 1.75rem 2rem;
+		background: var(--couleur-violet);
 		border: 5px solid var(--couleur-blanc);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
 		font-family: var(--police-corps);
 	}
 
@@ -478,13 +485,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		outline-offset: 3px;
 	}
 
-	/* Tablette : 2 étapes par ligne */
-	@media (min-width: 40rem) {
-		.accueil__liste-etapes {
-			grid-template-columns: repeat(2, 1fr);
-		}
-	}
-
 	/* Desktop : offres sur une ligne (numéro, titre, texte, prix), 4 étapes, Pourquoi en 2 colonnes */
 	@media (min-width: 64rem) {
 		.accueil__bande,
@@ -512,8 +512,27 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 			grid-column: 2;
 		}
 
-		.accueil__liste-etapes {
-			grid-template-columns: repeat(4, 1fr);
+		/* Cadre en largeur : numéro à gauche, titre et texte à droite */
+		.accueil__etape {
+			display: grid;
+			grid-template-columns: 8rem minmax(0, 1fr);
+			column-gap: 2rem;
+			align-items: start;
+			padding: 2rem 2.5rem 2.5rem;
+		}
+
+		.accueil__etape-numero {
+			grid-row: span 2;
+			font-size: 6rem;
+		}
+
+		.accueil__etape-titre {
+			margin-top: 0.5rem;
+			font-size: 2.25rem;
+		}
+
+		.accueil__etape-texte {
+			max-width: 36rem;
 		}
 
 		.accueil__pourquoi {
