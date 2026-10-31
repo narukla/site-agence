@@ -227,9 +227,10 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		font-family: var(--police-corps);
 	}
 
+	/* Gros chiffres demandés par Noah (commentaire Figma), décoratifs : cachés aux lecteurs d'écran */
 	.accueil__offre-numero {
 		font-family: var(--police-titre);
-		font-size: 1.25rem;
+		font-size: 4.5rem;
 		line-height: 1;
 		color: var(--couleur-violet);
 	}
@@ -244,23 +245,24 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 	}
 
 	.accueil__offre-titre {
-		font-size: 1.75rem;
+		font-size: 2.25rem;
 	}
 
 	.accueil__offre-prix {
-		font-size: 2.25rem;
+		font-size: 2.75rem;
 	}
 
 	.accueil__offre-texte {
 		max-width: 28rem;
 		margin: 0;
-		font-size: 1.0625rem;
+		font-size: 1.25rem;
 		line-height: 1.6;
 	}
 
 	.accueil__offre-lien {
 		justify-self: start;
 		padding-block: 0.6rem;
+		font-size: 1.125rem;
 	}
 
 	/* Comment ça se passe : 4 cadres à bordure blanche */
@@ -412,17 +414,23 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		}
 
 		.accueil__offre {
-			grid-template-columns: 3rem 18rem minmax(0, 1fr) auto;
+			grid-template-columns: 8rem 15rem minmax(0, 1fr) auto;
 			column-gap: 2rem;
 			align-items: baseline;
 		}
 
+		.accueil__offre-numero {
+			grid-row: 1 / span 2;
+			align-self: center;
+			font-size: 7.5rem;
+		}
+
 		.accueil__offre-titre {
-			font-size: 2rem;
+			font-size: 2.5rem;
 		}
 
 		.accueil__offre-prix {
-			font-size: 2.5rem;
+			font-size: 3rem;
 			text-align: right;
 		}
 
