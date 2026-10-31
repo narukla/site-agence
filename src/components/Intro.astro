@@ -3,17 +3,20 @@
 // penchée, grand titre en Anton. Utilisation :
 //   <Intro etiquette="Informations légales" titre="Mentions légales" />
 //   <Intro etiquette="…" titre="…"><p>Texte sous le titre</p></Intro>
+//   <Intro etiquette="…" titre="Début du titre" accent="fin en violet" />  (Accueil)
 interface Props {
 	etiquette: string;
 	titre: string;
+	// Fin du titre en violet (facultatif)
+	accent?: string;
 }
 
-const { etiquette, titre } = Astro.props;
+const { etiquette, titre, accent } = Astro.props;
 ---
 
 <section class="intro">
 	<p class="intro__etiquette">{etiquette}</p>
-	<h1 class="intro__titre">{titre}</h1>
+	<h1 class="intro__titre">{titre}{accent && <> <span class="intro__accent">{accent}</span></>}</h1>
 	<div class="intro__texte">
 		<slot />
 	</div>
@@ -49,6 +52,11 @@ const { etiquette, titre } = Astro.props;
 		font-weight: 400;
 		line-height: 0.95;
 		text-transform: uppercase;
+	}
+
+	/* Violet sur noir (3,32) : autorisé ici car le titre fait au moins 50 px (grand texte WCAG) */
+	.intro__accent {
+		color: var(--couleur-violet);
 	}
 
 	.intro__texte :global(p) {

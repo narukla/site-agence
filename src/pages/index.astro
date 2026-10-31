@@ -1,8 +1,10 @@
 ---
 // Page Accueil — responsable : Jimmy
-// Structure en HTML brut (mar. 27). Le CSS arrive avec la maquette (mer. 28).
+// Mise en page d'après la maquette Figma de Noah (Accueil desktop 1440 et mobile 390), contenu inchangé.
 // Prix et étapes repris de la page Services et tarifs : les garder identiques si l'une change.
 import Layout from '../layouts/Layout.astro';
+import Intro from '../components/Intro.astro';
+import Bouton from '../components/Bouton.astro';
 
 const offres = [
 	{
@@ -47,37 +49,42 @@ const etapes = [
 			"Nom de domaine en .fr et hébergement compris la première année, puis compris dans la maintenance : vous n'avez rien à gérer.",
 	},
 ];
+
+// Numéro sur deux chiffres : 1 → « 01 »
+const numero = (i: number) => String(i + 1).padStart(2, '0');
 ---
 
 <Layout
 	title="Accueil"
 	description="Narukla, agence web à Troyes : sites vitrines, identités visuelles et maintenance pour les commerces, artisans et indépendants."
 >
-	<section class="accueil__hero" aria-labelledby="titre-accueil">
-		<h1 id="titre-accueil">Votre site web, pensé pour vos clients et livré sans prise de tête</h1>
+	<Intro etiquette="Agence web · Troyes" titre="Votre site web, pensé pour vos clients et livré" accent="sans prise de tête">
 		<!-- Décision de Jimmy (27/10) : le statut d'étudiants est dit sur L'équipe, pas ici -->
-		<p class="accueil__accroche">
+		<p>
 			Narukla est une agence web installée à Troyes. Nous créons des sites vitrines et des identités
 			visuelles pour les commerces, artisans et indépendants qui veulent être trouvés en ligne.
 		</p>
 		<ul class="accueil__actions">
-			<li><a class="accueil__bouton accueil__bouton--principal" href="/contact">Demander un devis</a></li>
-			<li><a class="accueil__bouton" href="/services">Voir nos offres</a></li>
+			<li><Bouton href="/contact">Demander un devis</Bouton></li>
+			<li><Bouton href="/services" variante="contour">Voir nos offres</Bouton></li>
 		</ul>
-	</section>
+	</Intro>
 
 	<section class="accueil__offres" aria-labelledby="titre-offres">
-		<h2 id="titre-offres">Ce qu'on fait pour vous</h2>
+		<h2 id="titre-offres" class="accueil__titre-section">Ce qu'on fait pour vous</h2>
 		<ul class="accueil__liste-offres">
 			{
-				offres.map((offre) => (
+				offres.map((offre, i) => (
 					<li>
 						<article class="accueil__offre">
+							<span class="accueil__offre-numero" aria-hidden="true">
+								{numero(i)}
+							</span>
 							<h3 class="accueil__offre-titre">{offre.titre}</h3>
 							<p class="accueil__offre-texte">{offre.texte}</p>
 							<p class="accueil__offre-prix">{offre.prix}</p>
-							<a class="accueil__offre-lien" href={offre.ancre}>
-								En savoir plus sur l'offre {offre.titre.toLowerCase()}
+							<a class="accueil__lien accueil__offre-lien" href={offre.ancre}>
+								En savoir plus<span class="accueil__cache"> sur l'offre {offre.titre.toLowerCase()}</span>
 							</a>
 						</article>
 					</li>
@@ -86,12 +93,15 @@ const etapes = [
 		</ul>
 	</section>
 
-	<section class="accueil__etapes" aria-labelledby="titre-etapes">
-		<h2 id="titre-etapes">Comment ça se passe</h2>
+	<section class="accueil__etapes accueil__bande accueil__bande--violet" aria-labelledby="titre-etapes">
+		<h2 id="titre-etapes" class="accueil__titre-section">Comment ça se passe</h2>
 		<ol class="accueil__liste-etapes">
 			{
-				etapes.map((etape) => (
+				etapes.map((etape, i) => (
 					<li class="accueil__etape">
+						<span class="accueil__etape-numero" aria-hidden="true">
+							{numero(i)}
+						</span>
 						<h3 class="accueil__etape-titre">{etape.titre}</h3>
 						<p class="accueil__etape-texte">{etape.texte}</p>
 					</li>
@@ -101,30 +111,332 @@ const etapes = [
 	</section>
 
 	<section class="accueil__pourquoi" aria-labelledby="titre-pourquoi">
-		<h2 id="titre-pourquoi">Pourquoi nous choisir</h2>
-		<ul class="accueil__liste-pourquoi">
-			<li class="accueil__argument">
-				<h3>Des prix pensés pour les petites structures</h3>
-				<p>Des tarifs clairs, annoncés à l'avance, sans mauvaise surprise.</p>
-			</li>
-			<li class="accueil__argument">
-				<h3>Une équipe complète</h3>
-				<p>
-					Développement, graphisme et marketing : cinq associés qui suivent votre projet du premier
-					rendez-vous à la mise en ligne.
-				</p>
-			</li>
-			<li class="accueil__argument">
-				<h3>Des interlocuteurs proches</h3>
-				<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
-			</li>
-		</ul>
-		<p><a href="/equipe">Découvrir l'équipe</a></p>
+		<h2 id="titre-pourquoi" class="accueil__titre-section">Pourquoi nous choisir</h2>
+		<div class="accueil__pourquoi-droite">
+			<ul class="accueil__liste-pourquoi">
+				<li class="accueil__argument">
+					<h3>Des prix pensés pour les petites structures</h3>
+					<p>Des tarifs clairs, annoncés à l'avance, sans mauvaise surprise.</p>
+				</li>
+				<li class="accueil__argument">
+					<h3>Une équipe complète</h3>
+					<p>
+						Développement, graphisme et marketing : cinq associés qui suivent votre projet du premier
+						rendez-vous à la mise en ligne.
+					</p>
+				</li>
+				<li class="accueil__argument">
+					<h3>Des interlocuteurs proches</h3>
+					<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
+				</li>
+			</ul>
+			<p><a class="accueil__lien" href="/equipe">Découvrir l'équipe</a></p>
+		</div>
 	</section>
 
-	<section class="accueil__contact" aria-labelledby="titre-contact">
-		<h2 id="titre-contact">Un projet en tête ?</h2>
-		<p>Parlez-nous de votre activité, on vous répond sous 2 jours ouvrés.</p>
-		<p><a href="/contact">Contactez-nous</a></p>
+	<section class="accueil__contact accueil__bande accueil__bande--violet" aria-labelledby="titre-contact">
+		<h2 id="titre-contact" class="accueil__titre-grand">Un projet en tête ?</h2>
+		<!-- La maquette dit « sous 48 h » : sondage du 29/10, question 1 → « sous 2 jours ouvrés » -->
+		<p class="accueil__texte-large">Parlez-nous de votre activité, on vous répond sous 2 jours ouvrés.</p>
+		<a class="accueil__bouton-blanc" href="/contact">Contactez-nous</a>
 	</section>
 </Layout>
+
+<style>
+	/* Mise en page d'après la maquette Figma de Noah (Accueil), mobile d'abord.
+	   Bandes pleine largeur avec border-image (même technique que L'équipe et Intro.astro). */
+	.accueil__bande {
+		padding-block: 4rem;
+		border-image: conic-gradient(var(--fond-bande) 0 0) fill 0 / / 0 100vw;
+	}
+
+	/* Blanc sur violet : contraste 6,33 */
+	.accueil__bande--violet {
+		--fond-bande: var(--couleur-violet);
+		color: var(--couleur-blanc);
+	}
+
+	.accueil__titre-section,
+	.accueil__titre-grand {
+		margin: 0;
+		font-family: var(--police-titre);
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
+		font-weight: 400;
+		line-height: 0.95;
+		text-transform: uppercase;
+	}
+
+	.accueil__titre-grand {
+		font-size: clamp(3.125rem, 7.8vw, 7rem);
+	}
+
+	.accueil__lien {
+		font-family: var(--police-corps);
+		font-size: 1.0625rem;
+		font-weight: 800;
+		color: inherit;
+	}
+
+	/* Texte lu par les lecteurs d'écran seulement (le lien dit de quelle offre il s'agit) */
+	.accueil__cache {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	/* Bandeau d'ouverture : les deux boutons sous le texte (maquette mobile et code de Jimmy) */
+	.accueil__actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1.25rem;
+		margin: 2rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	/* Sur la bande noire, l'ombre noire du bouton serait invisible : ombre blanche */
+	.accueil__actions :global(.bouton) {
+		box-shadow: 6px 6px 0 var(--couleur-blanc);
+	}
+
+	.accueil__actions :global(.bouton:hover) {
+		box-shadow: 3px 3px 0 var(--couleur-blanc);
+	}
+
+	/* Ce qu'on fait pour vous : lignes séparées par des traits noirs */
+	.accueil__offres {
+		padding-block: 4rem;
+	}
+
+	.accueil__liste-offres {
+		margin: 2rem 0 0;
+		padding: 0;
+		list-style: none;
+		border-bottom: 3px solid var(--couleur-noir);
+	}
+
+	.accueil__offre {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0.5rem;
+		padding-block: 1.75rem;
+		border-top: 3px solid var(--couleur-noir);
+		font-family: var(--police-corps);
+	}
+
+	.accueil__offre-numero {
+		font-family: var(--police-titre);
+		font-size: 1.25rem;
+		line-height: 1;
+		color: var(--couleur-violet);
+	}
+
+	.accueil__offre-titre,
+	.accueil__offre-prix {
+		margin: 0;
+		font-family: var(--police-titre);
+		font-weight: 400;
+		line-height: 1.05;
+		text-transform: uppercase;
+	}
+
+	.accueil__offre-titre {
+		font-size: 1.75rem;
+	}
+
+	.accueil__offre-prix {
+		font-size: 2.25rem;
+	}
+
+	.accueil__offre-texte {
+		max-width: 28rem;
+		margin: 0;
+		font-size: 1.0625rem;
+		line-height: 1.6;
+	}
+
+	.accueil__offre-lien {
+		justify-self: start;
+		padding-block: 0.6rem;
+	}
+
+	/* Comment ça se passe : 4 cadres à bordure blanche */
+	.accueil__liste-etapes {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		margin: 2.25rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.accueil__etape {
+		padding: 1.5rem 1.75rem 2rem;
+		border: 5px solid var(--couleur-blanc);
+		font-family: var(--police-corps);
+	}
+
+	/* Numéro en contour blanc, comme les initiales de L'équipe (décoratif : la liste est déjà numérotée) */
+	.accueil__etape-numero {
+		display: block;
+		font-family: var(--police-titre);
+		font-size: 4.5rem;
+		line-height: 1;
+		color: transparent;
+		-webkit-text-stroke: 2px var(--couleur-blanc);
+	}
+
+	.accueil__etape-titre {
+		margin: 1rem 0 0;
+		font-family: var(--police-titre);
+		font-size: 1.75rem;
+		font-weight: 400;
+		line-height: 1.05;
+		text-transform: uppercase;
+	}
+
+	.accueil__etape-texte {
+		margin: 0.75rem 0 0;
+		font-size: 1.0625rem;
+		line-height: 1.6;
+	}
+
+	/* Pourquoi nous choisir : titre à gauche, arguments à droite (desktop) */
+	.accueil__pourquoi {
+		display: grid;
+		gap: 2rem;
+		padding-block: 4rem;
+		font-family: var(--police-corps);
+	}
+
+	.accueil__liste-pourquoi {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.accueil__argument {
+		padding-block: 1.25rem;
+		border-bottom: 3px solid var(--couleur-noir);
+	}
+
+	.accueil__argument:first-child {
+		padding-top: 0;
+	}
+
+	.accueil__argument h3 {
+		margin: 0;
+		font-family: var(--police-titre);
+		font-size: 1.75rem;
+		font-weight: 400;
+		line-height: 1.05;
+		text-transform: uppercase;
+	}
+
+	.accueil__argument p {
+		margin: 0.5rem 0 0;
+		font-size: 1.0625rem;
+		line-height: 1.6;
+	}
+
+	.accueil__pourquoi-droite > p {
+		margin: 1.5rem 0 0;
+	}
+
+	.accueil__pourquoi-droite .accueil__lien {
+		display: inline-block;
+		padding-block: 0.6rem;
+	}
+
+	/* Un projet en tête ? */
+	.accueil__texte-large {
+		max-width: 40rem;
+		margin: 1rem 0 0;
+		font-family: var(--police-corps);
+		font-size: 1.1875rem;
+		line-height: 1.6;
+	}
+
+	/* Bouton blanc sur la bande violette (même style que L'équipe) */
+	.accueil__bouton-blanc {
+		display: inline-block;
+		margin-top: 2rem;
+		padding: 0.95rem 1.625rem 0.8rem;
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+		border: 3px solid var(--couleur-blanc);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
+		font-family: var(--police-titre);
+		font-size: 1.25rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	.accueil__bouton-blanc:hover {
+		box-shadow: 3px 3px 0 var(--couleur-noir);
+		transform: translate(3px, 3px);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.accueil__bouton-blanc {
+			transition:
+				transform 0.15s ease,
+				box-shadow 0.15s ease;
+		}
+	}
+
+	/* Focus clavier visible, de la couleur du texte (lisible sur chaque fond) */
+	a:focus-visible {
+		outline: 3px solid currentColor;
+		outline-offset: 3px;
+	}
+
+	/* Tablette : 2 étapes par ligne */
+	@media (min-width: 40rem) {
+		.accueil__liste-etapes {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	/* Desktop : offres sur une ligne (numéro, titre, texte, prix), 4 étapes, Pourquoi en 2 colonnes */
+	@media (min-width: 64rem) {
+		.accueil__bande,
+		.accueil__offres,
+		.accueil__pourquoi {
+			padding-block: 7.5rem;
+		}
+
+		.accueil__offre {
+			grid-template-columns: 3rem 18rem minmax(0, 1fr) auto;
+			column-gap: 2rem;
+			align-items: baseline;
+		}
+
+		.accueil__offre-titre {
+			font-size: 2rem;
+		}
+
+		.accueil__offre-prix {
+			font-size: 2.5rem;
+			text-align: right;
+		}
+
+		.accueil__offre-lien {
+			grid-column: 2;
+		}
+
+		.accueil__liste-etapes {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.accueil__pourquoi {
+			grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+			gap: 4rem;
+		}
+	}
+</style>
