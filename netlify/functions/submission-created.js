@@ -27,8 +27,15 @@ const VIOLET = 0x6e2fef;
 // Discord refuse un champ de plus de 1 024 caractères : on coupe proprement
 const couper = (texte, max) => (texte.length > max ? `${texte.slice(0, max - 1)}…` : texte);
 
+// Sécurité (31/10) : le texte du client est affiché tel quel, sans mise en forme Discord.
+// Sans ça, un message contenant [Facture Netlify](https://site-pirate.com) s'afficherait comme un
+// lien propre « Facture Netlify » dans le salon : un piège à clic (hameçonnage). Une barre oblique
+// devant chaque caractère de mise en forme le rend inactif ; une adresse écrite en clair reste visible.
+const sansMiseEnForme = (texte) => texte.replace(/[\\`*_~|>#[\]()<]/g, '\\$&');
+
 // Valeur affichée, ou « Non renseigné » si le champ facultatif est vide
-const valeur = (texte, max = 256) => couper(String(texte ?? '').trim() || 'Non renseigné', max);
+const valeur = (texte, max = 256) =>
+	couper(sansMiseEnForme(String(texte ?? '').trim()) || 'Non renseigné', max);
 
 export const handler = async (event) => {
 	const webhook = process.env.DISCORD_WEBHOOK_URL;
@@ -37,8 +44,14 @@ export const handler = async (event) => {
 		return { statusCode: 200 };
 	}
 
-	const { payload } = JSON.parse(event.body);
-	if (payload.form_name !== 'contact') {
+	let payload;
+	try {
+		({ payload } = JSON.parse(event.body));
+	} catch {
+		console.error('Données du formulaire illisibles : pas de notification');
+		return { statusCode: 200 };
+	}
+	if (payload?.form_name !== 'contact') {
 		return { statusCode: 200 };
 	}
 
