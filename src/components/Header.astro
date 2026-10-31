@@ -60,9 +60,11 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 		width: 8rem;
 	}
 
+	/* aspect-ratio : la place du logo est réservée avant son chargement (sinon la page saute) */
 	.entete__logo img {
 		width: 100%;
 		height: auto;
+		aspect-ratio: 339 / 116;
 	}
 
 	.entete__liste {
