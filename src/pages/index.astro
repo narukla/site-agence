@@ -70,6 +70,16 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		</ul>
 	</Intro>
 
+	<!-- Effet du labo « bandeau qui défile » (Texte 01) : décoratif, le lecteur d'écran lit le résumé -->
+	<div class="accueil__bandeau-cadre">
+		<div class="accueil__bandeau" role="img" aria-label="Sites vitrines, identités visuelles, maintenance, à Troyes">
+			<div class="accueil__bandeau-piste" aria-hidden="true">
+				<div class="accueil__bandeau-groupe"><span>Sites vitrines</span><span>Identités visuelles</span><span>Maintenance</span><span>Troyes</span></div>
+				<div class="accueil__bandeau-groupe"><span>Sites vitrines</span><span>Identités visuelles</span><span>Maintenance</span><span>Troyes</span></div>
+			</div>
+		</div>
+	</div>
+
 	<section class="accueil__offres" aria-labelledby="titre-offres">
 		<h2 id="titre-offres" class="accueil__titre-section">Ce qu'on fait pour vous</h2>
 		<ul class="accueil__liste-offres">
@@ -204,6 +214,78 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 
 	.accueil__actions :global(.bouton:hover) {
 		box-shadow: 3px 3px 0 var(--couleur-blanc);
+	}
+
+	/* Bandeau qui défile : penché, violet, pleine largeur.
+	   Le cadre fait toute la largeur de l'écran (100vw, barre de défilement comprise) et coupe ce qui dépasse
+	   (le bandeau penché) ; overflow-x: clip sur html retire les quelques pixels de la barre de défilement
+	   de Windows, sans casser position: sticky. */
+	:global(html) {
+		overflow-x: clip;
+	}
+
+	.accueil__bandeau-cadre {
+		margin-inline: calc(50% - 50vw);
+		margin-block: -1.5rem 0;
+		padding-block: 1rem;
+		overflow: clip;
+	}
+
+	.accueil__bandeau {
+		margin-inline: -2rem;
+		overflow: hidden;
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+		border-block: 3px solid var(--couleur-noir);
+		transform: rotate(-1.5deg);
+	}
+
+	.accueil__bandeau-piste {
+		display: flex;
+		width: max-content;
+	}
+
+	.accueil__bandeau-groupe {
+		display: flex;
+		flex-shrink: 0;
+	}
+
+	.accueil__bandeau-groupe span {
+		padding: 0.9rem 1.25rem 0.75rem;
+		font-family: var(--police-titre);
+		font-size: clamp(1.5rem, 3vw, 2.25rem);
+		line-height: 1;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	/* Séparateur décoratif entre les mots : un losange noir dessiné en CSS (pas de caractère spécial,
+	   absent de la police Anton) */
+	.accueil__bandeau-groupe span::after {
+		content: '';
+		display: inline-block;
+		width: 0.45em;
+		height: 0.45em;
+		margin-left: 2.5rem;
+		vertical-align: 0.2em;
+		background: var(--couleur-noir);
+		transform: rotate(45deg);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.accueil__bandeau-piste {
+			animation: accueil-defile 18s linear infinite;
+		}
+
+		.accueil__bandeau:hover .accueil__bandeau-piste {
+			animation-play-state: paused;
+		}
+
+		@keyframes accueil-defile {
+			to {
+				transform: translateX(-50%);
+			}
+		}
 	}
 
 	/* Ce qu'on fait pour vous : lignes séparées par des traits noirs */
