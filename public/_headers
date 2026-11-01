@@ -19,6 +19,12 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
   Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'
   Cross-Origin-Opener-Policy: same-origin
+  ! Access-Control-Allow-Origin
+
+# L'adresse de production de Pages ne doit pas apparaître dans Google à la place de narukla.fr
+# (les prévisualisations sont déjà exclues par Cloudflare)
+https://narukla.pages.dev/*
+  X-Robots-Tag: noindex
 
 # Mise en cache longue (1 an) des fichiers qui ne changent jamais sous le même nom :
 # - /_astro/ : CSS et scripts générés par Astro, leur nom contient une empreinte qui change à chaque modification

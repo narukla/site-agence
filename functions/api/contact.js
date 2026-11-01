@@ -29,6 +29,8 @@ const VIOLET = 0x6e2fef;
 // Tailles maximales acceptées : au-delà, l'envoi est refusé (protection contre les envois abusifs)
 const MAX_CHAMP = 200;
 const MAX_MESSAGE = 5000;
+// Taille maximale de tout l'envoi, vérifiée avant de lire le formulaire : refuse un gros fichier envoyé exprès
+const MAX_ENVOI = 64 * 1024;
 
 // Discord refuse un champ de plus de 1 024 caractères : on coupe proprement
 const couper = (texte, max) => (texte.length > max ? `${texte.slice(0, max - 1)}…` : texte);
@@ -52,6 +54,11 @@ const pageErreur = (raison, statut) =>
 				'Content-Type': 'text/html; charset=utf-8',
 				'X-Content-Type-Options': 'nosniff',
 				'Cache-Control': 'no-store',
+				// public/_headers ne s'applique pas aux réponses d'une fonction : cette page a donc ses propres en-têtes
+				'Content-Security-Policy': "default-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+				'X-Frame-Options': 'DENY',
+				'Referrer-Policy': 'strict-origin-when-cross-origin',
+				'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
 			},
 		},
 	);
@@ -73,6 +80,10 @@ export const onRequestPost = async ({ request, env }) => {
 	const origine = request.headers.get('Origin');
 	if (origine && !vientDuSite(origine, adresse.host)) {
 		return pageErreur("L'envoi ne vient pas de notre site.", 403);
+	}
+
+	if (Number(request.headers.get('Content-Length')) > MAX_ENVOI) {
+		return pageErreur('Votre message est trop long.', 413);
 	}
 
 	let formulaire;
