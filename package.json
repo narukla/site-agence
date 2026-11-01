@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "verifier": "node scripts/verifier.mjs"
+    "verifier": "node scripts/verifier.mjs",
+    "surveiller": "node scripts/surveiller.mjs"
   },
   "dependencies": {
     "astro": "^7.4.2"
