@@ -1,0 +1,26 @@
+# Vérifications automatiques sur chaque PR : le site se construit, puis scripts/verifier.mjs contrôle
+# chaque page (un seul h1, aucun repère [À COMPLÉTER] visible, liens internes, alt des images, id en double).
+# Gratuit sur un repo public, et ça ne consomme aucun crédit Netlify.
+name: Vérifications
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Le jeton GitHub de ce contrôle ne peut que lire le code
+permissions:
+  contents: read
+
+jobs:
+  verifier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run verifier
