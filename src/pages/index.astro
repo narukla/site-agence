@@ -208,8 +208,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		list-style: none;
 	}
 
-	/* Sur la bande noire : pas d'ombre blanche ni de bordure (Noah n'aime pas le rectangle blanc, 31/10).
-	   L'effet de survol vient des couches empilées, en violet et bleu ici (Effets.astro) */
+	/* Sur la bande noire : pas de bordure ; la couche derrière chaque bouton vient d'Effets.astro */
 	.accueil__actions :global(.bouton) {
 		border-color: transparent;
 		box-shadow: none;
@@ -306,6 +305,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 	}
 
 	.accueil__offre {
+		position: relative;
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 0.5rem;
@@ -350,6 +350,13 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		justify-self: start;
 		padding-block: 0.6rem;
 		font-size: 1.125rem;
+	}
+
+	/* Toute la ligne de l'offre est cliquable, pas seulement « En savoir plus » (commentaire de Noah, 01/11) */
+	.accueil__offre-lien::after {
+		content: '';
+		position: absolute;
+		inset: 0;
 	}
 
 	/* Comment ça se passe : 4 cadres à bordure blanche.
@@ -443,7 +450,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 	}
 
 	.accueil__pourquoi-droite .accueil__lien {
-		display: inline-block;
 		padding-block: 0.6rem;
 	}
 
@@ -492,7 +498,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 	.accueil__lien {
 		display: inline-flex;
 		align-items: center;
-		gap: 0.6rem;
+		gap: 1rem;
 	}
 
 	.accueil__fleche {

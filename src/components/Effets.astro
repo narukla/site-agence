@@ -432,14 +432,17 @@
 		transform: translate(-4px, -4px) !important;
 	}
 
-	/* Sur fond noir (bandeau de l'Accueil, pied de page) : couches bleue et violette, sans rectangle blanc (commentaire de Noah, 31/10) */
+	/* Sur fond noir (bandeau de l'Accueil, pied de page) : une seule couche, blanche derrière le bouton violet,
+	   violette derrière le bouton blanc (commentaires de Noah, 01/11) */
 	html.avec-couches .accueil__actions .bouton,
 	html.avec-couches .pied__bouton {
 		--d: 4px;
-		box-shadow:
-			var(--d) var(--d) 0 0 var(--couleur-bleu),
-			calc(var(--d) * 2) calc(var(--d) * 2) 0 0 var(--couleur-violet) !important;
+		box-shadow: var(--d) var(--d) 0 0 var(--couleur-blanc) !important;
 		transition: transform 0.25s cubic-bezier(0.3, 1.4, 0.5, 1), box-shadow 0.25s cubic-bezier(0.3, 1.4, 0.5, 1);
+	}
+
+	html.avec-couches .accueil__actions .bouton--contour {
+		box-shadow: var(--d) var(--d) 0 0 var(--couleur-violet) !important;
 	}
 
 	html.avec-couches .accueil__actions .bouton:hover,
