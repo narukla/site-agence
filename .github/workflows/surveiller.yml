@@ -1,0 +1,26 @@
+# Contrôle de narukla.fr toutes les 30 min (scripts/surveiller.mjs). Gratuit sur un repo public.
+# L'alerte Discord demande le secret DISCORD_ALERTES_URL : Settings → Secrets and variables → Actions.
+# GitHub peut retarder ces lancements de quelques minutes, et les met en pause après 60 jours sans activité sur le repo.
+name: Surveillance du site
+
+on:
+  schedule:
+    - cron: '7,37 * * * *'
+  workflow_dispatch:
+
+# Le jeton GitHub de ce contrôle ne peut que lire le code
+permissions:
+  contents: read
+
+jobs:
+  surveiller:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node scripts/surveiller.mjs
+        env:
+          DISCORD_ALERTES_URL: ${{ secrets.DISCORD_ALERTES_URL }}
