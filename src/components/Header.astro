@@ -64,10 +64,13 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 	}
 
 	/* aspect-ratio : la place du logo est réservée avant son chargement (sinon la page saute) */
+	/* Le SVG a du vide à gauche du dessin (14,4 % de sa largeur) : ce décalage aligne le dessin sur le texte de la page
+	   (commentaire de Noah, 01/11). Seul ce vide sort de l'écran sur les petites largeurs */
 	.entete__logo img {
 		width: 100%;
 		height: auto;
 		aspect-ratio: 339 / 116;
+		margin-left: -14.4%;
 	}
 
 	.entete__liste {
@@ -122,9 +125,6 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 		.entete__logo {
 			width: clamp(10rem, 18vw, 15rem);
 			flex-shrink: 0;
-			/* Plus à gauche (commentaire de Noah, 01/11) : le dessin s'aligne sur le texte de la page malgré le vide
-			   autour du logo dans le SVG, seulement s'il reste de la place au bord de l'écran */
-			margin-left: calc(-1 * clamp(0rem, (100vw - var(--largeur-max)) / 2, 2.1875rem));
 		}
 
 		.entete__liste {
