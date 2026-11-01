@@ -84,6 +84,9 @@ const reseaux: { label: string; href: string }[] = [];
 			</div>
 		</div>
 
+	</div>
+
+	<div class="pied__bande">
 		<div class="pied__bas">
 			<p>&copy; {annee} Narukla – Tous droits réservés.</p>
 			<a class="pied__lien pied__lien--souligne" href="/mentions-legales">Mentions légales</a>
@@ -102,7 +105,7 @@ const reseaux: { label: string; href: string }[] = [];
 	.pied__contenu {
 		max-width: var(--largeur-max);
 		margin: 0 auto;
-		padding: 3.5rem var(--marge-cote) 1.75rem;
+		padding: 3.5rem var(--marge-cote) 2.5rem;
 	}
 
 	.pied__colonnes {
@@ -170,15 +173,15 @@ const reseaux: { label: string; href: string }[] = [];
 		text-underline-offset: 0.2em;
 	}
 
-	/* Bouton violet à bordure et ombre blanches */
+	/* Bouton violet sans bordure ni ombre, comme le cadre « Boutons » du Figma (commentaire de Noah, 31/10) :
+	   au survol, il passe en blanc */
 	.pied__bouton {
 		display: inline-block;
 		margin-top: 0.875rem;
 		padding: 0.95rem 1.625rem 0.8rem;
 		background: var(--couleur-violet);
 		color: var(--couleur-blanc);
-		border: 3px solid var(--couleur-blanc);
-		box-shadow: 6px 6px 0 var(--couleur-blanc);
+		border: 3px solid transparent;
 		font-family: var(--police-titre);
 		font-size: 1.125rem;
 		line-height: 1;
@@ -188,15 +191,15 @@ const reseaux: { label: string; href: string }[] = [];
 	}
 
 	.pied__bouton:hover {
-		box-shadow: 3px 3px 0 var(--couleur-blanc);
-		transform: translate(3px, 3px);
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
 	}
 
 	@media (prefers-reduced-motion: no-preference) {
 		.pied__bouton {
 			transition:
-				transform 0.15s ease,
-				box-shadow 0.15s ease;
+				background-color 0.15s ease,
+				color 0.15s ease;
 		}
 	}
 
@@ -205,14 +208,18 @@ const reseaux: { label: string; href: string }[] = [];
 		outline-offset: 3px;
 	}
 
-	/* Bas de page : copyright et mentions légales, sous un filet blanc */
+	/* Bas de page : copyright et mentions légales, sous un filet blanc de bord à bord (commentaire de Noah, 31/10) */
+	.pied__bande {
+		border-top: 1px solid var(--couleur-blanc);
+	}
+
 	.pied__bas {
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
-		margin-top: 2.5rem;
-		padding-top: 1.5rem;
-		border-top: 1px solid var(--couleur-blanc);
+		max-width: var(--largeur-max);
+		margin: 0 auto;
+		padding: 1.5rem var(--marge-cote) 1.75rem;
 		font-size: 0.9375rem;
 		font-weight: 700;
 	}
@@ -238,7 +245,9 @@ const reseaux: { label: string; href: string }[] = [];
 			width: clamp(12rem, 20vw, 17rem);
 		}
 
+		/* Même décalage que le bouton de la 4e colonne : le haut des titres s'aligne sur le logo (commentaire de Noah, 31/10) */
 		.pied__titre {
+			margin-top: 0.875rem;
 			font-size: 1.75rem;
 		}
 

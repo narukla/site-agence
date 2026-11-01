@@ -197,13 +197,30 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		list-style: none;
 	}
 
-	/* Sur la bande noire, l'ombre noire du bouton serait invisible : ombre blanche */
+	/* Sur la bande noire : ni ombre ni bordure, comme le cadre « Boutons » du Figma (Noah n'aime pas le rectangle blanc, 31/10) ;
+	   au survol, les couleurs s'inversent au lieu de « s'enfoncer » */
 	.accueil__actions :global(.bouton) {
-		box-shadow: 6px 6px 0 var(--couleur-blanc);
+		border-color: transparent;
+		box-shadow: none;
 	}
 
 	.accueil__actions :global(.bouton:hover) {
-		box-shadow: 3px 3px 0 var(--couleur-blanc);
+		box-shadow: none;
+		transform: none;
+	}
+
+	.accueil__actions :global(.bouton--violet:hover) {
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+	}
+
+	.accueil__actions :global(.bouton--contour:hover) {
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+	}
+
+	.accueil__actions :global(.bouton:focus-visible) {
+		outline-color: var(--couleur-blanc);
 	}
 
 	/* Ce qu'on fait pour vous : lignes séparées par des traits noirs */

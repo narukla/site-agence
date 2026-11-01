@@ -42,9 +42,11 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <style>
 	/* Mobile d'abord (maquette Mobile 390), puis desktop (cadre Header, 1440) */
+	/* Trait blanc qui sépare l'en-tête du reste du site (commentaire de Noah, 31/10) */
 	.entete {
 		background: var(--couleur-noir);
 		color: var(--couleur-blanc);
+		border-bottom: 3px solid var(--couleur-blanc);
 	}
 
 	.entete__contenu {

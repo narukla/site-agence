@@ -26,14 +26,15 @@ const { etiquette, titre, accent } = Astro.props;
 	/* Bande noire sur toute la largeur de l'écran, sans défilement horizontal :
 	   border-image peint le fond au-delà du contenu sans agrandir la page */
 	.intro {
-		padding-block: 2.5rem 3.5rem;
+		padding-block: 2rem 3.5rem;
 		color: var(--couleur-blanc);
 		border-image: conic-gradient(var(--couleur-noir) 0 0) fill 0 / / 0 100vw;
 	}
 
 	.intro__etiquette {
 		display: inline-block;
-		margin: 0.4rem 0 1.5rem;
+		/* Respiration avec le titre : l'accent du É touche presque l'étiquette (commentaire de Noah, 31/10) */
+		margin: 0.4rem 0 2rem;
 		padding: 0.3rem 1.4rem 0.2rem;
 		background: var(--couleur-blanc);
 		color: var(--couleur-noir);
@@ -69,7 +70,11 @@ const { etiquette, titre, accent } = Astro.props;
 
 	@media (min-width: 64rem) {
 		.intro {
-			padding-block: 5rem 6rem;
+			padding-block: 4rem 6rem;
+		}
+
+		.intro__etiquette {
+			margin-bottom: 2.5rem;
 		}
 	}
 </style>

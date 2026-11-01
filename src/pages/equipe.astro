@@ -193,13 +193,14 @@ const associes = [
 	}
 
 	.equipe__intro {
-		padding-block: 2.5rem 3.5rem;
+		padding-block: 2rem 3.5rem;
 	}
 
 	/* Étiquette blanche légèrement penchée */
 	.equipe__etiquette {
 		display: inline-block;
-		margin: 0.4rem 0 1.5rem;
+		/* Respiration avec le titre : l'accent du É touche presque l'étiquette (commentaire de Noah, 31/10) */
+		margin: 0.4rem 0 2rem;
 		padding: 0.3rem 1.4rem 0.2rem;
 		background: var(--couleur-blanc);
 		color: var(--couleur-noir);
@@ -277,7 +278,8 @@ const associes = [
 		display: grid;
 		place-items: center;
 		aspect-ratio: 7 / 6;
-		margin-bottom: 0.375rem;
+		/* Respiration entre le cadre et le nom (commentaire de Noah, 31/10) */
+		margin-bottom: 1.125rem;
 		overflow: hidden;
 		background: var(--couleur-violet);
 		border: 3px solid var(--couleur-noir);
@@ -434,7 +436,11 @@ const associes = [
 		}
 
 		.equipe__intro {
-			padding-block: 5rem 6rem;
+			padding-block: 4rem 6rem;
+		}
+
+		.equipe__etiquette {
+			margin-bottom: 2.5rem;
 		}
 
 		.equipe__liste {
