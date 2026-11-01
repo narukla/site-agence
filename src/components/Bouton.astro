@@ -1,0 +1,57 @@
+---
+// Bouton-lien de la maquette Figma : capitales Anton, bordure, ombre décalée qui « s'enfonce » au survol.
+//   <Bouton href="/contact">Demander un devis</Bouton>                 (violet, pour fond clair)
+//   <Bouton href="/" variante="contour">Retour à l'accueil</Bouton>    (blanc bordé de noir, pour fond clair)
+interface Props {
+	href: string;
+	variante?: 'violet' | 'contour';
+}
+
+const { href, variante = 'violet' } = Astro.props;
+---
+
+<a class:list={['bouton', `bouton--${variante}`]} href={href}><slot /></a>
+
+<style>
+	.bouton {
+		display: inline-block;
+		padding: 0.95rem 1.625rem 0.8rem;
+		border: 3px solid var(--couleur-noir);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
+		font-family: var(--police-titre);
+		font-size: 1.125rem;
+		line-height: 1;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+
+	/* Blanc sur violet : contraste 6,33 */
+	.bouton--violet {
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+	}
+
+	.bouton--contour {
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+	}
+
+	.bouton:hover {
+		box-shadow: 3px 3px 0 var(--couleur-noir);
+		transform: translate(3px, 3px);
+	}
+
+	.bouton:focus-visible {
+		outline: 3px solid var(--couleur-violet);
+		outline-offset: 4px;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.bouton {
+			transition:
+				transform 0.15s ease,
+				box-shadow 0.15s ease;
+		}
+	}
+</style>
