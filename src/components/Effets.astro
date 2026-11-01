@@ -184,11 +184,10 @@
 			}, true);
 		}
 
-		// Compteur de caractères du message (la notification Discord en affiche 1024)
+		// Compteur de caractères du message : la limite vient du maxlength du champ (src/pages/contact.astro)
 		const message = form.querySelector<HTMLTextAreaElement>('#message');
 		if (message && actif('compteur')) {
-			const max = 1000;
-			message.maxLength = max;
+			const max = message.maxLength;
 			const compte = document.createElement('p');
 			compte.className = 'fx-compte';
 			compte.id = 'fx-compte';

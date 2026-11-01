@@ -107,7 +107,8 @@ export const onRequestPost = async ({ request, env }) => {
 	const mail = lire('mail');
 	const telephone = lire('telephone');
 	const besoin = BESOINS[lire('besoin')];
-	const message = lire('message');
+	// Un formulaire envoie ses retours à la ligne en CRLF, alors que le maxlength du navigateur les compte pour 1
+	const message = lire('message').replace(/\r\n/g, '\n');
 
 	const mailValide = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
 	const taillesValides =
