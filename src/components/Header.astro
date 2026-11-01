@@ -42,9 +42,11 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <style>
 	/* Mobile d'abord (maquette Mobile 390), puis desktop (cadre Header, 1440) */
+	/* Trait blanc qui sépare l'en-tête du reste du site (commentaire de Noah, 31/10) */
 	.entete {
 		background: var(--couleur-noir);
 		color: var(--couleur-blanc);
+		border-bottom: 2px solid var(--couleur-blanc);
 	}
 
 	.entete__contenu {
@@ -120,6 +122,9 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 		.entete__logo {
 			width: clamp(10rem, 18vw, 15rem);
 			flex-shrink: 0;
+			/* Plus à gauche (commentaire de Noah, 01/11) : le dessin s'aligne sur le texte de la page malgré le vide
+			   autour du logo dans le SVG, seulement s'il reste de la place au bord de l'écran */
+			margin-left: calc(-1 * clamp(0rem, (100vw - var(--largeur-max)) / 2, 2.1875rem));
 		}
 
 		.entete__liste {

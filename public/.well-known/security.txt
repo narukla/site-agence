@@ -3,4 +3,4 @@
 Contact: mailto:narukla@proton.me
 Expires: 2027-10-31T23:00:00.000Z
 Preferred-Languages: fr, en
-Canonical: https://narukla.netlify.app/.well-known/security.txt
+Canonical: https://narukla.fr/.well-known/security.txt
