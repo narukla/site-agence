@@ -70,6 +70,16 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		</ul>
 	</Intro>
 
+	<!-- Effet du labo « bandeau qui défile » (Texte 01) : décoratif, le lecteur d'écran lit le résumé -->
+	<div class="accueil__bandeau-cadre">
+		<div class="accueil__bandeau" role="img" aria-label="Sites vitrines, identités visuelles, maintenance, à Troyes">
+			<div class="accueil__bandeau-piste" aria-hidden="true">
+				<div class="accueil__bandeau-groupe"><span>Sites vitrines</span><span>Identités visuelles</span><span>Maintenance</span><span>Troyes</span></div>
+				<div class="accueil__bandeau-groupe"><span>Sites vitrines</span><span>Identités visuelles</span><span>Maintenance</span><span>Troyes</span></div>
+			</div>
+		</div>
+	</div>
+
 	<section class="accueil__offres" aria-labelledby="titre-offres">
 		<h2 id="titre-offres" class="accueil__titre-section">Ce qu'on fait pour vous</h2>
 		<ul class="accueil__liste-offres">
@@ -85,6 +95,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 							<p class="accueil__offre-prix">{offre.prix}</p>
 							<a class="accueil__lien accueil__offre-lien" href={offre.ancre}>
 								En savoir plus<span class="accueil__cache"> sur l'offre {offre.titre.toLowerCase()}</span>
+								<span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span>
 							</a>
 						</article>
 					</li>
@@ -98,7 +109,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		<ol class="accueil__liste-etapes">
 			{
 				etapes.map((etape, i) => (
-					<li class="accueil__etape">
+					<li class="accueil__etape" style={`--i: ${i}`}>
 						<span class="accueil__etape-numero" aria-hidden="true">
 							{numero(i)}
 						</span>
@@ -130,7 +141,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 					<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
 				</li>
 			</ul>
-			<p><a class="accueil__lien" href="/equipe">Découvrir l'équipe</a></p>
+			<p><a class="accueil__lien" href="/equipe">Découvrir l'équipe <span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span></a></p>
 		</div>
 	</section>
 
@@ -223,6 +234,78 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		outline-color: var(--couleur-blanc);
 	}
 
+	/* Bandeau qui défile : penché, violet, pleine largeur.
+	   Le cadre fait toute la largeur de l'écran (100vw, barre de défilement comprise) et coupe ce qui dépasse
+	   (le bandeau penché) ; overflow-x: clip sur html retire les quelques pixels de la barre de défilement
+	   de Windows, sans casser position: sticky. */
+	:global(html) {
+		overflow-x: clip;
+	}
+
+	.accueil__bandeau-cadre {
+		margin-inline: calc(50% - 50vw);
+		margin-block: -1.5rem 0;
+		padding-block: 1rem;
+		overflow: clip;
+	}
+
+	.accueil__bandeau {
+		margin-inline: -2rem;
+		overflow: hidden;
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
+		border-block: 3px solid var(--couleur-noir);
+		transform: rotate(-1.5deg);
+	}
+
+	.accueil__bandeau-piste {
+		display: flex;
+		width: max-content;
+	}
+
+	.accueil__bandeau-groupe {
+		display: flex;
+		flex-shrink: 0;
+	}
+
+	.accueil__bandeau-groupe span {
+		padding: 0.9rem 1.25rem 0.75rem;
+		font-family: var(--police-titre);
+		font-size: clamp(1.5rem, 3vw, 2.25rem);
+		line-height: 1;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	/* Séparateur décoratif entre les mots : un losange noir dessiné en CSS (pas de caractère spécial,
+	   absent de la police Anton) */
+	.accueil__bandeau-groupe span::after {
+		content: '';
+		display: inline-block;
+		width: 0.45em;
+		height: 0.45em;
+		margin-left: 2.5rem;
+		vertical-align: 0.2em;
+		background: var(--couleur-noir);
+		transform: rotate(45deg);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.accueil__bandeau-piste {
+			animation: accueil-defile 18s linear infinite;
+		}
+
+		.accueil__bandeau:hover .accueil__bandeau-piste {
+			animation-play-state: paused;
+		}
+
+		@keyframes accueil-defile {
+			to {
+				transform: translateX(-50%);
+			}
+		}
+	}
+
 	/* Ce qu'on fait pour vous : lignes séparées par des traits noirs */
 	.accueil__offres {
 		padding-block: 4rem;
@@ -280,19 +363,26 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		padding-block: 0.6rem;
 	}
 
-	/* Comment ça se passe : 4 cadres à bordure blanche */
+	/* Comment ça se passe : 4 cadres à bordure blanche.
+	   Effet du labo « cartes qui s'empilent » (Défilement 05) : en descendant, chaque cadre se colle en haut
+	   de l'écran (position: sticky), un peu plus bas que le précédent, et le suivant vient se poser dessus.
+	   Sans JavaScript ; une seule colonne pour que l'empilement se voie. */
 	.accueil__liste-etapes {
 		display: grid;
 		grid-template-columns: 1fr;
-		gap: 1.5rem;
+		gap: 2rem;
 		margin: 2.25rem 0 0;
 		padding: 0;
 		list-style: none;
 	}
 
 	.accueil__etape {
+		position: sticky;
+		top: calc(1rem + var(--i) * 1.75rem);
 		padding: 1.5rem 1.75rem 2rem;
+		background: var(--couleur-violet);
 		border: 5px solid var(--couleur-blanc);
+		box-shadow: 6px 6px 0 var(--couleur-noir);
 		font-family: var(--police-corps);
 	}
 
@@ -407,17 +497,121 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		}
 	}
 
+	/* ───── Effets du labo d'effets (essai du 31/10) ───── */
+
+	/* 1. Flèche qui avance (Survol 05) : la case violette glisse vers la droite au survol */
+	.accueil__lien {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+	}
+
+	.accueil__fleche {
+		display: inline-grid;
+		place-items: center;
+		width: 2rem;
+		height: 2rem;
+		background: var(--couleur-violet);
+		border: 2px solid var(--couleur-noir);
+	}
+
+	.accueil__fleche svg {
+		width: 1.1rem;
+		height: 1.1rem;
+		fill: none;
+		stroke: var(--couleur-blanc);
+		stroke-width: 2.5;
+	}
+
+	.accueil__lien:hover .accueil__fleche,
+	.accueil__lien:focus-visible .accueil__fleche {
+		transform: translateX(0.4rem);
+	}
+
+	/* 2. Survol d'une ligne d'offre : le numéro glisse, le prix passe en violet */
+	.accueil__offre-numero,
+	.accueil__offre-prix {
+		transition: none;
+	}
+
+	.accueil__offre:hover .accueil__offre-numero,
+	.accueil__offre:focus-within .accueil__offre-numero {
+		transform: translateX(0.5rem);
+	}
+
+	.accueil__offre:hover .accueil__offre-prix,
+	.accueil__offre:focus-within .accueil__offre-prix {
+		color: var(--couleur-violet);
+	}
+
+	/* 5. Bouton qui attire l'œil (Boutons 06) : frétille une fraction de seconde toutes les 4 s */
+	@keyframes accueil-buzz {
+		0%,
+		86%,
+		100% {
+			rotate: 0deg;
+		}
+		88% {
+			rotate: -4deg;
+		}
+		90% {
+			rotate: 4deg;
+		}
+		92% {
+			rotate: -3deg;
+		}
+		94% {
+			rotate: 2deg;
+		}
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.accueil__fleche {
+			transition: transform 0.25s cubic-bezier(0.3, 1.5, 0.5, 1);
+		}
+
+		.accueil__offre-numero {
+			transition: transform 0.25s ease;
+		}
+
+		.accueil__offre-prix {
+			transition: color 0.2s ease;
+		}
+
+		.accueil__bouton-blanc {
+			animation: accueil-buzz 4s ease-in-out infinite;
+		}
+
+		.accueil__bouton-blanc:hover,
+		.accueil__bouton-blanc:focus-visible {
+			animation: none;
+		}
+	}
+
+	/* 3. Apparition au défilement (Défilement CSS 02) : les lignes montent en arrivant à l'écran.
+	   Seulement si le navigateur sait faire (Chrome, Edge, Safari) ; ailleurs elles sont simplement là. */
+	@supports (animation-timeline: view()) {
+		@media (prefers-reduced-motion: no-preference) {
+			.accueil__offre,
+			.accueil__argument {
+				animation: accueil-apparait linear both;
+				animation-timeline: view();
+				animation-range: entry 0% cover 30%;
+			}
+
+			@keyframes accueil-apparait {
+				from {
+					opacity: 0;
+					transform: translateY(2.5rem);
+				}
+			}
+		}
+	}
+
 	/* Focus clavier visible, de la couleur du texte (lisible sur chaque fond) */
 	a:focus-visible {
 		outline: 3px solid currentColor;
 		outline-offset: 3px;
-	}
-
-	/* Tablette : 2 étapes par ligne */
-	@media (min-width: 40rem) {
-		.accueil__liste-etapes {
-			grid-template-columns: repeat(2, 1fr);
-		}
 	}
 
 	/* Desktop : offres sur une ligne (numéro, titre, texte, prix), 4 étapes, Pourquoi en 2 colonnes */
@@ -447,8 +641,27 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 			grid-column: 2;
 		}
 
-		.accueil__liste-etapes {
-			grid-template-columns: repeat(4, 1fr);
+		/* Cadre en largeur : numéro à gauche, titre et texte à droite */
+		.accueil__etape {
+			display: grid;
+			grid-template-columns: 8rem minmax(0, 1fr);
+			column-gap: 2rem;
+			align-items: start;
+			padding: 2rem 2.5rem 2.5rem;
+		}
+
+		.accueil__etape-numero {
+			grid-row: span 2;
+			font-size: 6rem;
+		}
+
+		.accueil__etape-titre {
+			margin-top: 0.5rem;
+			font-size: 2.25rem;
+		}
+
+		.accueil__etape-texte {
+			max-width: 36rem;
 		}
 
 		.accueil__pourquoi {
