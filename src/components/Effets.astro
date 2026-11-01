@@ -204,12 +204,20 @@
 
 		// Bouton d'envoi : « Envoi… » pendant que le message part (évite le double clic)
 		if (actif('envoi')) {
+			const b = form.querySelector<HTMLButtonElement>('.formulaire__envoyer');
+			const texte = b?.innerHTML;
 			form.addEventListener('submit', () => {
-				const b = form.querySelector<HTMLButtonElement>('.formulaire__envoyer');
 				if (!b) return;
 				b.classList.add('fx-envoi');
 				b.innerHTML = '<span class="fx-rond" aria-hidden="true"></span>Envoi…';
 				setTimeout(() => (b.disabled = true));
+			});
+			// Retour arrière depuis /merci : le navigateur peut réafficher la page telle quelle, bouton encore grisé
+			addEventListener('pageshow', (e) => {
+				if (!e.persisted || !b || texte === undefined) return;
+				b.classList.remove('fx-envoi');
+				b.innerHTML = texte;
+				b.disabled = false;
 			});
 		}
 	}
