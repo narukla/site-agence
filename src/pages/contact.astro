@@ -1,9 +1,9 @@
 ---
 // Page Contact — responsable : Jimmy
 // Mise en page d'après la maquette Figma de Noah (Contact desktop 1440 et mobile 390), contenu inchangé.
-// Formulaire géré par Netlify Forms (data-netlify) : rien à coder côté serveur, les messages
-// arrivent dans l'onglet Forms de Netlify. Après envoi, redirection vers /merci.
-// Ne pas renommer les champs (name="…") : la notification Discord et l'onglet Forms s'en servent.
+// Formulaire traité par functions/api/contact.js (Cloudflare Pages) : les messages arrivent dans
+// le salon Discord de l'équipe. Après envoi, redirection vers /merci.
+// Ne pas renommer les champs (name="…") : la fonction s'en sert.
 import Layout from '../layouts/Layout.astro';
 import Intro from '../components/Intro.astro';
 import { coordonnees as agence, lienTelephone } from '../config/coordonnees';
@@ -35,12 +35,9 @@ const coordonnees = {
 				class="formulaire"
 				name="contact"
 				method="POST"
-				action="/merci"
-				data-netlify="true"
-				netlify-honeypot="champ-robot"
+				action="/api/contact"
 			>
-				<input type="hidden" name="form-name" value="contact" />
-				<!-- Piège à robots : caché aux humains, Netlify rejette les envois qui le remplissent -->
+				<!-- Piège à robots : caché aux humains, la fonction ignore les envois qui le remplissent -->
 				<p class="formulaire__piege" hidden>
 					<label>Ne pas remplir : <input name="champ-robot" tabindex="-1" autocomplete="off" /></label>
 				</p>
