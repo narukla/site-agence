@@ -118,9 +118,11 @@ const reseaux: { label: string; href: string }[] = [];
 		width: 10rem;
 	}
 
+	/* Le SVG a du vide à gauche du dessin (14,4 % de sa largeur) : ce décalage aligne le dessin sur le texte dessous */
 	.pied__logo img {
 		width: 100%;
 		height: auto;
+		margin-left: -14.4%;
 	}
 
 	.pied__phrase {
