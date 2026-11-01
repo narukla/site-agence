@@ -28,11 +28,14 @@ const VIOLET = 0x6e2fef;
 
 // Tailles maximales acceptées : au-delà, l'envoi est refusé (protection contre les envois abusifs)
 const MAX_CHAMP = 200;
-const MAX_MESSAGE = 5000;
+// Même valeur que le maxlength du champ dans src/pages/contact.astro. Une fois la mise en forme neutralisée,
+// le message peut doubler de taille : 4 000 caractères tiennent dans la description d'un embed Discord (4 096 au plus)
+const MAX_MESSAGE = 2000;
 // Taille maximale de tout l'envoi, vérifiée avant de lire le formulaire : refuse un gros fichier envoyé exprès
 const MAX_ENVOI = 64 * 1024;
 
-// Discord refuse un champ de plus de 1 024 caractères : on coupe proprement
+// Discord refuse un champ de plus de 1 024 caractères : on coupe proprement les champs courts.
+// Le message, lui, n'est jamais coupé : Discord en est la seule copie
 const couper = (texte, max) => (texte.length > max ? `${texte.slice(0, max - 1)}…` : texte);
 
 // Sécurité : le texte du client est affiché tel quel, sans mise en forme Discord.
@@ -128,6 +131,7 @@ export const onRequestPost = async ({ request, env }) => {
 				embeds: [
 					{
 						title: `📩 Nouveau message : ${besoin}`,
+						description: sansMiseEnForme(message),
 						color: VIOLET,
 						fields: [
 							{ name: 'Nom', value: valeur(nom), inline: true },
@@ -135,7 +139,6 @@ export const onRequestPost = async ({ request, env }) => {
 							{ name: 'Mail', value: valeur(mail), inline: true },
 							{ name: 'Téléphone', value: valeur(telephone), inline: true },
 							{ name: 'Besoin', value: besoin, inline: true },
-							{ name: 'Message', value: valeur(message, 1024) },
 						],
 						timestamp: new Date().toISOString(),
 					},
