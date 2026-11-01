@@ -56,13 +56,22 @@ const pageErreur = (raison, statut) =>
 		},
 	);
 
+// Origin peut valoir « null » (page isolée, certains navigateurs) : new URL() planterait et le visiteur verrait une erreur Cloudflare
+const vientDuSite = (origine, hote) => {
+	try {
+		return new URL(origine).host === hote;
+	} catch {
+		return false;
+	}
+};
+
 export const onRequestPost = async ({ request, env }) => {
 	const adresse = new URL(request.url);
 	const merci = new URL('/merci/', adresse).toString();
 
 	// Refuse un envoi lancé depuis un autre site
 	const origine = request.headers.get('Origin');
-	if (origine && new URL(origine).host !== adresse.host) {
+	if (origine && !vientDuSite(origine, adresse.host)) {
 		return pageErreur("L'envoi ne vient pas de notre site.", 403);
 	}
 
