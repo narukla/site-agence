@@ -335,11 +335,13 @@
 		}
 	}
 
-	/* En-tête collant qui rétrécit */
-	html.avec-entete .entete {
-		position: sticky;
-		top: 0;
-		z-index: 50;
+	/* En-tête collant qui rétrécit, sur ordinateur seulement : sur téléphone il prendrait 180 px de l'écran */
+	@media (min-width: 64rem) {
+		html.avec-entete .entete {
+			position: sticky;
+			top: 0;
+			z-index: 50;
+		}
 	}
 
 	@supports (animation-timeline: scroll()) {
