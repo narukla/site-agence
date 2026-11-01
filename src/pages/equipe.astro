@@ -16,6 +16,7 @@ const de = (prenom: string) => (/^[aeiouyàâäéèêëîïôöùûü]/i.test(pr
 const associes = [
 	{
 		prenom: 'Jibril',
+		nom: 'Filali',
 		role: 'Développeur, président',
 		// Validé par Jibril (28/10) : développeur d'abord, président pour les démarches de la société
 		presentation:
@@ -63,8 +64,9 @@ const associes = [
 	},
 	{
 		prenom: 'Ouassim',
+		nom: 'Boulacheb',
 		role: 'Développeur, marketing',
-		// Texte et lien envoyés par Ouassim (28/10), prénom seul. Portfolio bientôt refait : vérifier le lien avant la mise en ligne
+		// Texte et lien envoyés par Ouassim (28/10) ; nom de famille accepté le 1/11. Portfolio bientôt refait : vérifier le lien avant la mise en ligne
 		presentation:
 			"Chez Narukla, je suis développeur et je participe à la partie marketing. Je construis les pages du site pour qu'elles soient claires, simples et agréables à utiliser.",
 		photo: null,
@@ -193,13 +195,14 @@ const associes = [
 	}
 
 	.equipe__intro {
-		padding-block: 2.5rem 3.5rem;
+		padding-block: 2rem 3.5rem;
 	}
 
 	/* Étiquette blanche légèrement penchée */
 	.equipe__etiquette {
 		display: inline-block;
-		margin: 0.4rem 0 1.5rem;
+		/* Respiration avec le titre : l'accent du É touche presque l'étiquette (commentaire de Noah, 31/10) */
+		margin: 0.4rem 0 2rem;
 		padding: 0.3rem 1.4rem 0.2rem;
 		background: var(--couleur-blanc);
 		color: var(--couleur-noir);
@@ -277,7 +280,8 @@ const associes = [
 		display: grid;
 		place-items: center;
 		aspect-ratio: 7 / 6;
-		margin-bottom: 0.375rem;
+		/* Respiration entre le cadre et le nom (commentaire de Noah, 31/10) */
+		margin-bottom: 1.125rem;
 		overflow: hidden;
 		background: var(--couleur-violet);
 		border: 3px solid var(--couleur-noir);
@@ -434,7 +438,11 @@ const associes = [
 		}
 
 		.equipe__intro {
-			padding-block: 5rem 6rem;
+			padding-block: 4rem 6rem;
+		}
+
+		.equipe__etiquette {
+			margin-bottom: 2.5rem;
 		}
 
 		.equipe__liste {

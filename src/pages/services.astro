@@ -37,7 +37,7 @@ import Layout from '../layouts/Layout.astro';
 					<li class="offer__feature">3 tours de modifications</li>
 				</ul>
 				<p class="offer__delay">Livraison en 3 à 4 semaines</p>
-				<a class="offer__cta offer__cta--violet" href="/contact">Demander un devis</a>
+				<a class="offer__cta" href="/contact">Demander un devis</a>
 			</section>
 
 			<section class="offer" id="identite-visuelle" aria-labelledby="offer-identite-title">
@@ -282,7 +282,7 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	/* ---------- Boutons (frame « Boutons » de Noah) ---------- */
-	/* Blanc avec contour noir par défaut, violet pour l'offre principale, blanc sur la bande violette. */
+	/* Violet pour les 3 offres (commentaire de Noah, 31/10), blanc sur la bande violette. */
 	/* Hauteur d'environ 54 px : au-dessus des 44 px conseillés pour le doigt. */
 
 	.offer__cta,
@@ -291,8 +291,8 @@ import Layout from '../layouts/Layout.astro';
 		align-items: center;
 		min-height: 2.75rem;
 		padding: 0.9375rem 1.625rem 0.8125rem;
-		background: var(--couleur-blanc);
-		color: var(--couleur-noir);
+		background: var(--couleur-violet);
+		color: var(--couleur-blanc);
 		border: 3px solid var(--couleur-noir);
 		box-shadow: 6px 6px 0 var(--couleur-noir);
 		font-size: 1.25rem;
@@ -308,12 +308,9 @@ import Layout from '../layouts/Layout.astro';
 		margin-top: 0.375rem;
 	}
 
-	.offer__cta--violet {
-		background: var(--couleur-violet);
-		color: var(--couleur-blanc);
-	}
-
 	.cta__link {
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
 		border-color: var(--couleur-blanc);
 	}
 

@@ -180,13 +180,12 @@ const coordonnees = {
 		resize: vertical;
 	}
 
-	/* Focus : l'ombre violette de la maquette, en plus du contour (visible au clavier) */
+	/* Focus : contour violet seul, sans ombre (commentaire de Noah, 31/10) */
 	.formulaire input:focus-visible,
 	.formulaire select:focus-visible,
 	.formulaire textarea:focus-visible {
 		outline: 3px solid var(--couleur-violet);
 		outline-offset: 2px;
-		box-shadow: 6px 6px 0 var(--couleur-violet);
 	}
 
 	.formulaire__mention {
