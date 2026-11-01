@@ -173,8 +173,8 @@ const reseaux: { label: string; href: string }[] = [];
 		text-underline-offset: 0.2em;
 	}
 
-	/* Bouton violet sans bordure ni ombre, comme le cadre « Boutons » du Figma (commentaire de Noah, 31/10) :
-	   au survol, il passe en blanc */
+	/* Bouton violet sans bordure ni ombre blanche (commentaire de Noah, 31/10) :
+	   l'effet de survol vient des couches empilées (Effets.astro) */
 	.pied__bouton {
 		display: inline-block;
 		margin-top: 0.875rem;
@@ -188,19 +188,6 @@ const reseaux: { label: string; href: string }[] = [];
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
 		text-decoration: none;
-	}
-
-	.pied__bouton:hover {
-		background: var(--couleur-blanc);
-		color: var(--couleur-noir);
-	}
-
-	@media (prefers-reduced-motion: no-preference) {
-		.pied__bouton {
-			transition:
-				background-color 0.15s ease,
-				color 0.15s ease;
-		}
 	}
 
 	.pied a:focus-visible {

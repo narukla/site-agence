@@ -208,26 +208,11 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		list-style: none;
 	}
 
-	/* Sur la bande noire : ni ombre ni bordure, comme le cadre « Boutons » du Figma (Noah n'aime pas le rectangle blanc, 31/10) ;
-	   au survol, les couleurs s'inversent au lieu de « s'enfoncer » */
+	/* Sur la bande noire : pas d'ombre blanche ni de bordure (Noah n'aime pas le rectangle blanc, 31/10).
+	   L'effet de survol vient des couches empilées, en violet et bleu ici (Effets.astro) */
 	.accueil__actions :global(.bouton) {
 		border-color: transparent;
 		box-shadow: none;
-	}
-
-	.accueil__actions :global(.bouton:hover) {
-		box-shadow: none;
-		transform: none;
-	}
-
-	.accueil__actions :global(.bouton--violet:hover) {
-		background: var(--couleur-blanc);
-		color: var(--couleur-noir);
-	}
-
-	.accueil__actions :global(.bouton--contour:hover) {
-		background: var(--couleur-violet);
-		color: var(--couleur-blanc);
 	}
 
 	.accueil__actions :global(.bouton:focus-visible) {
@@ -247,6 +232,8 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		margin-block: -1.5rem 0;
 		padding-block: 1rem;
 		overflow: clip;
+		/* Noir au-dessus, blanc en dessous : pas de coin blanc entre le bandeau penché et la bande noire */
+		background: linear-gradient(var(--couleur-noir) 50%, var(--couleur-blanc) 50%);
 	}
 
 	.accueil__bandeau {

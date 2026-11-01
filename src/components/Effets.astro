@@ -405,12 +405,13 @@
 		content: attr(data-texte);
 		position: absolute;
 		left: 0;
-		top: 100%;
+		/* 130 % et non 100 % : l'accent du É de la copie dépassait sous le mot */
+		top: 130%;
 	}
 
 	.entete__lien:hover .fx-roule > span,
 	.entete__lien:focus-visible .fx-roule > span {
-		transform: translateY(-100%);
+		transform: translateY(-130%);
 	}
 
 	/* Boutons à couches empilées */
@@ -425,6 +426,22 @@
 	}
 
 	html.avec-couches .bouton:hover {
+		--d: 8px;
+		transform: translate(-4px, -4px) !important;
+	}
+
+	/* Sur fond noir (bandeau de l'Accueil, pied de page) : couches bleue et violette, sans rectangle blanc (commentaire de Noah, 31/10) */
+	html.avec-couches .accueil__actions .bouton,
+	html.avec-couches .pied__bouton {
+		--d: 4px;
+		box-shadow:
+			var(--d) var(--d) 0 0 var(--couleur-bleu),
+			calc(var(--d) * 2) calc(var(--d) * 2) 0 0 var(--couleur-violet) !important;
+		transition: transform 0.25s cubic-bezier(0.3, 1.4, 0.5, 1), box-shadow 0.25s cubic-bezier(0.3, 1.4, 0.5, 1);
+	}
+
+	html.avec-couches .accueil__actions .bouton:hover,
+	html.avec-couches .pied__bouton:hover {
 		--d: 8px;
 		transform: translate(-4px, -4px) !important;
 	}
