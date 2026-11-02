@@ -104,3 +104,37 @@ main {
 }
 
 /* En-tête et pied de page : styles dans src/components/Header.astro et Footer.astro (maquette Figma, 29/10) */
+
+/* Animation d'entrée des bandeaux d'intro (effet du labo « étiquette qui tombe », Entrées 01).
+   Sur le bandeau : classe entree ; sur l'étiquette penchée à -2° : entree__etiquette ; sur le titre : entree__titre.
+   Utilisée par Intro.astro (Accueil, Contact, Mentions, Merci, 404), Services et L'équipe.
+   Part au chargement en CSS seul. Le script de src/components/Effets.astro pose entree--hors-ecran quand le
+   bandeau sort complètement de l'écran et la retire quand il revient : l'animation se rejoue.
+   Seulement si la personne accepte les animations. */
+@media (prefers-reduced-motion: no-preference) {
+	.entree:not(.entree--hors-ecran) .entree__etiquette {
+		animation: entree-tombe 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+	}
+
+	.entree:not(.entree--hors-ecran) .entree__titre {
+		animation: entree-monte 0.6s 0.25s ease-out both;
+	}
+
+	@keyframes entree-tombe {
+		from {
+			opacity: 0;
+			transform: translateY(-2.5rem) rotate(-14deg);
+		}
+		to {
+			opacity: 1;
+			transform: rotate(-2deg);
+		}
+	}
+
+	@keyframes entree-monte {
+		from {
+			opacity: 0;
+			transform: translateY(1.5rem);
+		}
+	}
+}

@@ -12,6 +12,14 @@
 
 	// ───── Partout ─────
 
+	// Bandeaux d'intro : rejoue l'animation d'entrée quand le bandeau revient à l'écran (styles .entree dans global.css).
+	// Pas liée à effets.ts : elle fait partie de la maquette, sur toutes les pages.
+	document.querySelectorAll<HTMLElement>('.entree').forEach((bandeau) => {
+		new IntersectionObserver(([entree]) => {
+			bandeau.classList.toggle('entree--hors-ecran', !entree.isIntersecting);
+		}).observe(bandeau);
+	});
+
 	// Menu : fond violet qui glisse d'un lien à l'autre
 	const nav = document.querySelector<HTMLElement>('.entete__liste');
 	if (nav && actif('menu-glisse') && sourisFine) {
