@@ -1,13 +1,26 @@
 ---
 // Page L'équipe — responsable : Jibril
 // Mise en forme d'après la maquette Figma de Noah (page « Maquette », L'équipe Desktop 1440 et Mobile 390), le 29/10.
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+
+// Photos : déposer src/assets/equipe/<prenom>.jpg (ou .jpeg, .png, .webp), prénom en minuscules sans accent.
+// Astro la recadre, la compresse en WebP et la sert en plusieurs tailles : pas besoin de l'optimiser avant.
+// Sans fichier, la carte garde l'initiale. Photo commune prévue le lun. 2/11 (idée de Noah).
+const photos = import.meta.glob<{ default: ImageMetadata }>('../assets/equipe/*.{jpg,jpeg,png,webp}', {
+	eager: true,
+});
+const photoDe = (prenom: string) => {
+	const fichier = prenom.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+	const entree = Object.entries(photos).find(([chemin]) => chemin.split('/').pop()?.split('.')[0] === fichier);
+	return entree ? entree[1].default : null;
+};
 
 // Les 5 associés, par ordre alphabétique (pas de hiérarchie : parts égales).
 // Rôles : ceux du prompt d'équipe de Jimmy. Présentations : à recevoir de chacun (avant mer. 28 au soir).
 // nom : facultatif, seulement pour ceux qui veulent leur nom complet affiché.
 // presentation : null tant que l'associé ne l'a pas envoyée, le paragraphe ne s'affiche pas (jamais de repère en ligne).
-// photo : chemin dans public/ (ex. '/equipe/jibril.webp'), null en attendant la photo commune (lun. 2/11, idée de Noah).
 // mail, linkedin, portfolio : facultatifs, seulement pour ceux qui le veulent (idée de Noah), null sinon.
 // « de » ou « d' » selon la première lettre : « Portfolio d'Ouassim », « Portfolio de Jibril »
 // (le h n'est pas élidé : « de Hugo »)
@@ -21,7 +34,6 @@ const associes = [
 		// Validé par Jibril (28/10) : développeur d'abord, président pour les démarches de la société
 		presentation:
 			"Chez Narukla, je suis développeur : je construis les sites et je m'assure que tout fonctionne, du code à la mise en ligne. Je suis aussi président de la société et je m'occupe de ses démarches administratives.",
-		photo: null,
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/jibril-filali-59b02b390/',
 		portfolio: 'https://jibril-filali.page.gd',
@@ -33,7 +45,6 @@ const associes = [
 		// Texte et liens envoyés par Jimmy (28/10), nom complet
 		presentation:
 			'Chef de projet et développeur, je fais le lien entre vos idées et le site final, du premier rendez-vous à la mise en ligne.',
-		photo: null,
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/jimmy-bomy-1037453a8/',
 		portfolio: 'https://jimmybomy.fr/',
@@ -45,7 +56,6 @@ const associes = [
 		// Texte et liens envoyés par Lucas (31/10), nom complet
 		presentation:
 			"Développeur web chez Narukla, j'aide à concevoir des dispositifs interactifs solides et sécurisés, et je porte une attention particulière à l'esthétique et au design des pages web que je mets en place. Je m'occupe également de la gestion de projet et de la mise en place des plannings, des deadlines et du tri des documents.",
-		photo: null,
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/lucas-guidel-4754a8390',
 		portfolio: 'http://lucasguidel.fr',
@@ -57,7 +67,6 @@ const associes = [
 		// Texte et liens envoyés par Noah (28/10), nom complet
 		presentation:
 			"Designer graphique passionné, je conçois des identités visuelles fortes et cohérentes, en accordant une attention particulière aux détails, à l'esthétique et à l'impact visuel. Créatif et curieux, j'aime transformer les idées en concepts visuels originaux qui associent modernité, sens et personnalité.",
-		photo: null,
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/noah-mathias-8270733ab/',
 		portfolio: 'https://mmi25f09.mmi-troyes.fr/portfolio/',
@@ -69,7 +78,6 @@ const associes = [
 		// Texte et lien envoyés par Ouassim (28/10) ; nom de famille accepté le 1/11. Portfolio bientôt refait : vérifier le lien avant la mise en ligne
 		presentation:
 			"Chez Narukla, je suis développeur et je participe à la partie marketing. Je construis les pages du site pour qu'elles soient claires, simples et agréables à utiliser.",
-		photo: null,
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/ouassim-b-bba0633ab',
 		portfolio: 'https://ouassimboulacheb.github.io/',
@@ -81,9 +89,9 @@ const associes = [
 	title="L'équipe"
 	description="Narukla, c'est cinq associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
 >
-	<section class="equipe__intro equipe__bande equipe__bande--noir">
-		<p class="equipe__etiquette">Cinq associés · Troyes</p>
-		<h1 class="equipe__titre-page">L'équipe</h1>
+	<section class="equipe__intro equipe__bande equipe__bande--noir entree">
+		<p class="equipe__etiquette entree__etiquette">Cinq associés · Troyes</p>
+		<h1 class="equipe__titre-page entree__titre">L'équipe</h1>
 		<!-- Décision de Jimmy (27/10) : on dit qu'on est étudiants ici, pas en gros sur l'Accueil -->
 		<p class="equipe__chapo">
 			Narukla est une jeune agence web installée à Troyes. Nous sommes cinq associés, étudiants en
@@ -96,18 +104,21 @@ const associes = [
 		<h2 id="titre-associes" class="equipe__titre-section">Les associés</h2>
 		<ul class="equipe__liste">
 			{
-				associes.map((associe, i) => (
+				associes.map((associe, i) => {
+					const photo = photoDe(associe.prenom);
+					return (
 					<li style={`--i: ${i}`}>
 						<article class="equipe__carte">
 							<div class="equipe__cadre">
-								{associe.photo ? (
-									<img
+								{photo ? (
+									<Image
 										class="equipe__photo"
-										src={associe.photo}
+										src={photo}
 										alt={`Portrait de ${associe.prenom}`}
-										width="400"
-										height="400"
-										loading="lazy"
+										width={1200}
+										widths={[400, 800, 1200]}
+										sizes="(min-width: 75rem) 14rem, (min-width: 64rem) 33vw, (min-width: 40rem) 50vw, 100vw"
+										format="webp"
 									/>
 								) : (
 									<span class="equipe__initiale" aria-hidden="true">
@@ -127,19 +138,20 @@ const associes = [
 									)}
 									{associe.linkedin && (
 										<li>
-											<a href={associe.linkedin} rel="noopener" aria-label={`LinkedIn ${de(associe.prenom)}`}>LinkedIn</a>
+											<a href={associe.linkedin} target="_blank" rel="noopener" aria-label={`LinkedIn ${de(associe.prenom)} (nouvel onglet)`}>LinkedIn</a>
 										</li>
 									)}
 									{associe.portfolio && (
 										<li>
-											<a href={associe.portfolio} rel="noopener" aria-label={`Portfolio ${de(associe.prenom)}`}>Portfolio</a>
+											<a href={associe.portfolio} target="_blank" rel="noopener" aria-label={`Portfolio ${de(associe.prenom)} (nouvel onglet)`}>Portfolio</a>
 										</li>
 									)}
 								</ul>
 							)}
 						</article>
 					</li>
-				))
+					);
+				})
 			}
 		</ul>
 	</section>
@@ -231,7 +243,7 @@ const associes = [
 
 	.equipe__titre-section {
 		margin: 0 0 2rem;
-		font-size: clamp(2.375rem, 5vw, 4.5rem);
+		font-size: clamp(2.5rem, 5vw, 4.5rem);
 		line-height: 0.95;
 	}
 
@@ -288,10 +300,18 @@ const associes = [
 		box-shadow: 6px 6px 0 var(--couleur-noir);
 	}
 
+	/* La photo remplit le cadre quelle que soit sa forme ; recadrage un peu au-dessus du centre (visages) */
+	.equipe__cadre:has(.equipe__photo) {
+		position: relative;
+	}
+
 	.equipe__photo {
+		position: absolute;
+		inset: 0;
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		object-position: 50% 30%;
 	}
 
 	/* Initiale en contour blanc, en attendant la photo (décorative : aria-hidden) */
