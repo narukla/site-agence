@@ -37,6 +37,13 @@ const hebergeur = {
 	telephone: null as string | null,
 	site: 'https://www.cloudflare.com',
 };
+
+// Hébergeur jusqu'au 1/11/2026 : Netlify Forms garde les messages reçus avant cette date.
+// Adresse vérifiée le 2/11/2026 (netlify.com/privacy). Retirer ce paragraphe une fois ces messages supprimés.
+const ancienHebergeur = {
+	nom: 'Netlify, Inc.',
+	adresse: '101 2nd Street, San Francisco, CA 94105, États-Unis',
+};
 ---
 
 <Layout
@@ -129,6 +136,12 @@ const hebergeur = {
 			<p>
 				Elles sont conservées au maximum 3 ans après notre dernier échange. Le responsable du
 				traitement est Narukla.
+			</p>
+			<!-- À relire par l'avocate. À retirer quand les messages de Netlify Forms sont supprimés -->
+			<p>
+				Les messages envoyés avant le 1er novembre 2026 ont été reçus par l'intermédiaire
+				de {`${ancienHebergeur.nom} (${ancienHebergeur.adresse})`}, ancien hébergeur du site, situé lui
+				aussi hors de l'Union européenne. Il les conserve pour notre compte, dans la même limite de 3 ans.
 			</p>
 			<p>
 				Conformément au Règlement général sur la protection des données (RGPD) et à la loi
