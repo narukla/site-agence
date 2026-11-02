@@ -13,9 +13,11 @@ export const effetsActifs = [
 	// Tous les boutons ont maintenant la même ombre simple qui s'enfonce au survol (Bouton.astro).
 	'onde', // onde au clic sur les boutons
 	'haut', // bouton retour en haut avec progression
+	'amorti', // défilement amorti à la molette (Lenis), comme sur le site de travail de Jibril
 	// 'melange' retiré le 2/11 (Jibril) : les lettres mélangées au survol du pied de page faisaient un effet gênant (code supprimé, il reste dans le labo)
 
 	// Accueil
+	'etapes-epinglees', // « Comment ça se passe » se fige et les étapes défilent de côté (ordinateur, GSAP)
 	'contour', // titres en contour qui se remplissent au défilement
 	'projecteur', // lumière qui suit la souris sur les offres
 	'etiquette-curseur', // étiquette « Voir » qui suit le curseur sur les offres

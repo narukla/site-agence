@@ -12,6 +12,15 @@
 
 	// ───── Partout ─────
 
+	// Défilement amorti (Lenis) et étapes épinglées de l'Accueil (GSAP) : chargés seulement s'ils servent
+	const sectionEtapes = document.querySelector<HTMLElement>('.accueil__etapes');
+	const etapesActives = actif('etapes-epinglees') && sectionEtapes !== null;
+	if (animOk() && (actif('amorti') || etapesActives)) {
+		import('../scripts/defilement').then(({ demarrerDefilement }) =>
+			demarrerDefilement({ amorti: actif('amorti'), etapes: etapesActives ? sectionEtapes : null }),
+		);
+	}
+
 	// Bandeaux d'intro : rejoue l'animation d'entrée quand le bandeau revient à l'écran (styles .entree dans global.css).
 	// Pas liée à effets.ts : elle fait partie de la maquette, sur toutes les pages.
 	document.querySelectorAll<HTMLElement>('.entree').forEach((bandeau) => {

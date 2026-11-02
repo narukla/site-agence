@@ -647,6 +647,22 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 			max-width: 36rem;
 		}
 
+		/* Étapes épinglées (src/scripts/defilement.ts, effet « etapes-epinglees ») : la classe n'est posée que par le
+		   script, sur ordinateur et si les animations sont acceptées. La piste prend toute la largeur de l'écran
+		   (html a déjà overflow-x: clip) et commence alignée sur le titre ; GSAP la fait glisser vers la gauche. */
+		.accueil__etapes--epinglee .accueil__liste-etapes {
+			display: flex;
+			gap: 2rem;
+			width: max-content;
+			margin-inline: calc(50% - 50vw);
+			padding-inline: calc(50vw - 50%);
+		}
+
+		.accueil__etapes--epinglee .accueil__etape {
+			position: static;
+			flex: 0 0 min(40rem, 70vw);
+		}
+
 		.accueil__pourquoi {
 			grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
 			gap: 4rem;
