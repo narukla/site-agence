@@ -18,7 +18,13 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 	<div class="entete__contenu">
 		<!-- Logo final de Noah (SVG du 29/10), version blanche pour le fond noir -->
 		<a class="entete__logo" href="/">
-			<img src="/logo/narukla-blanc.svg" alt="Narukla, retour à l'accueil" width="339" height="116" />
+			<img
+				src="/logo/narukla-600.webp" srcset="/logo/narukla-300.webp 300w, /logo/narukla-600.webp 600w, /logo/narukla-900.webp 900w"
+				sizes="(min-width: 64rem) 10.5rem, 5.6rem"
+				alt="Narukla, retour à l'accueil"
+				width="600"
+				height="224"
+			/>
 		</a>
 		<nav aria-label="Navigation principale">
 			<ul class="entete__liste">
@@ -58,19 +64,19 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 		padding: 1rem var(--marge-cote);
 	}
 
+	/* Logo de la Frame 21 (page « Logo » du Figma, demande de Noah le 2/11), détouré, sans vide autour du dessin.
+	   Largeurs = 70 % de celles de l'ancien SVG, dont le dessin n'occupait que 70 % : même taille à l'écran */
 	.entete__logo {
 		display: block;
-		width: 8rem;
+		width: 5.6rem;
 	}
 
-	/* aspect-ratio : la place du logo est réservée avant son chargement (sinon la page saute) */
-	/* Le SVG a du vide à gauche du dessin (14,4 % de sa largeur) : ce décalage aligne le dessin sur le texte de la page
-	   (commentaire de Noah, 01/11). Seul ce vide sort de l'écran sur les petites largeurs */
+	/* aspect-ratio : la place du logo est réservée avant son chargement (sinon la page saute).
+	   Le dessin commence au bord de l'image : il est aligné sur le texte de la page sans décalage (commentaire de Noah, 01/11) */
 	.entete__logo img {
 		width: 100%;
 		height: auto;
-		aspect-ratio: 339 / 116;
-		margin-left: -14.4%;
+		aspect-ratio: 600 / 224;
 	}
 
 	.entete__liste {
@@ -123,7 +129,7 @@ const cheminActuel = Astro.url.pathname.replace(/\/$/, '') || '/';
 		}
 
 		.entete__logo {
-			width: clamp(10rem, 18vw, 15rem);
+			width: clamp(7rem, 12.6vw, 10.5rem);
 			flex-shrink: 0;
 		}
 
