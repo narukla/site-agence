@@ -30,8 +30,10 @@ const imagePartage = new URL('/og-image.png', Astro.site);
 		<!-- Police des titres et du menu chargée en priorité : sinon l'en-tête change de hauteur quand elle arrive
 		     et toute la page saute (décalage de 0,449 mesuré par PageSpeed sur ordinateur, 31/10) -->
 		<link rel="preload" href="/fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin />
-		<link rel="icon" href="/favicon.ico" />
-		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<!-- ?v=2 : nouvelle adresse pour que les navigateurs oublient l'ancienne icône d'Astro gardée en cache (même nom
+		     de fichier jusqu'au 31/10). Changer le numéro à chaque nouveau favicon. -->
+		<link rel="icon" href="/favicon.ico?v=2" sizes="16x16 32x32 48x48" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{titreComplet}</title>
 		<meta name="description" content={description} />
