@@ -9,8 +9,10 @@
 // - chaque lien interne mène à une page qui existe
 // - chaque image a un texte alternatif (alt), même vide pour une image décorative
 // - aucun id en double (sinon les ancres et les scripts visent le mauvais élément)
+// Et sur les photos de src/assets/equipe/ : ni métadonnées (position GPS) ni HEIC
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { contientMetadonnees } from './metadonnees.mjs';
 
 const DIST = 'dist';
 if (!existsSync(DIST)) {
@@ -82,6 +84,17 @@ for (const fichier of pages.sort()) {
 	const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]);
 	const doublons = [...new Set(ids.filter((id, i) => ids.indexOf(id) !== i))];
 	if (doublons.length) signaler(page, `id en double : ${doublons.join(', ')}`);
+}
+
+// Photos de L'équipe (repo public) : aucune métadonnée (position GPS…) dans les fichiers d'origine, pas de HEIC
+const PHOTOS = 'src/assets/equipe';
+if (existsSync(PHOTOS)) {
+	for (const nom of readdirSync(PHOTOS)) {
+		const photo = `${PHOTOS}/${nom}`;
+		if (/\.(heic|heif)$/i.test(nom)) signaler(photo, 'format HEIC non lu par Astro, le convertir en JPG');
+		else if (/\.(jpe?g|png|webp)$/i.test(nom) && contientMetadonnees(readFileSync(photo)))
+			signaler(photo, 'métadonnées présentes (position GPS possible) : lancer « npm run photos »');
+	}
 }
 
 if (erreurs) {
