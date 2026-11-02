@@ -27,7 +27,7 @@ export const effetsActifs = [
 
 	// Contact
 	'tremble', // champ qui tremble s'il est refusé
-	'compteur', // compteur de caractères du message (1 000 max)
+	'compteur', // compteur de caractères du message (limite : maxlength du champ, 2 000)
 	'envoi', // bouton « Envoi… » pendant l'envoi
 	'copier', // bouton « Copier » à côté du mail
 
