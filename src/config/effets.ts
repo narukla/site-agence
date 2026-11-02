@@ -9,11 +9,11 @@ export const effetsActifs = [
 	'entete', // en-tête collant qui rétrécit (ordinateur)
 	'menu-glisse', // menu : fond violet qui glisse d'un lien à l'autre
 	'menu-roule', // menu : texte qui roule au survol
-	// 'couches' retiré le 2/11 (Jibril) : les couches empilées derrière les boutons étaient trop chargées.
+	// 'couches' retiré le 2/11 (Jibril) : les couches empilées derrière les boutons étaient trop chargées (code supprimé, il reste dans le labo).
 	// Tous les boutons ont maintenant la même ombre simple qui s'enfonce au survol (Bouton.astro).
 	'onde', // onde au clic sur les boutons
 	'haut', // bouton retour en haut avec progression
-	// 'melange' retiré le 2/11 (Jibril) : les lettres mélangées au survol du pied de page faisaient un effet gênant
+	// 'melange' retiré le 2/11 (Jibril) : les lettres mélangées au survol du pied de page faisaient un effet gênant (code supprimé, il reste dans le labo)
 
 	// Accueil
 	'contour', // titres en contour qui se remplissent au défilement
