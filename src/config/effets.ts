@@ -12,7 +12,7 @@ export const effetsActifs = [
 	'couches', // boutons à couches empilées
 	'onde', // onde au clic sur les boutons
 	'haut', // bouton retour en haut avec progression
-	'melange', // pied de page : lettres mélangées au survol
+	// 'melange' retiré le 2/11 (Jibril) : les lettres mélangées au survol du pied de page faisaient un effet gênant
 
 	// Accueil
 	'contour', // titres en contour qui se remplissent au défilement

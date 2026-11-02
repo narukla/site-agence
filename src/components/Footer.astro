@@ -22,7 +22,14 @@ const reseaux: { label: string; href: string }[] = [];
 		<div class="pied__colonnes">
 			<div class="pied__marque">
 				<a class="pied__logo" href="/">
-					<img src="/logo/narukla-blanc.svg" alt="Narukla, retour à l'accueil" width="339" height="116" loading="lazy" />
+					<img
+						src="/logo/narukla-600.webp" srcset="/logo/narukla-300.webp 300w, /logo/narukla-600.webp 600w, /logo/narukla-900.webp 900w"
+						sizes="(min-width: 64rem) 11.9rem, 7rem"
+						alt="Narukla, retour à l'accueil"
+						width="600"
+						height="224"
+						loading="lazy"
+					/>
 				</a>
 				<p class="pied__phrase">
 					Agence web à Troyes : sites vitrines, identités visuelles et maintenance pour les commerces,
@@ -113,16 +120,15 @@ const reseaux: { label: string; href: string }[] = [];
 		gap: 2.25rem;
 	}
 
+	/* Logo de la Frame 21 (Figma, 2/11), sans vide autour du dessin : 70 % de la largeur de l'ancien SVG = même taille */
 	.pied__logo {
 		display: block;
-		width: 10rem;
+		width: 7rem;
 	}
 
-	/* Le SVG a du vide à gauche du dessin (14,4 % de sa largeur) : ce décalage aligne le dessin sur le texte dessous */
 	.pied__logo img {
 		width: 100%;
 		height: auto;
-		margin-left: -14.4%;
 	}
 
 	.pied__phrase {
@@ -230,8 +236,10 @@ const reseaux: { label: string; href: string }[] = [];
 			gap: 2.5rem;
 		}
 
+		/* margin-top : le haut du dessin s'aligne sur les titres et le bouton (même décalage de 0,875rem, Noah 31/10) */
 		.pied__logo {
-			width: clamp(12rem, 20vw, 17rem);
+			width: clamp(8.4rem, 14vw, 11.9rem);
+			margin-top: 0.875rem;
 		}
 
 		/* Même décalage que le bouton de la 4e colonne : le haut des titres s'aligne sur le logo (commentaire de Noah, 31/10) */
