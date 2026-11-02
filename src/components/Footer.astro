@@ -181,8 +181,8 @@ const reseaux: { label: string; href: string }[] = [];
 		text-underline-offset: 0.2em;
 	}
 
-	/* Bouton violet sans bordure ni ombre blanche (commentaire de Noah, 31/10) :
-	   l'effet de survol vient des couches empilées (Effets.astro) */
+	/* Bouton violet sans bordure (commentaire de Noah, 31/10) ; sur le fond noir, ombre blanche qui s'enfonce
+	   au survol, comme les autres boutons du site (effet « couches » retiré le 2/11) */
 	.pied__bouton {
 		display: inline-block;
 		margin-top: 0.875rem;
@@ -196,6 +196,20 @@ const reseaux: { label: string; href: string }[] = [];
 		letter-spacing: 0.04em;
 		text-transform: uppercase;
 		text-decoration: none;
+		box-shadow: 6px 6px 0 var(--couleur-blanc);
+	}
+
+	.pied__bouton:hover {
+		box-shadow: 3px 3px 0 var(--couleur-blanc);
+		transform: translate(3px, 3px);
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.pied__bouton {
+			transition:
+				transform 0.15s ease,
+				box-shadow 0.15s ease;
+		}
 	}
 
 	.pied a:focus-visible {
