@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "verifier": "node scripts/verifier.mjs",
+    "photos": "node scripts/photos.mjs",
     "surveiller": "node scripts/surveiller.mjs"
   },
   "dependencies": {
