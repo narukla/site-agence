@@ -151,8 +151,10 @@
 		}
 	}
 
-	// Lettres en vague sur « Un projet en tête ? »
-	const titreContact = document.querySelector<HTMLElement>('.accueil__contact .accueil__titre-grand');
+	// Lettres en vague sur « Un projet en tête ? » (bande violette de l'Accueil, de L'équipe et de Services)
+	const titreContact = document.querySelector<HTMLElement>(
+		'.accueil__contact .accueil__titre-grand, .equipe__contact .equipe__titre-page, .cta .cta__title',
+	);
 	if (titreContact && actif('vague')) {
 		const texte = titreContact.textContent!.trim();
 		titreContact.setAttribute('aria-label', texte);
@@ -598,7 +600,9 @@
 	}
 
 	@media (prefers-reduced-motion: no-preference) {
-		.accueil__contact:hover .fx-lettre {
+		.accueil__contact:hover .fx-lettre,
+		.equipe__contact:hover .fx-lettre,
+		.cta:hover .fx-lettre {
 			animation: fx-vague 0.5s ease calc(var(--i) * 0.035s);
 		}
 	}

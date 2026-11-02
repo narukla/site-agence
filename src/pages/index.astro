@@ -156,8 +156,9 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 <style>
 	/* Mise en page d'après la maquette Figma de Noah (Accueil), mobile d'abord.
 	   Bandes pleine largeur avec border-image (même technique que L'équipe et Intro.astro). */
+	/* 4,25rem comme les bandes de Services et L'équipe (audit de cohérence du 2/11) */
 	.accueil__bande {
-		padding-block: 4rem;
+		padding-block: 4.25rem;
 		border-image: conic-gradient(var(--fond-bande) 0 0) fill 0 / / 0 100vw;
 	}
 
@@ -465,7 +466,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 	/* Bouton blanc sur la bande violette (même style que L'équipe) */
 	.accueil__bouton-blanc {
 		display: inline-block;
-		margin-top: 2rem;
+		margin-top: 1.5rem;
 		padding: 0.95rem 1.625rem 0.8rem;
 		background: var(--couleur-blanc);
 		color: var(--couleur-noir);
