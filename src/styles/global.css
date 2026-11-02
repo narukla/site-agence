@@ -138,3 +138,28 @@ main {
 		}
 	}
 }
+
+/* Taille commune de tous les boutons, d'après la frame « Boutons » du Figma (103:323, 2/11) : 194 × 50 px,
+   Anton 20 px, interlettrage 0,8 px, 15 px entre le bord et le texte (bordure de 3 px comprise).
+   Les couleurs, bordures et ombres restent dans chaque composant ; seule la taille se règle ici. */
+.bouton,
+.pied__bouton,
+.offer__cta,
+.cta__link,
+.equipe__bouton,
+.accueil__bouton-blanc,
+.formulaire__envoyer {
+	box-sizing: border-box;
+	min-width: 12.125rem;
+	padding: 0.75rem;
+	font-size: 1.25rem;
+	line-height: 1;
+	letter-spacing: 0.04em;
+	text-align: center;
+	justify-content: center;
+}
+
+/* « Envoyer » : plus étroit dans le Figma (101 px), largeur selon le texte */
+.formulaire__envoyer {
+	min-width: 0;
+}
