@@ -13,7 +13,12 @@ interface Options {
 	etapes: HTMLElement | null;
 }
 
-export async function demarrerDefilement({ amorti, etapes }: Options) {
+// Même condition que l'épinglage plus bas : testée AVANT de télécharger GSAP (remarque de Jimmy, 2/11),
+// pour que les téléphones ne chargent pas 110 Ko pour rien. Une fenêtre agrandie après coup s'active au rechargement.
+const EPINGLAGE = '(min-width: 64rem) and (prefers-reduced-motion: no-preference)';
+
+export async function demarrerDefilement({ amorti, etapes: section }: Options) {
+	const etapes = section && window.matchMedia(EPINGLAGE).matches ? section : null;
 	if (!etapes) {
 		// Pas d'étapes sur cette page : Lenis seul, avec sa propre boucle d'animation
 		if (amorti) new Lenis({ lerp: 0.09, autoRaf: true });
@@ -37,7 +42,7 @@ export async function demarrerDefilement({ amorti, etapes }: Options) {
 
 	// Seulement sur ordinateur et si les animations sont acceptées ; sinon (ou si la fenêtre rétrécit)
 	// la liste reste verticale, avec ses cartes qui s'empilent en CSS
-	gsap.matchMedia().add('(min-width: 64rem) and (prefers-reduced-motion: no-preference)', () => {
+	gsap.matchMedia().add(EPINGLAGE, () => {
 		etapes.classList.add('accueil__etapes--epinglee');
 		const longueur = () => liste.scrollWidth - document.documentElement.clientWidth;
 
