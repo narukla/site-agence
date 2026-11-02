@@ -4,6 +4,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Effets from '../components/Effets.astro';
+import Allumage from '../components/Allumage.astro';
 import { effetsActifs } from '../config/effets';
 import '../styles/global.css';
 
@@ -56,6 +57,8 @@ const imagePartage = new URL('/og-image.png', Astro.site);
 	</head>
 	<body>
 		<a class="skip-link" href="#contenu">Aller au contenu</a>
+		<!-- Écran de chargement de la maquette de Jimmy (2/11) : ordinateur, une fois par visite -->
+		<Allumage />
 		<Header />
 		<main id="contenu">
 			<slot />

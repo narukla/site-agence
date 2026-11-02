@@ -1,0 +1,233 @@
+---
+// Écran d'allumage (chargement) repris de la maquette « Narukla Bureau V2 » de Jimmy (2/11) : un trait qui s'allume,
+// le logo qui apparaît, une barre de chargement, puis l'écran s'efface.
+// Ordinateur seulement (≥ 900 px), une fois par visite, moins de 2 s, passable d'un clic ou d'une touche.
+// Caché par défaut (hidden) : sans JavaScript, la page s'affiche directement.
+// « Une fois par visite » : sessionStorage, effacé à la fermeture de l'onglet (rien ne reste chez le visiteur).
+---
+
+<div class="allumage" id="allumage" hidden>
+	<div class="allumage__trait"></div>
+	<div class="allumage__ecran">
+		<img class="allumage__logo" src="/logo/narukla-900.webp" alt="" width="900" height="335" />
+		<div class="allumage__charge"><span></span></div>
+		<p class="allumage__msg">Démarrage de Narukla</p>
+	</div>
+	<button class="allumage__passer" id="allumage-passer" type="button">Passer l'animation</button>
+</div>
+
+<style>
+	.allumage {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		display: grid;
+		place-items: center;
+		padding: 1.5rem;
+		background: var(--couleur-noir);
+		color: var(--couleur-blanc);
+		transition: opacity 0.3s;
+	}
+
+	.allumage[hidden] {
+		display: none;
+	}
+
+	.allumage.fini {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.allumage__ecran {
+		position: relative;
+		display: grid;
+		justify-items: center;
+		gap: 1.375rem;
+		width: min(35rem, 90vw);
+	}
+
+	.allumage__trait {
+		position: fixed;
+		inset-inline: 0;
+		top: 50%;
+		height: 3px;
+		background: var(--couleur-blanc);
+		transform: scaleX(0);
+		opacity: 0;
+	}
+
+	.allumage__logo {
+		width: 100%;
+		height: auto;
+		opacity: 0;
+	}
+
+	.allumage__charge {
+		width: 70%;
+		height: 18px;
+		padding: 3px;
+		border: 3px solid var(--couleur-blanc);
+		opacity: 0;
+	}
+
+	.allumage__charge span {
+		display: block;
+		width: 0;
+		height: 100%;
+		background: var(--couleur-violet);
+	}
+
+	.allumage__msg {
+		margin: 0;
+		font-family: var(--police-corps);
+		font-size: 0.95rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		opacity: 0;
+	}
+
+	.allumage__passer {
+		position: fixed;
+		right: 1.5rem;
+		bottom: 1.5rem;
+		padding: 0.6em 1.1em;
+		background: transparent;
+		color: var(--couleur-blanc);
+		border: 2px solid var(--couleur-blanc);
+		font-family: var(--police-corps);
+		font-size: 1rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.allumage__passer:hover {
+		background: var(--couleur-blanc);
+		color: var(--couleur-noir);
+	}
+
+	.allumage__passer:focus-visible {
+		outline: 3px solid var(--couleur-violet);
+		outline-offset: 3px;
+	}
+
+	.allumage.joue .allumage__trait {
+		animation: allumage-trait 0.5s ease-out forwards;
+	}
+
+	.allumage.joue .allumage__logo {
+		animation: allumage-logo 0.45s 0.4s steps(4) forwards;
+	}
+
+	.allumage.joue .allumage__charge {
+		animation: allumage-apparait 0.1s 0.55s forwards;
+	}
+
+	.allumage.joue .allumage__charge span {
+		animation: allumage-charge 1s 0.6s steps(10) forwards;
+	}
+
+	.allumage.joue .allumage__msg {
+		animation: allumage-apparait 0.1s 0.6s forwards;
+	}
+
+	/* Réduire les animations : tout apparaît d'un coup, l'écran s'efface vite (durée gérée dans le script) */
+	@media (prefers-reduced-motion: reduce) {
+		.allumage.joue .allumage__trait {
+			animation: none;
+		}
+
+		.allumage.joue .allumage__logo,
+		.allumage.joue .allumage__charge,
+		.allumage.joue .allumage__msg {
+			animation: none;
+			opacity: 1;
+		}
+
+		.allumage.joue .allumage__charge span {
+			animation: none;
+			width: 100%;
+		}
+	}
+
+	@keyframes allumage-trait {
+		0% {
+			opacity: 1;
+			transform: scaleX(0);
+		}
+		60% {
+			opacity: 1;
+			transform: scaleX(1);
+		}
+		100% {
+			opacity: 0;
+			transform: scaleX(1) scaleY(60);
+		}
+	}
+
+	@keyframes allumage-logo {
+		from {
+			opacity: 0;
+			filter: blur(6px);
+		}
+		to {
+			opacity: 1;
+			filter: none;
+		}
+	}
+
+	@keyframes allumage-apparait {
+		to {
+			opacity: 1;
+		}
+	}
+
+	@keyframes allumage-charge {
+		to {
+			width: 100%;
+		}
+	}
+</style>
+
+<script>
+	// Même logique que la maquette de Jimmy : ordinateur seulement, une fois par visite, passable
+	const allumage = document.getElementById('allumage');
+	const passer = document.getElementById('allumage-passer');
+	const ordi = window.matchMedia('(min-width: 900px)').matches;
+	const reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	let dejaVu = false;
+	try {
+		dejaVu = sessionStorage.getItem('narukla-allume') === '1';
+	} catch {
+		// Stockage bloqué (navigation privée stricte) : on considère l'animation comme vue, pour ne pas la rejouer à chaque page
+		dejaVu = true;
+	}
+
+	if (allumage && passer && ordi && !dejaVu && !location.hash) {
+		let fin: number;
+		const eteindre = () => {
+			clearTimeout(fin);
+			allumage.classList.add('fini');
+			setTimeout(() => (allumage.hidden = true), 300);
+			removeEventListener('keydown', toucheEteint);
+			try {
+				sessionStorage.setItem('narukla-allume', '1');
+			} catch {
+				// rien : l'animation reviendra simplement à la prochaine page
+			}
+		};
+		// Toute touche passe l'animation, sauf Tab (pour atteindre le bouton au clavier)
+		const toucheEteint = (e: KeyboardEvent) => {
+			if (e.key !== 'Tab') eteindre();
+		};
+
+		allumage.hidden = false;
+		allumage.classList.add('joue');
+		passer.focus();
+		passer.addEventListener('click', eteindre);
+		allumage.addEventListener('click', eteindre);
+		addEventListener('keydown', toucheEteint);
+		fin = window.setTimeout(eteindre, reduit ? 300 : 1800);
+	}
+</script>
