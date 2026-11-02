@@ -89,27 +89,6 @@
 		haut.addEventListener('click', () => scrollTo({ top: 0, behavior: animOk() ? 'smooth' : 'auto' }));
 	}
 
-	// Pied de page : lettres mélangées au survol
-	if (actif('melange') && animOk()) {
-		const signes = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*';
-		document.querySelectorAll<HTMLElement>('.pied a.pied__lien:not(.pied__lien--normal):not(.pied__lien--souligne)').forEach((lien) => {
-			const vrai = lien.textContent!.trim();
-			lien.setAttribute('aria-label', vrai);
-			let minuteur: number;
-			const melanger = () => {
-				let tour = 0;
-				clearInterval(minuteur);
-				minuteur = window.setInterval(() => {
-					lien.textContent = [...vrai].map((c, i) => (i < tour || c === ' ' ? c : signes[Math.floor(Math.random() * signes.length)])).join('');
-					tour += 0.5;
-					if (tour >= vrai.length) { clearInterval(minuteur); lien.textContent = vrai; }
-				}, 30);
-			};
-			lien.addEventListener('mouseenter', melanger);
-			lien.addEventListener('focus', melanger);
-		});
-	}
-
 	// ───── Accueil ─────
 
 	// Projecteur : une lumière violette suit la souris sur chaque offre
@@ -431,41 +410,6 @@
 	.entete__lien:hover .fx-roule > span,
 	.entete__lien:focus-visible .fx-roule > span {
 		transform: translateY(-130%);
-	}
-
-	/* Boutons à couches empilées */
-	html.avec-couches .bouton {
-		--d: 4px;
-		box-shadow:
-			var(--d) var(--d) 0 -3px var(--couleur-bleu),
-			var(--d) var(--d) 0 0 var(--couleur-noir),
-			calc(var(--d) * 2) calc(var(--d) * 2) 0 -3px var(--couleur-blanc),
-			calc(var(--d) * 2) calc(var(--d) * 2) 0 0 var(--couleur-noir) !important;
-		transition: transform 0.25s cubic-bezier(0.3, 1.4, 0.5, 1), box-shadow 0.25s cubic-bezier(0.3, 1.4, 0.5, 1);
-	}
-
-	html.avec-couches .bouton:hover {
-		--d: 8px;
-		transform: translate(-4px, -4px) !important;
-	}
-
-	/* Sur fond noir (bandeau de l'Accueil, pied de page) : une seule couche, blanche derrière le bouton violet,
-	   violette derrière le bouton blanc (commentaires de Noah, 01/11) */
-	html.avec-couches .accueil__actions .bouton,
-	html.avec-couches .pied__bouton {
-		--d: 4px;
-		box-shadow: var(--d) var(--d) 0 0 var(--couleur-blanc) !important;
-		transition: transform 0.25s cubic-bezier(0.3, 1.4, 0.5, 1), box-shadow 0.25s cubic-bezier(0.3, 1.4, 0.5, 1);
-	}
-
-	html.avec-couches .accueil__actions .bouton--contour {
-		box-shadow: var(--d) var(--d) 0 0 var(--couleur-violet) !important;
-	}
-
-	html.avec-couches .accueil__actions .bouton:hover,
-	html.avec-couches .pied__bouton:hover {
-		--d: 8px;
-		transform: translate(-4px, -4px) !important;
 	}
 
 	/* Onde au clic */
