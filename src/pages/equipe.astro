@@ -17,7 +17,7 @@ const photoDe = (prenom: string) => {
 	return entree ? entree[1].default : null;
 };
 
-// Les 5 associés, par ordre alphabétique (pas de hiérarchie : parts égales).
+// Les 4 associés, par ordre alphabétique (pas de hiérarchie : parts égales). Lucas a quitté Narukla le 2/11.
 // Rôles : ceux du prompt d'équipe de Jimmy. Présentations : à recevoir de chacun (avant mer. 28 au soir).
 // nom : facultatif, seulement pour ceux qui veulent leur nom complet affiché.
 // presentation : null tant que l'associé ne l'a pas envoyée, le paragraphe ne s'affiche pas (jamais de repère en ligne).
@@ -50,17 +50,6 @@ const associes = [
 		portfolio: 'https://jimmybomy.fr/',
 	},
 	{
-		prenom: 'Lucas',
-		nom: 'Guidel',
-		role: 'Développeur, gestion de projet',
-		// Texte et liens envoyés par Lucas (31/10), nom complet
-		presentation:
-			"Développeur web chez Narukla, j'aide à concevoir des dispositifs interactifs solides et sécurisés, et je porte une attention particulière à l'esthétique et au design des pages web que je mets en place. Je m'occupe également de la gestion de projet et de la mise en place des plannings, des deadlines et du tri des documents.",
-		mail: null,
-		linkedin: 'https://www.linkedin.com/in/lucas-guidel-4754a8390',
-		portfolio: 'http://lucasguidel.fr',
-	},
-	{
 		prenom: 'Noah',
 		nom: 'Mathias',
 		role: 'Trésorier, graphiste',
@@ -87,14 +76,14 @@ const associes = [
 
 <Layout
 	title="L'équipe"
-	description="Narukla, c'est cinq associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
+	description="Narukla, c'est quatre associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
 >
 	<section class="equipe__intro equipe__bande equipe__bande--noir entree">
-		<p class="equipe__etiquette entree__etiquette">Cinq associés · Troyes</p>
+		<p class="equipe__etiquette entree__etiquette">Quatre associés · Troyes</p>
 		<h1 class="equipe__titre-page entree__titre">L'équipe</h1>
 		<!-- Décision de Jimmy (27/10) : on dit qu'on est étudiants ici, pas en gros sur l'Accueil -->
 		<p class="equipe__chapo">
-			Narukla est une jeune agence web installée à Troyes. Nous sommes cinq associés, étudiants en
+			Narukla est une jeune agence web installée à Troyes. Nous sommes quatre associés, étudiants en
 			BUT MMI (Métiers du multimédia et de l'internet) à l'IUT de Troyes : développement, graphisme
 			et marketing réunis dans une même équipe.
 		</p>
@@ -465,8 +454,9 @@ const associes = [
 			margin-bottom: 2.5rem;
 		}
 
+		/* Les 4 associés sur une ligne (2 × 2 sur tablette, 1 par ligne sur téléphone) */
 		.equipe__liste {
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(4, 1fr);
 		}
 
 		/* Desktop : cadres carrés */
@@ -479,10 +469,4 @@ const associes = [
 		}
 	}
 
-	/* Grand écran : les 5 associés sur une ligne */
-	@media (min-width: 75rem) {
-		.equipe__liste {
-			grid-template-columns: repeat(5, 1fr);
-		}
-	}
 </style>

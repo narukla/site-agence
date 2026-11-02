@@ -1,7 +1,7 @@
 # Photos de L'équipe
 
 Déposer ici une photo par associé, nommée avec le prénom en minuscules, sans accent :
-`jibril.jpg`, `jimmy.jpg`, `lucas.jpg`, `noah.jpg`, `ouassim.jpg` (`.jpeg`, `.png` ou `.webp` marchent aussi).
+`jibril.jpg`, `jimmy.jpg`, `noah.jpg`, `ouassim.jpg` (`.jpeg`, `.png` ou `.webp` marchent aussi).
 
 ## Avant de committer : `npm run photos`
 
