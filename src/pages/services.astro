@@ -486,6 +486,36 @@ import Layout from '../layouts/Layout.astro';
 		.process__step-text {
 			grid-column: 1 / -1;
 		}
+
+		/* Survol des étapes (demande de Jibril, 2/11), simple et dans le style des boutons : la carte se soulève,
+		   une ombre violette apparaît derrière, le numéro passe en violet. Souris seulement. */
+		@media (hover: hover) and (pointer: fine) {
+			.process__step {
+				transition:
+					transform 0.2s ease-out,
+					box-shadow 0.2s ease-out;
+			}
+
+			.process__step::before {
+				transition: color 0.2s ease-out;
+			}
+
+			.process__step:hover {
+				transform: translate(-4px, -4px);
+				box-shadow: 8px 8px 0 var(--couleur-violet);
+			}
+
+			.process__step:hover::before {
+				color: var(--couleur-violet);
+			}
+		}
+
+		/* Réduire les animations : l'ombre et la couleur restent, la carte ne bouge pas */
+		@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: reduce) {
+			.process__step:hover {
+				transform: none;
+			}
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {
