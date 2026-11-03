@@ -6,6 +6,7 @@ import Footer from '../components/Footer.astro';
 import Effets from '../components/Effets.astro';
 import Allumage from '../components/Allumage.astro';
 import { effetsActifs } from '../config/effets';
+import { coordonnees } from '../config/coordonnees';
 import '../styles/global.css';
 
 interface Props {
@@ -21,6 +22,28 @@ const { title, description, noindex = false } = Astro.props;
 const titreComplet = `${title} | Narukla`;
 const adresseCanonique = new URL(Astro.url.pathname, Astro.site);
 const imagePartage = new URL('/og-image.png', Astro.site);
+
+// Fiche de l'agence lue par Google (données structurées schema.org) : nom, contact, ville, offres.
+// Uniquement des informations déjà affichées sur le site (rien d'inventé : ni avis, ni note, ni adresse de rue).
+// Les prix reprennent ceux de la page Services : les changer aux deux endroits.
+const ficheAgence = {
+	'@context': 'https://schema.org',
+	'@type': 'ProfessionalService',
+	name: 'Narukla',
+	description: 'Agence web à Troyes : sites vitrines, identités visuelles et maintenance pour les commerces, artisans et indépendants.',
+	url: Astro.site?.toString(),
+	logo: new URL('/logo/narukla-600.webp', Astro.site).toString(),
+	image: imagePartage.toString(),
+	email: coordonnees.mail,
+	telephone: `+33${coordonnees.telephone.replace(/\s/g, '').slice(1)}`,
+	address: { '@type': 'PostalAddress', addressLocality: 'Troyes', postalCode: '10000', addressCountry: 'FR' },
+	areaServed: { '@type': 'AdministrativeArea', name: 'Aube' },
+	makesOffer: [
+		{ '@type': 'Offer', name: 'Site vitrine', price: '800', priceCurrency: 'EUR' },
+		{ '@type': 'Offer', name: 'Identité visuelle', priceSpecification: { '@type': 'PriceSpecification', minPrice: '600', maxPrice: '1000', priceCurrency: 'EUR' } },
+		{ '@type': 'Offer', name: 'Maintenance', priceSpecification: { '@type': 'UnitPriceSpecification', price: '40', priceCurrency: 'EUR', unitText: 'mois' } },
+	],
+};
 ---
 
 <!doctype html>
@@ -39,7 +62,13 @@ const imagePartage = new URL('/og-image.png', Astro.site);
 		<title>{titreComplet}</title>
 		<meta name="description" content={description} />
 		{noindex && <meta name="robots" content="noindex" />}
-		<link rel="canonical" href={adresseCanonique} />
+		<!-- Pas d'adresse canonique sur une page exclue de Google : sur la 404, elle pointait vers /404/ quelle que soit
+		     l'adresse demandée, et « noindex » + « canonical » envoient deux signaux contradictoires -->
+		{!noindex && <link rel="canonical" href={adresseCanonique} />}
+		<!-- Couleur de la barre du navigateur sur mobile : le noir de l'en-tête -->
+		<meta name="theme-color" content="#000000" />
+		<!-- Fiche de l'agence pour Google : un bloc de données, pas un script exécuté (la CSP ne le concerne pas) -->
+		{!noindex && <script type="application/ld+json" set:html={JSON.stringify(ficheAgence)} />}
 		<link rel="sitemap" href="/sitemap.xml" />
 
 		<!-- Aperçu quand le lien est partagé (WhatsApp, Instagram, LinkedIn, Discord…) -->
