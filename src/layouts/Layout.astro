@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Effets from '../components/Effets.astro';
 import Allumage from '../components/Allumage.astro';
+import AppelMobile from '../components/AppelMobile.astro';
 import { effetsActifs } from '../config/effets';
 import { coordonnees } from '../config/coordonnees';
 import '../styles/global.css';
@@ -93,6 +94,7 @@ const ficheAgence = {
 			<slot />
 		</main>
 		<Footer />
+		<AppelMobile />
 		<Effets />
 	</body>
 </html>
