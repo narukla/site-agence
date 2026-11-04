@@ -2,7 +2,8 @@
 // Utilisées par le pied de page, la page Contact et les mentions légales.
 // Au passage au domaine en .fr : changer le mail ici, et c'est tout.
 export const coordonnees = {
-	mail: 'narukla@proton.me',
+	// Adresse au nom de domaine (conseil du prof, 4/11), redirigée vers narukla@proton.me par Cloudflare Email Routing
+	mail: 'contact@narukla.fr',
 	// Numéro de Jimmy (commercial), donné le 28/10
 	telephone: '07 88 02 16 76',
 	ville: 'Troyes (10)',
