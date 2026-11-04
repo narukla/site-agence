@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout
 	title="Tarifs site vitrine et identité visuelle à Troyes"
-	description="Site vitrine 800 €, identité visuelle de 600 à 1 000 €, maintenance 40 €/mois : les offres de Narukla, agence web à Troyes."
+	description="Site vitrine à partir de 800 €, identité visuelle de 600 à 1 000 €, maintenance 40 €/mois : les offres de Narukla, agence web à Troyes."
 >
 	<div class="services">
 		<section class="services__intro entree" aria-labelledby="services-title">
@@ -26,7 +26,8 @@ import Layout from '../layouts/Layout.astro';
 		<div class="offers">
 			<section class="offer" id="site-vitrine" aria-labelledby="offer-vitrine-title">
 				<h2 id="offer-vitrine-title" class="offer__title">Site vitrine</h2>
-				<p class="offer__price">800 €</p>
+				<!-- Retour du prof (4/11) : « à partir de », le prix final est celui du devis -->
+				<p class="offer__price">À partir de 800 €</p>
 				<ul class="offer__features">
 					<li class="offer__feature">Jusqu’à 5 pages</li>
 					<li class="offer__feature">Site responsive, adapté aux mobiles et aux tablettes</li>
@@ -34,7 +35,7 @@ import Layout from '../layouts/Layout.astro';
 					<li class="offer__feature">Formulaire de contact</li>
 					<!-- Sondage du 29/10, question 3 : ensuite compris dans la maintenance (A) -->
 					<li class="offer__feature">Nom de domaine .fr et hébergement la première année, puis compris dans la maintenance</li>
-					<li class="offer__feature">3 tours de modifications</li>
+					<li class="offer__feature">3 tours de modifications, <a href="#tours">selon conditions</a></li>
 				</ul>
 				<p class="offer__delay">Livraison en 3 à 4 semaines</p>
 				<a class="offer__cta" href="/contact">Demander un devis</a>
@@ -67,6 +68,14 @@ import Layout from '../layouts/Layout.astro';
 				</ul>
 				<a class="offer__cta" href="/contact">Nous contacter</a>
 			</section>
+
+			<!-- Retour du prof (4/11) : un garde-fou sur les modifications, sinon on peut travailler à perte.
+			     Même définition dans docs/modeles/conditions-generales.md et dans le devis. -->
+			<p class="services__note services__tours" id="tours">
+				Un tour de modifications = une liste de corrections envoyée en une seule fois, sur les textes, images et mise en
+				page prévus au devis. Une nouvelle page, une nouvelle fonction ou un tour au-delà du troisième fait l’objet
+				d’un devis complémentaire.
+			</p>
 		</div>
 
 		<!-- Les numéros des étapes sont générés en CSS (compteur) -->
@@ -200,6 +209,17 @@ import Layout from '../layouts/Layout.astro';
 		padding-left: 1rem;
 		border-left: 4px solid var(--couleur-violet);
 		line-height: 1.6;
+	}
+
+	/* Définition d'un tour de modifications, sous les cartes d'offres (cible du lien « selon conditions ») */
+	.services__tours {
+		grid-column: 1 / -1;
+		margin: 0.5rem 0 0;
+		scroll-margin-top: 6rem;
+	}
+
+	.offer__feature a {
+		color: var(--couleur-violet);
 	}
 
 	/* ---------- Offres (3 cartes) ---------- */

@@ -39,7 +39,7 @@ const ficheAgence = {
 	address: { '@type': 'PostalAddress', addressLocality: 'Troyes', postalCode: '10000', addressCountry: 'FR' },
 	areaServed: { '@type': 'AdministrativeArea', name: 'Aube' },
 	makesOffer: [
-		{ '@type': 'Offer', name: 'Site vitrine', price: '800', priceCurrency: 'EUR' },
+		{ '@type': 'Offer', name: 'Site vitrine', priceSpecification: { '@type': 'PriceSpecification', minPrice: '800', priceCurrency: 'EUR' } },
 		{ '@type': 'Offer', name: 'Identité visuelle', priceSpecification: { '@type': 'PriceSpecification', minPrice: '600', maxPrice: '1000', priceCurrency: 'EUR' } },
 		{ '@type': 'Offer', name: 'Maintenance', priceSpecification: { '@type': 'UnitPriceSpecification', price: '40', priceCurrency: 'EUR', unitText: 'mois' } },
 	],
