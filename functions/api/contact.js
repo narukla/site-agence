@@ -11,6 +11,11 @@
 //
 // L'adresse du webhook Discord est un secret : elle est dans la variable d'environnement
 // DISCORD_WEBHOOK_URL (Cloudflare → Settings → Variables and Secrets), jamais dans le code.
+//
+// Copie dans l'admin (admin.narukla.fr) : si la base D1 de l'admin est reliée au projet Pages sous le nom
+// DB_ADMIN (Settings → Bindings), la demande y est aussi enregistrée, APRÈS l'envoi réussi sur Discord.
+// Discord reste la copie principale : si l'écriture dans l'admin échoue, le visiteur n'est pas bloqué (erreur notée
+// dans les journaux de Cloudflare). Requête préparée, jamais de valeur collée dans le SQL.
 
 import { coordonnees } from '../../src/config/coordonnees';
 
@@ -156,6 +161,19 @@ export const onRequestPost = async ({ request, env }) => {
 	if (!reponse.ok) {
 		console.error(`Discord a refusé la notification (code ${reponse.status})`);
 		return pageErreur('Un problème technique nous empêche de le recevoir.', 502);
+	}
+
+	if (env.DB_ADMIN) {
+		try {
+			const recueLe = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Paris' });
+			await env.DB_ADMIN.prepare(
+				'INSERT INTO demandes (recue_le, nom, entreprise, mail, telephone, besoin, message) VALUES (?1, ?2, ?3, ?4, ?5, ?6, ?7)',
+			)
+				.bind(recueLe, nom, entreprise, mail, telephone, besoin, message)
+				.run();
+		} catch (erreur) {
+			console.error(`Demande non copiée dans l'admin : ${erreur}`);
+		}
 	}
 
 	return Response.redirect(merci, 303);

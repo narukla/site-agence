@@ -28,3 +28,7 @@ donnees-clients/
 
 # Logs npm
 npm-debug.log*
+
+# Secrets locaux de Wrangler (jamais commités : repo public) et son cache
+.dev.vars
+.wrangler/
