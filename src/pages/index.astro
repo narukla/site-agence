@@ -240,6 +240,14 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		overflow-x: clip;
 	}
 
+	/* Sur html, « clip » devient « hidden » pour la fenêtre : la souris ne fait plus défiler de côté, mais un script,
+	   une ancre ou la touche Tab le pouvaient encore (page décalée, mesuré le 4/11 : 200 px possibles, piste des étapes
+	   large de 2 696 px). Sur body, clip coupe vraiment ce qui dépasse, sans créer de zone de défilement : le bandeau
+	   et l'épinglage des étapes (position sticky / GSAP) marchent toujours. */
+	:global(body) {
+		overflow-x: clip;
+	}
+
 	.accueil__bandeau-cadre {
 		margin-inline: calc(50% - 50vw);
 		margin-block: -1.5rem 0;
