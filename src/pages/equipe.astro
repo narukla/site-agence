@@ -149,10 +149,11 @@ const associes = [
 		<h2 id="titre-approche" class="equipe__titre-section">Notre façon de travailler :</h2>
 		<!-- Version courte choisie par Jibril (28/10), à valider par l'équipe sur Discord.
 		     Uniquement des faits déjà affichés ailleurs (étapes de l'Accueil et de Services, Contact). -->
+		<!-- Lien interne vers Services : point 28 de la liste des améliorations du 3/11 -->
 		<p class="equipe__texte-large">
 			Chez Narukla, développement, graphisme et marketing travaillent ensemble sur votre projet. On
 			avance avec vous : un premier rendez-vous, une maquette que vous validez, trois séries de
-			modifications incluses. Et comme on est à Troyes, on peut se rencontrer à chaque étape.
+			modifications incluses. Et comme on est à Troyes, on peut se rencontrer à chaque étape. Le détail de nos offres et de leurs tarifs est sur la page <a href="/services/">Services et tarifs</a>.
 		</p>
 	</section>
 
@@ -252,6 +253,19 @@ const associes = [
 	.equipe__approche .equipe__texte-large {
 		max-width: 47.5rem;
 		margin-top: 0;
+	}
+
+	/* Lien dans le texte sur fond noir : blanc souligné (le bleu par défaut serait illisible) */
+	.equipe__texte-large a {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-thickness: 2px;
+		text-underline-offset: 3px;
+	}
+
+	.equipe__texte-large a:focus-visible {
+		outline: 3px solid var(--couleur-violet);
+		outline-offset: 3px;
 	}
 
 	.equipe__contact .equipe__texte-large {

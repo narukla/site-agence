@@ -163,10 +163,34 @@
 		});
 	}
 
-	// Texte qui s'allume : un <span> par mot
+	// Texte qui s'allume : un <span> par mot.
+	// Seuls les morceaux de TEXTE sont découpés : un lien (ou tout autre élément) dans le paragraphe est gardé
+	// tel quel, ses mots sont découpés à l'intérieur. L'ancienne version remplaçait tout par le texte brut et
+	// effaçait le lien vers Services (4/11). Pas d'innerHTML : le texte reste du texte.
+	const decouperMots = (noeud: Node) => {
+		for (const enfant of [...noeud.childNodes]) {
+			if (enfant.nodeType === Node.TEXT_NODE) {
+				const morceaux = document.createDocumentFragment();
+				for (const m of (enfant.textContent ?? '').split(/(\s+)/)) {
+					if (!m) continue;
+					if (/^\s+$/.test(m)) {
+						morceaux.append(document.createTextNode(m));
+					} else {
+						const mot = document.createElement('span');
+						mot.className = 'fx-mot';
+						mot.textContent = m;
+						morceaux.append(mot);
+					}
+				}
+				enfant.replaceWith(morceaux);
+			} else if (enfant.nodeType === Node.ELEMENT_NODE) {
+				decouperMots(enfant);
+			}
+		}
+	};
 	if (actif('allume')) {
 		const p = document.querySelector<HTMLElement>('.equipe__approche .equipe__texte-large');
-		if (p) p.innerHTML = p.textContent!.trim().split(/\s+/).map((m) => `<span class="fx-mot">${m}</span>`).join(' ');
+		if (p) decouperMots(p);
 	}
 
 	// ───── Contact ─────
