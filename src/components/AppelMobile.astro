@@ -1,0 +1,56 @@
+---
+// Bouton « Appeler » fixé en bas de l'écran, sur téléphone seulement (priorité de Jimmy, réunion du 5/11).
+// Un commerçant appelle plus qu'il n'écrit : le numéro reste à portée de pouce sur toutes les pages.
+// CSS seul, aucun script (CSP stricte du site). Caché à partir de 48rem : sur tablette et ordinateur,
+// le numéro est dans le pied de page et sur Contact.
+import { coordonnees, lienTelephone } from '../config/coordonnees';
+---
+
+<a class="appel-mobile" href={lienTelephone(coordonnees.telephone)}>
+	{`Appeler · ${coordonnees.telephone}`}
+</a>
+
+<style>
+	.appel-mobile {
+		display: none;
+	}
+
+	@media (max-width: 47.99rem) {
+		.appel-mobile {
+			position: fixed;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			/* Sous l'écran d'allumage (100) et les effets (80 à 95), au-dessus du contenu */
+			z-index: 70;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 3.5rem;
+			/* env(safe-area-inset-bottom) : pas sous la barre de geste des iPhone */
+			padding: 0.5rem 1rem calc(0.5rem + env(safe-area-inset-bottom));
+			border-top: 3px solid var(--couleur-noir);
+			background: var(--couleur-violet);
+			color: var(--couleur-blanc);
+			font-family: var(--police-titre);
+			font-size: 1.25rem;
+			text-decoration: none;
+			text-transform: uppercase;
+		}
+
+		.appel-mobile:focus-visible {
+			outline: 3px solid var(--couleur-blanc);
+			outline-offset: -7px;
+		}
+
+		/* Le bas de chaque page reste lisible au-dessus du bouton */
+		:global(body) {
+			padding-bottom: calc(3.5rem + env(safe-area-inset-bottom));
+		}
+
+		/* Le bouton « retour en haut » (effet haut) remonte au-dessus de la barre */
+		:global(.fx-haut) {
+			bottom: calc(4.5rem + env(safe-area-inset-bottom));
+		}
+	}
+</style>
