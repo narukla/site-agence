@@ -1,7 +1,8 @@
 ---
 // Page Accueil — responsable : Jimmy
 // Mise en page d'après la maquette Figma de Noah (Accueil desktop 1440 et mobile 390), contenu inchangé.
-// Prix et étapes repris de la page Services et tarifs : les garder identiques si l'une change.
+// Étapes reprises de la page Services et tarifs : les garder identiques si l'une change.
+// Pas de prix sur l'Accueil (demande de Jibril, 5/11) : le visiteur découvre l'offre avant le tarif, les prix sont sur Services.
 import Layout from '../layouts/Layout.astro';
 import Intro from '../components/Intro.astro';
 import Bouton from '../components/Bouton.astro';
@@ -11,21 +12,18 @@ const offres = [
 		titre: 'Site vitrine',
 		texte:
 			'Un site clair, rapide et adapté au mobile pour présenter votre activité, vos horaires et vos coordonnées.',
-		prix: '800 €',
 		ancre: '/services#site-vitrine',
 	},
 	{
 		titre: 'Identité visuelle',
 		texte:
 			'Logo, couleurs et typographies : une image cohérente sur votre vitrine, vos réseaux et vos supports.',
-		prix: 'De 600 à 1 000 €',
 		ancre: '/services#identite-visuelle',
 	},
 	{
 		titre: 'Maintenance',
 		texte:
 			'On garde votre site à jour et sauvegardé, et on modifie vos horaires ou vos prix quand vous en avez besoin.',
-		prix: '40 €/mois',
 		ancre: '/services#maintenance',
 	},
 ];
@@ -41,7 +39,7 @@ const etapes = [
 	},
 	{
 		titre: 'On ajuste ensemble',
-		texte: 'Trois tours de modifications sont inclus pour que le résultat vous ressemble.',
+		texte: 'Trois tours de modifications sont inclus (selon conditions) pour que le résultat vous ressemble.',
 	},
 	{
 		titre: 'On met en ligne',
@@ -92,7 +90,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 							</span>
 							<h3 class="accueil__offre-titre">{offre.titre}</h3>
 							<p class="accueil__offre-texte">{offre.texte}</p>
-							<p class="accueil__offre-prix">{offre.prix}</p>
 							<a class="accueil__lien accueil__offre-lien" href={offre.ancre}>
 								En savoir plus<span class="accueil__cache"> sur l'offre {offre.titre.toLowerCase()}</span>
 								<span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span>
@@ -344,8 +341,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		color: var(--couleur-violet);
 	}
 
-	.accueil__offre-titre,
-	.accueil__offre-prix {
+	.accueil__offre-titre {
 		margin: 0;
 		font-family: var(--police-titre);
 		font-weight: 400;
@@ -355,10 +351,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 
 	.accueil__offre-titre {
 		font-size: 2.25rem;
-	}
-
-	.accueil__offre-prix {
-		font-size: 2.75rem;
 	}
 
 	.accueil__offre-texte {
@@ -541,20 +533,14 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		transform: translateX(0.4rem);
 	}
 
-	/* 2. Survol d'une ligne d'offre : le numéro glisse, le prix passe en violet */
-	.accueil__offre-numero,
-	.accueil__offre-prix {
+	/* 2. Survol d'une ligne d'offre : le numéro glisse */
+	.accueil__offre-numero {
 		transition: none;
 	}
 
 	.accueil__offre:hover .accueil__offre-numero,
 	.accueil__offre:focus-within .accueil__offre-numero {
 		transform: translateX(0.5rem);
-	}
-
-	.accueil__offre:hover .accueil__offre-prix,
-	.accueil__offre:focus-within .accueil__offre-prix {
-		color: var(--couleur-violet);
 	}
 
 
@@ -565,10 +551,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 
 		.accueil__offre-numero {
 			transition: transform 0.25s ease;
-		}
-
-		.accueil__offre-prix {
-			transition: color 0.2s ease;
 		}
 
 	}
@@ -599,7 +581,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		outline-offset: 3px;
 	}
 
-	/* Desktop : offres sur une ligne (numéro, titre, texte, prix), 4 étapes, Pourquoi en 2 colonnes */
+	/* Desktop : offres sur une ligne (numéro, titre, texte), 4 étapes, Pourquoi en 2 colonnes */
 	@media (min-width: 64rem) {
 		.accueil__bande,
 		.accueil__offres,
@@ -608,7 +590,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		}
 
 		.accueil__offre {
-			grid-template-columns: 8rem 15rem minmax(0, 1fr) auto;
+			grid-template-columns: 8rem 15rem minmax(0, 1fr);
 			column-gap: 2rem;
 			align-items: baseline;
 		}
@@ -621,11 +603,6 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 
 		.accueil__offre-titre {
 			font-size: 2.5rem;
-		}
-
-		.accueil__offre-prix {
-			font-size: 3rem;
-			text-align: right;
 		}
 
 		.accueil__offre-lien {
