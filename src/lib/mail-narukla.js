@@ -86,7 +86,7 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 		</td></tr>
 		<tr><td style="background:${NOIR};padding:18px 28px;font-family:${TEXTE};font-size:13px;line-height:1.6;color:#cfc8dc;">
 			<strong style="font-family:${TITRE};font-weight:400;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;color:${BLANC};">Narukla</strong> · Agence web à Troyes<br>
-			<a href="mailto:contact@narukla.fr" style="color:${BLANC};">contact@narukla.fr</a> · <a href="tel:+33788021676" style="color:${BLANC};">07 88 02 16 76</a> · <a href="${SITE}/" style="color:${BLANC};">narukla.fr</a>
+			<a href="mailto:contact@narukla.fr" style="color:${BLANC};">contact@narukla.fr</a> · <a href="tel:+33757679645" style="color:${BLANC};">07 57 67 96 45</a> · <a href="${SITE}/" style="color:${BLANC};">narukla.fr</a>
 		</td></tr>
 	</table>
 	${mention ? `<p style="max-width:600px;margin:16px auto 0;font-family:${TEXTE};font-size:12px;line-height:1.5;color:#6b6478;">${echapper(mention)}</p>` : ''}
@@ -106,7 +106,7 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 		...(bouton ? [`${bouton.texte} : ${bouton.lien}`, ''] : []),
 		'--',
 		'Narukla · Agence web à Troyes',
-		'contact@narukla.fr · 07 88 02 16 76 · narukla.fr',
+		'contact@narukla.fr · 07 57 67 96 45 · narukla.fr',
 		...(mention ? ['', mention] : []),
 	].join('\n');
 
