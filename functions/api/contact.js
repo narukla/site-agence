@@ -107,7 +107,8 @@ function mails(env, d) {
 		titre: 'Bien reçu, merci !',
 		paragraphes: [
 			'Bonjour,',
-			"Votre demande est bien arrivée chez Narukla. Un associé de l'équipe la lit et vous répond sous 2 jours ouvrés, par mail ou par téléphone.",
+			// Retour de Noah (5/11) : « la lit » accrochait ; « l'a lue » serait faux (le mail part avant que quelqu'un l'ait lue)
+			"Votre demande est bien arrivée chez Narukla. Un membre de l'équipe va la lire et vous répondra sous 2 jours ouvrés, par mail ou par téléphone.",
 			"En attendant, vous pouvez déjà regarder nos offres. Et si c'est urgent, appelez-nous directement.",
 		],
 		lignes: [
