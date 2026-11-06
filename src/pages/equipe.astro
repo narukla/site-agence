@@ -24,7 +24,7 @@ const photoDe = (prenom: string) => {
 // mail, linkedin, portfolio : facultatifs, seulement pour ceux qui le veulent (idée de Noah), null sinon.
 // « de » ou « d' » selon la première lettre : « Portfolio d'Ouassim », « Portfolio de Jibril »
 // (le h n'est pas élidé : « de Hugo »)
-const de = (prenom: string) => (/^[aeiouyàâäéèêëîïôöùûü]/i.test(prenom) ? `d'${prenom}` : `de ${prenom}`);
+const de = (prenom: string) => (/^[aeiouyàâäéèêëîïôöùûü]/i.test(prenom) ? `d’${prenom}` : `de ${prenom}`);
 
 const associes = [
 	{
@@ -33,7 +33,7 @@ const associes = [
 		role: 'Développeur, président',
 		// Validé par Jibril (28/10) : développeur d'abord, président pour les démarches de la société
 		presentation:
-			"Chez Narukla, je suis développeur : je construis les sites et je m'assure que tout fonctionne, du code à la mise en ligne. Je suis aussi président de la société et je m'occupe de ses démarches administratives.",
+			"Chez Narukla, je suis développeur : je construis les sites et je m’assure que tout fonctionne, du code à la mise en ligne. Je suis aussi président de la société et je m’occupe de ses démarches administratives.",
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/jibril-filali-59b02b390/',
 		portfolio: 'https://jibril-filali.page.gd',
@@ -55,7 +55,7 @@ const associes = [
 		role: 'Trésorier, graphiste',
 		// Texte et liens envoyés par Noah (28/10), nom complet
 		presentation:
-			"Designer graphique passionné, je conçois des identités visuelles fortes et cohérentes, en accordant une attention particulière aux détails, à l'esthétique et à l'impact visuel. Créatif et curieux, j'aime transformer les idées en concepts visuels originaux qui associent modernité, sens et personnalité.",
+			"Designer graphique passionné, je conçois des identités visuelles fortes et cohérentes, en accordant une attention particulière aux détails, à l’esthétique et à l’impact visuel. Créatif et curieux, j’aime transformer les idées en concepts visuels originaux qui associent modernité, sens et personnalité.",
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/noah-mathias-8270733ab/',
 		portfolio: 'https://mmi25f09.mmi-troyes.fr/portfolio/',
@@ -66,7 +66,7 @@ const associes = [
 		role: 'Développeur, marketing',
 		// Texte et lien envoyés par Ouassim (28/10) ; nom de famille accepté le 1/11. Portfolio bientôt refait : vérifier le lien avant la mise en ligne
 		presentation:
-			"Chez Narukla, je suis développeur et je participe à la partie marketing. Je construis les pages du site pour qu'elles soient claires, simples et agréables à utiliser.",
+			"Chez Narukla, je suis développeur et je participe à la partie marketing. Je construis les pages du site pour qu’elles soient claires, simples et agréables à utiliser.",
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/ouassim-b-bba0633ab',
 		portfolio: 'https://ouassimboulacheb.github.io/',
@@ -75,16 +75,16 @@ const associes = [
 ---
 
 <Layout
-	title="L'équipe : quatre associés à Troyes"
-	description="Narukla, c'est quatre associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
+	title="L’équipe : quatre associés à Troyes"
+	description="Narukla, c’est quatre associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
 >
 	<section class="equipe__intro equipe__bande equipe__bande--noir entree">
 		<p class="equipe__etiquette entree__etiquette">Quatre associés · Troyes</p>
-		<h1 class="equipe__titre-page entree__titre">L'équipe</h1>
+		<h1 class="equipe__titre-page entree__titre">L’équipe</h1>
 		<!-- Décision de Jimmy (27/10) : on dit qu'on est étudiants ici, pas en gros sur l'Accueil -->
 		<p class="equipe__chapo">
 			Narukla est une jeune agence web installée à Troyes. Nous sommes quatre associés, étudiants en
-			BUT MMI (Métiers du multimédia et de l'internet) à l'IUT de Troyes : développement, graphisme
+			BUT MMI (Métiers du multimédia et de l’internet) à l’IUT de Troyes : développement, graphisme
 			et marketing réunis dans une même équipe.
 		</p>
 	</section>
@@ -167,7 +167,7 @@ const associes = [
 
 <style>
 	/* L'équipe, d'après la maquette Figma de Noah (29/10).
-	   Mobile d'abord (cadre Mobile 390), puis desktop (cadre Desktop 1440).
+	   Mobile d’abord (cadre Mobile 390), puis desktop (cadre Desktop 1440).
 	   Couleurs et polices : uniquement les variables de global.css. */
 
 	.equipe__bande {
@@ -351,7 +351,7 @@ const associes = [
 	}
 
 	/* Liens mail / LinkedIn / portfolio, texte court comme la maquette (« LinkedIn · Portfolio ») ;
-	   le nom complet est dans aria-label pour les lecteurs d'écran */
+	   le nom complet est dans aria-label pour les lecteurs d’écran */
 	.equipe__liens {
 		display: flex;
 		flex-wrap: wrap;
