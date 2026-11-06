@@ -17,7 +17,7 @@ const photoDe = (prenom: string) => {
 	return entree ? entree[1].default : null;
 };
 
-// Les 4 associés, par ordre alphabétique (pas de hiérarchie : parts égales). Lucas a quitté Narukla le 2/11.
+// Les 3 associés, par ordre alphabétique (pas de hiérarchie : parts égales). Lucas a quitté Narukla le 2/11, Jimmy le 6/11.
 // Rôles : ceux du prompt d'équipe de Jimmy. Présentations : à recevoir de chacun (avant mer. 28 au soir).
 // nom : facultatif, seulement pour ceux qui veulent leur nom complet affiché.
 // presentation : null tant que l'associé ne l'a pas envoyée, le paragraphe ne s'affiche pas (jamais de repère en ligne).
@@ -37,17 +37,6 @@ const associes = [
 		mail: null,
 		linkedin: 'https://www.linkedin.com/in/jibril-filali-59b02b390/',
 		portfolio: 'https://jibril-filali.page.gd',
-	},
-	{
-		prenom: 'Jimmy',
-		nom: 'Bomy',
-		role: 'Chef de projet, développeur, commercial',
-		// Texte et liens envoyés par Jimmy (28/10), nom complet
-		presentation:
-			'Chef de projet et développeur, je fais le lien entre vos idées et le site final, du premier rendez-vous à la mise en ligne.',
-		mail: null,
-		linkedin: 'https://www.linkedin.com/in/jimmy-bomy-1037453a8/',
-		portfolio: 'https://jimmybomy.fr/',
 	},
 	{
 		prenom: 'Noah',
@@ -75,15 +64,15 @@ const associes = [
 ---
 
 <Layout
-	title="L’équipe : quatre associés à Troyes"
-	description="Narukla, c’est quatre associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
+	title="L’équipe : trois associés à Troyes"
+	description="Narukla, c’est trois associés étudiants en BUT MMI à Troyes : développement, graphisme et marketing réunis pour créer votre site."
 >
 	<section class="equipe__intro equipe__bande equipe__bande--noir entree">
-		<p class="equipe__etiquette entree__etiquette">Quatre associés · Troyes</p>
+		<p class="equipe__etiquette entree__etiquette">Trois associés · Troyes</p>
 		<h1 class="equipe__titre-page entree__titre">L’équipe</h1>
-		<!-- Décision de Jimmy (27/10) : on dit qu'on est étudiants ici, pas en gros sur l'Accueil -->
+		<!-- Décision d'équipe (27/10) : on dit qu'on est étudiants ici, pas en gros sur l'Accueil -->
 		<p class="equipe__chapo">
-			Narukla est une jeune agence web installée à Troyes. Nous sommes quatre associés, étudiants en
+			Narukla est une jeune agence web installée à Troyes. Nous sommes trois associés, étudiants en
 			BUT MMI (Métiers du multimédia et de l’internet) à l’IUT de Troyes : développement, graphisme
 			et marketing réunis dans une même équipe.
 		</p>
@@ -106,7 +95,7 @@ const associes = [
 										alt={`Portrait de ${associe.prenom}`}
 										width={1200}
 										widths={[400, 800, 1200]}
-										sizes="(min-width: 64rem) min(25vw, 16rem), (min-width: 40rem) 50vw, 100vw"
+										sizes="(min-width: 64rem) min(33vw, 22rem), (min-width: 40rem) 50vw, 100vw"
 										format="webp"
 									/>
 								) : (
@@ -159,7 +148,7 @@ const associes = [
 
 	<section class="equipe__contact equipe__bande equipe__bande--violet" aria-labelledby="titre-contact">
 		<h2 id="titre-contact" class="equipe__titre-page">Un projet en tête ?</h2>
-		<!-- Délai : sondage du 29/10, question 1 (« sous 2 jours ouvrés »), même phrase que l'Accueil (demande de Jimmy) -->
+		<!-- Délai : sondage du 29/10, question 1 (« sous 2 jours ouvrés »), même phrase que l'Accueil -->
 		<p class="equipe__texte-large">Parlez-nous de votre activité, on vous répond sous 2 jours ouvrés.</p>
 		<a class="equipe__bouton" href="/contact">Contactez-nous</a>
 	</section>
@@ -464,9 +453,9 @@ const associes = [
 			margin-bottom: 2.5rem;
 		}
 
-		/* Les 4 associés sur une ligne (2 × 2 sur tablette, 1 par ligne sur téléphone) */
+		/* Les 3 associés sur une ligne (2 colonnes sur tablette, 1 par ligne sur téléphone) */
 		.equipe__liste {
-			grid-template-columns: repeat(4, 1fr);
+			grid-template-columns: repeat(3, 1fr);
 		}
 
 		/* Desktop : cadres carrés */
