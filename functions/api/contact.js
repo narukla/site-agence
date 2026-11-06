@@ -1,7 +1,7 @@
 // Reçoit le formulaire de contact (POST /api/contact) et le transmet au salon Discord de l'équipe.
 //
 // Cloudflare Pages lance ce fichier tout seul : son emplacement (functions/api/contact.js) donne l'adresse.
-// Cloudflare ne stocke pas les messages : le salon Discord en est la seule copie.
+// Discord est la copie principale : la copie dans l'admin et les mails ne partent qu'APRÈS un envoi réussi sur Discord.
 // Si Discord refuse, le visiteur en est donc informé et reçoit notre adresse mail : aucun message perdu en silence.
 //
 // RGPD : la notification contient les coordonnées et le message du client.
@@ -49,7 +49,7 @@ const MAX_MESSAGE = 2000;
 const MAX_ENVOI = 64 * 1024;
 
 // Discord refuse un champ de plus de 1 024 caractères : on coupe proprement les champs courts.
-// Le message, lui, n'est jamais coupé : Discord en est la seule copie
+// Le message, lui, n'est jamais coupé : Discord en est la copie principale
 const couper = (texte, max) => (texte.length > max ? `${texte.slice(0, max - 1)}…` : texte);
 
 // Sécurité : le texte du client est affiché tel quel, sans mise en forme Discord.
