@@ -44,7 +44,7 @@ const etapes = [
 	{
 		titre: 'On met en ligne',
 		texte:
-			"Nom de domaine en .fr et hébergement inclus la première année, puis compris dans la maintenance : vous n'avez rien à gérer.",
+			"Nom de domaine en .fr et hébergement inclus la première année, puis compris dans la maintenance : vous n’avez rien à gérer.",
 	},
 ];
 
@@ -79,7 +79,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 	</div>
 
 	<section class="accueil__offres" aria-labelledby="titre-offres">
-		<h2 id="titre-offres" class="accueil__titre-section">Ce qu'on fait pour vous :</h2>
+		<h2 id="titre-offres" class="accueil__titre-section">Ce qu’on fait pour vous :</h2>
 		<ul class="accueil__liste-offres">
 			{
 				offres.map((offre, i) => (
@@ -91,7 +91,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 							<h3 class="accueil__offre-titre">{offre.titre}</h3>
 							<p class="accueil__offre-texte">{offre.texte}</p>
 							<a class="accueil__lien accueil__offre-lien" href={offre.ancre}>
-								En savoir plus<span class="accueil__cache"> sur l'offre {offre.titre.toLowerCase()}</span>
+								En savoir plus<span class="accueil__cache"> sur l’offre {offre.titre.toLowerCase()}</span>
 								<span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span>
 							</a>
 						</article>
@@ -124,7 +124,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 			<ul class="accueil__liste-pourquoi">
 				<li class="accueil__argument">
 					<h3>Des prix pensés pour les petites structures</h3>
-					<p>Des tarifs clairs, annoncés à l'avance, sans mauvaise surprise.</p>
+					<p>Des tarifs clairs, annoncés à l’avance, sans mauvaise surprise.</p>
 				</li>
 				<li class="accueil__argument">
 					<h3>Une équipe complète</h3>
@@ -138,7 +138,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 					<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
 				</li>
 			</ul>
-			<p><a class="accueil__lien" href="/equipe">Découvrir l'équipe <span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span></a></p>
+			<p><a class="accueil__lien" href="/equipe">Découvrir l’équipe <span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span></a></p>
 		</div>
 	</section>
 

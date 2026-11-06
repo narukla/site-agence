@@ -33,7 +33,7 @@ const BESOINS = {
 	'site-vitrine': 'Site vitrine',
 	'identite-visuelle': 'Identité visuelle',
 	'site-et-identite': 'Site vitrine et identité visuelle',
-	maintenance: "Maintenance d'un site existant",
+	maintenance: "Maintenance d’un site existant",
 	autre: 'Autre',
 };
 
@@ -64,7 +64,7 @@ const valeur = (texte, max = 256) => couper(sansMiseEnForme(texte) || 'Non rense
 // Page de secours quand l'envoi échoue : le visiteur garde un moyen de nous joindre
 const pageErreur = (raison, statut) =>
 	new Response(
-		`<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Message non envoyé | Narukla</title><h1>Votre message n'a pas été envoyé</h1><p>${raison}</p><p>Écrivez-nous directement à <a href="mailto:${coordonnees.mail}">${coordonnees.mail}</a>.</p><p><a href="/contact/">Revenir au formulaire</a></p></html>`,
+		`<!doctype html><html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Message non envoyé | Narukla</title><h1>Votre message n’a pas été envoyé</h1><p>${raison}</p><p>Écrivez-nous directement à <a href="mailto:${coordonnees.mail}">${coordonnees.mail}</a>.</p><p><a href="/contact/">Revenir au formulaire</a></p></html>`,
 		{
 			status: statut,
 			headers: {
@@ -108,20 +108,20 @@ function mails(env, d) {
 		paragraphes: [
 			'Bonjour,',
 			// Retour de Noah (5/11) : « la lit » accrochait ; « l'a lue » serait faux (le mail part avant que quelqu'un l'ait lue)
-			"Votre demande est bien arrivée chez Narukla. Un membre de l'équipe va la lire et vous répondra sous 2 jours ouvrés, par mail ou par téléphone.",
-			"En attendant, vous pouvez déjà regarder nos offres. Et si c'est urgent, appelez-nous directement.",
+			"Votre demande est bien arrivée chez Narukla. Un membre de l’équipe va la lire et vous répondra sous 2 jours ouvrés, par mail ou par téléphone.",
+			"En attendant, vous pouvez déjà regarder nos offres. Et si c’est urgent, appelez-nous directement.",
 		],
 		lignes: [
 			{ nom: 'Votre besoin', valeur: d.besoin },
 			{ nom: 'Reçue le', valeur: dateFr() },
 		],
 		bouton: { texte: 'Voir nos offres', lien: 'https://narukla.fr/services/' },
-		mention: "Vous recevez ce mail parce que cette adresse a été saisie dans le formulaire de contact de narukla.fr. Si ce n'est pas vous, ignorez-le : vous ne recevrez rien d'autre.",
+		mention: "Vous recevez ce mail parce que cette adresse a été saisie dans le formulaire de contact de narukla.fr. Si ce n’est pas vous, ignorez-le : vous ne recevrez rien d’autre.",
 	});
 	const equipe = mailNarukla({
 		apercu: `${d.besoin} · ${d.entreprise || d.nom}`,
 		titre: 'Nouvelle demande',
-		paragraphes: ["Une demande vient d'arriver par le formulaire de narukla.fr. « Répondre » écrit directement au client."],
+		paragraphes: ["Une demande vient d’arriver par le formulaire de narukla.fr. « Répondre » écrit directement au client."],
 		lignes: [
 			{ nom: 'Nom', valeur: d.nom },
 			{ nom: 'Entreprise', valeur: d.entreprise },
@@ -130,7 +130,7 @@ function mails(env, d) {
 			{ nom: 'Besoin', valeur: d.besoin },
 		],
 		citation: d.message,
-		bouton: { texte: "Ouvrir dans l'admin", lien: 'https://admin.narukla.fr/demandes/' },
+		bouton: { texte: "Ouvrir dans l’admin", lien: 'https://admin.narukla.fr/demandes/' },
 	});
 	// Le sujet ne doit contenir aucun retour à la ligne (sinon on pourrait ajouter des en-têtes au mail)
 	const qui = (d.entreprise || d.nom).replace(/[\r\n]+/g, ' ').slice(0, 60);
@@ -147,7 +147,7 @@ export const onRequestPost = async ({ request, env, waitUntil }) => {
 	// Refuse un envoi lancé depuis un autre site
 	const origine = request.headers.get('Origin');
 	if (origine && !vientDuSite(origine, adresse.host)) {
-		return pageErreur("L'envoi ne vient pas de notre site.", 403);
+		return pageErreur("L’envoi ne vient pas de notre site.", 403);
 	}
 
 	if (Number(request.headers.get('Content-Length')) > MAX_ENVOI) {
@@ -232,7 +232,7 @@ export const onRequestPost = async ({ request, env, waitUntil }) => {
 				.bind(recueLe, nom, entreprise, mail, telephone, besoin, message)
 				.run();
 		} catch (erreur) {
-			console.error(`Demande non copiée dans l'admin : ${erreur}`);
+			console.error(`Demande non copiée dans l’admin : ${erreur}`);
 		}
 	}
 
