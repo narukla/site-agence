@@ -112,7 +112,7 @@ function mails(env, d) {
 			"En attendant, vous pouvez déjà regarder nos offres. Et si c’est urgent, appelez-nous directement.",
 		],
 		lignes: [
-			{ nom: 'Votre besoin', valeur: d.besoin },
+			{ nom: 'Besoin', valeur: d.besoin },
 			{ nom: 'Reçue le', valeur: dateFr() },
 		],
 		bouton: { texte: 'Voir nos offres', lien: 'https://narukla.fr/services/' },
@@ -125,11 +125,12 @@ function mails(env, d) {
 		lignes: [
 			{ nom: 'Nom', valeur: d.nom },
 			{ nom: 'Entreprise', valeur: d.entreprise },
-			{ nom: 'Mail', valeur: d.mail },
+			{ nom: 'E-mail', valeur: d.mail },
 			{ nom: 'Téléphone', valeur: d.telephone },
 			{ nom: 'Besoin', valeur: d.besoin },
 		],
 		citation: d.message,
+		etiquetteCitation: 'Message du client',
 		bouton: { texte: "Ouvrir dans l’admin", lien: 'https://admin.narukla.fr/demandes/' },
 	});
 	// Le sujet ne doit contenir aucun retour à la ligne (sinon on pourrait ajouter des en-têtes au mail)
