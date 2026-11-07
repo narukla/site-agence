@@ -1,19 +1,23 @@
-// Gabarit des mails de Narukla (demande de Jibril, 5/11) : même style que le site (noir, violet #6E2FEF, Anton,
-// bordures épaisses façon néo-brutaliste). Copie identique dans le repo admin (src/lib/mail.ts) : garder les deux pareilles.
+// Gabarit des mails de Narukla. Design d'Ouassim (Figma « Narukla Studio », page « Mail Narukla », 7/11) :
+// en-tête noir avec le logo, bandeau titre noir en Anton, tableau récap à bordure, bouton à bord du bas épais, pied noir.
+// Copie identique dans le repo admin (src/lib/mail.ts) : garder les deux pareilles.
 //
-// Les messageries ne lisent qu'une partie du CSS : mise en page en tableaux, styles écrits sur chaque balise,
-// pas de box-shadow (l'ombre noire du site est imitée par une bordure plus épaisse à droite et en bas).
+// Les messageries ne lisent qu'une partie du CSS : mise en page en tableaux, styles écrits sur chaque balise.
 // Anton est demandée depuis narukla.fr ; les messageries qui ne la chargent pas prennent Impact puis Arial Black.
+// Les titres sont écrits en majuscules dans le texte (Outlook gère mal text-transform).
+// Mode sombre (Apple Mail, Outlook sur Mac) : classes + @media (prefers-color-scheme: dark), valeurs du Figma.
 //
 // SÉCURITÉ : tout texte passé ici est échappé (un nom « <script> » s'affiche tel quel, sans rien exécuter).
 // Seuls les liens des boutons ne le sont pas : ils doivent venir de notre code, jamais d'un formulaire.
 
-const VIOLET = '#6e2fef';
+// Variables Figma « Mail — couleurs », thème Narukla
+const ACCENT = '#6e2fef';
 const NOIR = '#000000';
 const BLANC = '#ffffff';
-const FOND = '#f1edfc';
+const DISCRET = '#595959'; // contraste 7:1 sur blanc
+const ENCADRE = '#f2f2f2';
 const TITRE = "Anton, Impact, 'Arial Black', sans-serif";
-const TEXTE = "Archivo, 'Segoe UI', Helvetica, Arial, sans-serif";
+const TEXTE = 'Arial, Helvetica, sans-serif';
 const SITE = 'https://narukla.fr';
 
 export const echapper = (texte) =>
@@ -21,75 +25,127 @@ export const echapper = (texte) =>
 
 // Texte sur plusieurs lignes (message d'un client, réponse d'un associé) : échappé, retours à la ligne gardés
 const multiligne = (texte) => echapper(texte).replace(/\r?\n/g, '<br>');
+const majuscules = (texte) => String(texte ?? '').toLocaleUpperCase('fr-FR');
+
+// Une ligne du mail = une cellule pleine largeur, marges de 32 px (20 px sous 480 px de large, classe « marge »)
+const bloc = (haut, bas, contenu) =>
+	`<tr><td class="marge carte" style="padding:${haut}px 32px ${bas}px;background:${BLANC};">${contenu}</td></tr>`;
 
 /**
  * @param {object} m
  * @param {string} m.apercu       texte gris affiché après le sujet dans la boîte de réception
- * @param {string} m.titre        gros titre dans le bandeau violet
+ * @param {string} m.titre        gros titre du bandeau (mis en majuscules ici)
  * @param {string[]} [m.paragraphes]
- * @param {{nom: string, valeur: string}[]} [m.lignes]   petit tableau récapitulatif
- * @param {string} [m.citation]   long texte encadré (message du client, réponse d'un associé)
+ * @param {{nom: string, valeur: string}[]} [m.lignes]   tableau récapitulatif
+ * @param {string} [m.citation]   long texte encadré (message du client)
+ * @param {string} [m.etiquetteCitation]   petit titre de l'encadré
  * @param {{texte: string, lien: string}} [m.bouton]
- * @param {string} [m.mention]    petite ligne grise tout en bas (pourquoi on reçoit ce mail)
+ * @param {{nom: string, fonction: string}} [m.signature]  qui signe (« Cordialement, » puis nom en gras et fonction)
+ * @param {string} [m.mention]    petite ligne grise en bas (pourquoi on reçoit ce mail)
  * @returns {{ html: string, text: string }}
  */
-export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], citation, bouton, mention }) {
-	const p = (t) => `<p style="margin:0 0 16px;font-family:${TEXTE};font-size:16px;line-height:1.6;color:${NOIR};">${multiligne(t)}</p>`;
+export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], citation, etiquetteCitation = 'Message', bouton, signature, mention }) {
+	const blocs = [];
 
-	const tableau = lignes.length
-		? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:4px 0 20px;border-collapse:collapse;">${lignes
-				.map(
-					(l) =>
-						`<tr><td style="padding:8px 12px 8px 0;border-bottom:2px solid ${FOND};font-family:${TEXTE};font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;color:${VIOLET};white-space:nowrap;vertical-align:top;">${echapper(l.nom)}</td><td style="padding:8px 0;border-bottom:2px solid ${FOND};font-family:${TEXTE};font-size:15px;color:${NOIR};">${multiligne(l.valeur || '—')}</td></tr>`,
-				)
-				.join('')}</table>`
-		: '';
+	paragraphes.forEach((t) =>
+		blocs.push(bloc(12, 12, `<p class="texte" style="margin:0;font-family:${TEXTE};font-size:16px;line-height:24px;color:${NOIR};">${multiligne(t)}</p>`)),
+	);
 
-	const encadre = citation
-		? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 20px;"><tr><td style="padding:16px 18px;background:${FOND};border-left:6px solid ${VIOLET};font-family:${TEXTE};font-size:15px;line-height:1.6;color:${NOIR};">${multiligne(citation)}</td></tr></table>`
-		: '';
+	// Cadre de 3 px et traits de 2 px : fond noir + cellspacing="2" + bordure de 1 px
+	if (lignes.length)
+		blocs.push(
+			bloc(
+				12,
+				12,
+				`<table role="presentation" class="bordure" width="100%" cellpadding="0" cellspacing="2" style="background:${NOIR};border:1px solid ${NOIR};">${lignes
+					.map(
+						(l) =>
+							`<tr><td class="encadre discret" width="150" style="width:118px;padding:14px 16px;background:${ENCADRE};font-family:${TEXTE};font-size:12px;line-height:16px;font-weight:700;letter-spacing:0.6px;color:${DISCRET};vertical-align:middle;">${echapper(majuscules(l.nom))}</td><td class="carte texte" style="padding:14px 16px;background:${BLANC};font-family:${TEXTE};font-size:16px;line-height:24px;color:${NOIR};vertical-align:middle;overflow-wrap:anywhere;word-break:break-word;">${multiligne(l.valeur || '—')}</td></tr>`,
+					)
+					.join('')}</table>`,
+			),
+		);
 
-	const lienBouton = bouton
-		? `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:8px 0 4px;"><tr><td style="background:${VIOLET};border:3px solid ${NOIR};border-right-width:6px;border-bottom-width:6px;"><a href="${bouton.lien}" style="display:inline-block;padding:13px 24px;font-family:${TITRE};font-size:17px;letter-spacing:0.04em;text-transform:uppercase;color:${BLANC};text-decoration:none;">${echapper(bouton.texte)}</a></td></tr></table>`
-		: '';
+	if (citation)
+		blocs.push(
+			bloc(
+				12,
+				28,
+				`<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td class="encadre accent-gauche" style="padding:20px;background:${ENCADRE};border-left:6px solid ${ACCENT};overflow-wrap:anywhere;word-break:break-word;"><p class="discret" style="margin:0 0 8px;font-family:${TEXTE};font-size:12px;line-height:16px;font-weight:700;letter-spacing:1px;color:${DISCRET};">${echapper(majuscules(etiquetteCitation))}</p><p class="texte" style="margin:0;font-family:${TEXTE};font-size:16px;line-height:24px;color:${NOIR};">${multiligne(citation)}</p></td></tr></table>`,
+			),
+		);
+
+	// Bouton : cellule colorée + lien, bord du bas de 8 px à la place de l'ombre (au moins 56 px de haut)
+	if (bouton)
+		blocs.push(
+			bloc(
+				16,
+				16,
+				`<table role="presentation" cellpadding="0" cellspacing="0"><tr><td class="bouton" style="background:${ACCENT};border:3px solid ${NOIR};border-bottom-width:8px;"><a href="${bouton.lien}" style="display:inline-block;padding:16px 28px;font-family:${TITRE};font-size:20px;line-height:24px;letter-spacing:0.8px;color:${BLANC};text-decoration:none;">${echapper(majuscules(bouton.texte))}</a></td></tr></table>`,
+			),
+		);
+
+	if (signature)
+		blocs.push(
+			bloc(
+				12,
+				28,
+				`<p class="texte" style="margin:0 0 12px;font-family:${TEXTE};font-size:16px;line-height:24px;color:${NOIR};">Cordialement,</p><p class="texte" style="margin:0 0 2px;font-family:${TEXTE};font-size:16px;line-height:24px;font-weight:700;color:${NOIR};">${echapper(signature.nom)}</p><p class="discret" style="margin:0;font-family:${TEXTE};font-size:14px;line-height:20px;color:${DISCRET};">${echapper(signature.fonction)}</p>`,
+			),
+		);
+
+	if (mention)
+		blocs.push(bloc(16, 20, `<p class="discret" style="margin:0;font-family:${TEXTE};font-size:12px;line-height:18px;color:${DISCRET};">${echapper(mention)}</p>`));
+
+	// Le dernier bloc ne doit pas coller au pied : 28 px sous un paragraphe ou un tableau
+	if (blocs.length && !citation && !bouton && !signature && !mention) blocs[blocs.length - 1] = blocs[blocs.length - 1].replace(/padding:12px 32px 12px/, 'padding:12px 32px 28px');
 
 	const html = `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
-<meta name="supported-color-schemes" content="light">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
 <title>${echapper(titre)}</title>
 <style>
 @font-face { font-family: Anton; src: url('${SITE}/fonts/anton-400.woff2') format('woff2'); }
-@font-face { font-family: Archivo; src: url('${SITE}/fonts/archivo-400.woff2') format('woff2'); }
-@media (max-width: 620px) { .carte { padding: 24px 20px !important; } .titre { font-size: 30px !important; } }
+@media (max-width: 480px) {
+	.marge { padding-left: 20px !important; padding-right: 20px !important; }
+	.titre { font-size: 30px !important; }
+}
+@media (prefers-color-scheme: dark) {
+	.carte, body { background: #121212 !important; }
+	.texte { color: #ffffff !important; }
+	.discret { color: #b8b8b8 !important; }
+	.encadre { background: #1f1f1f !important; }
+	.bordure { background: #5a5a5a !important; border-color: #5a5a5a !important; }
+	.bandeau { background: ${ACCENT} !important; }
+	.accent-gauche { border-left-color: #a98bff !important; }
+	.accent-bas { border-bottom-color: #a98bff !important; }
+	.accent-haut { border-top-color: #a98bff !important; }
+	.bouton { border-color: #ffffff !important; }
+}
 </style>
 </head>
-<body style="margin:0;padding:0;background:${FOND};">
+<body style="margin:0;padding:0;background:${BLANC};">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;">${echapper(apercu)}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${FOND};">
-<tr><td align="center" style="padding:28px 12px;">
-	<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;border:3px solid ${NOIR};border-right-width:10px;border-bottom-width:10px;background:${BLANC};">
-		<tr><td style="background:${NOIR};padding:22px 28px;">
-			<a href="${SITE}/" style="text-decoration:none;"><img src="${SITE}/mail/narukla-logo.png" width="170" height="63" alt="Narukla" style="display:block;border:0;width:170px;height:auto;"></a>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="carte" style="background:${BLANC};">
+<tr><td align="center" style="padding:0;">
+	<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;">
+		<tr><td class="marge accent-bas" style="padding:22px 32px;background:${NOIR};border-bottom:6px solid ${ACCENT};">
+			<a href="${SITE}/" style="text-decoration:none;"><img src="${SITE}/mail/narukla-logo.png" width="140" height="52" alt="Narukla" style="display:block;border:0;width:140px;height:auto;"></a>
 		</td></tr>
-		<tr><td style="background:${VIOLET};padding:22px 28px;border-top:3px solid ${NOIR};border-bottom:3px solid ${NOIR};">
-			<h1 class="titre" style="margin:0;font-family:${TITRE};font-weight:400;font-size:36px;line-height:1.05;text-transform:uppercase;color:${BLANC};">${echapper(titre)}</h1>
+		<tr><td class="marge bandeau" style="padding:36px 32px;background:${NOIR};">
+			<h1 class="titre" style="margin:0;font-family:${TITRE};font-weight:400;font-size:40px;line-height:1.05;color:${BLANC};overflow-wrap:anywhere;">${echapper(majuscules(titre))}</h1>
 		</td></tr>
-		<tr><td class="carte" style="padding:30px 28px;">
-			${paragraphes.map(p).join('\n\t\t\t')}
-			${tableau}
-			${encadre}
-			${lienBouton}
-		</td></tr>
-		<tr><td style="background:${NOIR};padding:18px 28px;font-family:${TEXTE};font-size:13px;line-height:1.6;color:#cfc8dc;">
-			<strong style="font-family:${TITRE};font-weight:400;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;color:${BLANC};">Narukla</strong> · Agence web à Troyes<br>
-			<a href="mailto:contact@narukla.fr" style="color:${BLANC};">contact@narukla.fr</a> · <a href="tel:+33757679645" style="color:${BLANC};">07 57 67 96 45</a> · <a href="${SITE}/" style="color:${BLANC};">narukla.fr</a>
+		${blocs.join('\n\t\t')}
+		<tr><td class="marge accent-haut" style="padding:28px 32px 32px;background:${NOIR};border-top:6px solid ${ACCENT};font-family:${TEXTE};font-size:13px;line-height:20px;color:${BLANC};">
+			<strong>Narukla · Agence web à Troyes</strong><br>
+			<a href="mailto:contact@narukla.fr" style="color:${BLANC};text-decoration:none;white-space:nowrap;">contact@narukla.fr</a> · <a href="tel:+33757679645" style="color:${BLANC};text-decoration:none;white-space:nowrap;">07 57 67 96 45</a> · <a href="https://www.instagram.com/narukla_studio/" style="color:${BLANC};text-decoration:none;white-space:nowrap;">Instagram @narukla_studio</a><br>
+			<a href="${SITE}/" style="color:${BLANC};text-decoration:none;white-space:nowrap;">narukla.fr</a> · <a href="${SITE}/mentions-legales/" style="color:${BLANC};text-decoration:none;white-space:nowrap;">Mentions légales</a>
 		</td></tr>
 	</table>
-	${mention ? `<p style="max-width:600px;margin:16px auto 0;font-family:${TEXTE};font-size:12px;line-height:1.5;color:#6b6478;">${echapper(mention)}</p>` : ''}
 </td></tr>
 </table>
 </body>
@@ -97,17 +153,19 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 
 	// Version texte : lue par les messageries sans HTML, et elle évite d'être classé en spam
 	const text = [
-		titre.toUpperCase(),
+		majuscules(titre),
 		'',
 		...paragraphes.flatMap((t) => [t, '']),
 		...lignes.map((l) => `${l.nom} : ${l.valeur || '—'}`),
 		...(lignes.length ? [''] : []),
-		...(citation ? [citation, ''] : []),
+		...(citation ? [`${etiquetteCitation} :`, citation, ''] : []),
 		...(bouton ? [`${bouton.texte} : ${bouton.lien}`, ''] : []),
+		...(signature ? ['Cordialement,', signature.nom, signature.fonction, ''] : []),
+		...(mention ? [mention, ''] : []),
 		'--',
 		'Narukla · Agence web à Troyes',
-		'contact@narukla.fr · 07 57 67 96 45 · narukla.fr',
-		...(mention ? ['', mention] : []),
+		'contact@narukla.fr · 07 57 67 96 45 · Instagram @narukla_studio',
+		'narukla.fr',
 	].join('\n');
 
 	return { html, text };
