@@ -1,9 +1,10 @@
 // Gabarit des mails de Narukla. Design d'Ouassim (Figma « Narukla Studio », page « Mail Narukla », 7/11) :
-// en-tête noir avec le logo, bandeau titre noir en Anton, tableau récap à bordure, bouton à bord du bas épais, pied noir.
+// en-tête noir avec le logo, bandeau titre noir, tableau récap à bordure, bouton à bord du bas épais, pied noir.
+// Mis à jour d'après sa maquette du 8/11 : titres en Impact, tableau empilé sur mobile, signature et pied de contact.
 // Copie identique dans le repo admin (src/lib/mail.ts) : garder les deux pareilles.
 //
 // Les messageries ne lisent qu'une partie du CSS : mise en page en tableaux, styles écrits sur chaque balise.
-// Anton est demandée depuis narukla.fr ; les messageries qui ne la chargent pas prennent Impact puis Arial Black.
+// Titres en Impact puis Arial Black (Figma, 8/11) : Anton n'est plus demandée, presque aucune messagerie ne la chargeait.
 // Les titres sont écrits en majuscules dans le texte (Outlook gère mal text-transform).
 // Mode sombre (Apple Mail, Outlook sur Mac) : classes + @media (prefers-color-scheme: dark), valeurs du Figma.
 //
@@ -16,7 +17,7 @@ const NOIR = '#000000';
 const BLANC = '#ffffff';
 const DISCRET = '#595959'; // contraste 7:1 sur blanc
 const ENCADRE = '#f2f2f2';
-const TITRE = "Anton, Impact, 'Arial Black', sans-serif";
+const TITRE = "Impact, 'Arial Black', sans-serif";
 const TEXTE = 'Arial, Helvetica, sans-serif';
 const SITE = 'https://narukla.fr';
 
@@ -60,7 +61,7 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 				`<table role="presentation" class="bordure" width="100%" cellpadding="0" cellspacing="2" style="background:${NOIR};border:1px solid ${NOIR};">${lignes
 					.map(
 						(l) =>
-							`<tr><td class="encadre discret" width="150" style="width:118px;padding:14px 16px;background:${ENCADRE};font-family:${TEXTE};font-size:12px;line-height:16px;font-weight:700;letter-spacing:0.6px;color:${DISCRET};vertical-align:middle;">${echapper(majuscules(l.nom))}</td><td class="carte texte" style="padding:14px 16px;background:${BLANC};font-family:${TEXTE};font-size:16px;line-height:24px;color:${NOIR};vertical-align:middle;overflow-wrap:anywhere;word-break:break-word;">${multiligne(l.valeur || '—')}</td></tr>`,
+							`<tr><td class="encadre discret etiquette" width="150" style="width:118px;padding:14px 16px;background:${ENCADRE};font-family:${TEXTE};font-size:12px;line-height:16px;font-weight:700;letter-spacing:0.6px;color:${DISCRET};vertical-align:middle;">${echapper(majuscules(l.nom))}</td><td class="carte texte valeur" style="padding:14px 16px;background:${BLANC};font-family:${TEXTE};font-size:16px;line-height:24px;color:${NOIR};vertical-align:middle;overflow-wrap:anywhere;word-break:break-word;">${multiligne(l.valeur || '—')}</td></tr>`,
 					)
 					.join('')}</table>`,
 			),
@@ -90,7 +91,7 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 			bloc(
 				12,
 				28,
-				`<p class="texte" style="margin:0 0 12px;font-family:${TEXTE};font-size:16px;line-height:24px;color:${NOIR};">Cordialement,</p><p class="texte" style="margin:0 0 2px;font-family:${TEXTE};font-size:16px;line-height:24px;font-weight:700;color:${NOIR};">${echapper(signature.nom)}</p><p class="discret" style="margin:0;font-family:${TEXTE};font-size:14px;line-height:20px;color:${DISCRET};">${echapper(signature.fonction)}</p>`,
+				`<p class="texte" style="margin:0 0 4px;font-family:${TEXTE};font-size:16px;line-height:24px;color:${NOIR};">Cordialement,</p><p class="texte" style="margin:0 0 4px;font-family:${TEXTE};font-size:16px;line-height:24px;font-weight:700;color:${NOIR};">${echapper(signature.nom)}</p><p class="discret" style="margin:0;font-family:${TEXTE};font-size:14px;line-height:20px;color:${DISCRET};">${echapper(signature.fonction)}</p>`,
 			),
 		);
 
@@ -109,10 +110,13 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 <meta name="supported-color-schemes" content="light dark">
 <title>${echapper(titre)}</title>
 <style>
-@font-face { font-family: Anton; src: url('${SITE}/fonts/anton-400.woff2') format('woff2'); }
 @media (max-width: 480px) {
 	.marge { padding-left: 20px !important; padding-right: 20px !important; }
 	.titre { font-size: 30px !important; }
+	/* Tableau récap : étiquette au-dessus de la valeur, séparées par un trait de 2 px */
+	.etiquette, .valeur { display: block !important; width: auto !important; }
+	.etiquette { padding: 10px 16px !important; border-bottom: 2px solid #000000 !important; }
+	.valeur { padding: 12px 16px !important; }
 }
 @media (prefers-color-scheme: dark) {
 	.carte, body { background: #121212 !important; }
@@ -125,6 +129,7 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 	.accent-bas { border-bottom-color: #a98bff !important; }
 	.accent-haut { border-top-color: #a98bff !important; }
 	.bouton { border-color: #ffffff !important; }
+	.etiquette { border-bottom-color: #5a5a5a !important; }
 }
 </style>
 </head>
