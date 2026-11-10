@@ -147,7 +147,7 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 		${blocs.join('\n\t\t')}
 		<tr><td class="marge accent-haut" style="padding:28px 32px 32px;background:${NOIR};border-top:6px solid ${ACCENT};font-family:${TEXTE};font-size:13px;line-height:20px;color:${BLANC};">
 			<strong>Narukla · Agence web à Troyes</strong><br>
-			<a href="mailto:contact@narukla.fr" style="color:${BLANC};text-decoration:none;white-space:nowrap;">contact@narukla.fr</a> · <a href="tel:+33757679645" style="color:${BLANC};text-decoration:none;white-space:nowrap;">07 57 67 96 45</a> · <a href="https://www.instagram.com/narukla_studio/" style="color:${BLANC};text-decoration:none;white-space:nowrap;">Instagram @narukla_studio</a><br>
+			<a href="mailto:contact@narukla.fr" style="color:${BLANC};text-decoration:none;white-space:nowrap;">contact@narukla.fr</a> · <a href="tel:+33788021676" style="color:${BLANC};text-decoration:none;white-space:nowrap;">07 88 02 16 76</a> · <a href="https://www.instagram.com/narukla_studio/" style="color:${BLANC};text-decoration:none;white-space:nowrap;">Instagram @narukla_studio</a><br>
 			<a href="${SITE}/" style="color:${BLANC};text-decoration:none;white-space:nowrap;">narukla.fr</a> · <a href="${SITE}/mentions-legales/" style="color:${BLANC};text-decoration:none;white-space:nowrap;">Mentions légales</a>
 		</td></tr>
 	</table>
@@ -169,7 +169,7 @@ export function mailNarukla({ apercu, titre, paragraphes = [], lignes = [], cita
 		...(mention ? [mention, ''] : []),
 		'--',
 		'Narukla · Agence web à Troyes',
-		'contact@narukla.fr · 07 57 67 96 45 · Instagram @narukla_studio',
+		'contact@narukla.fr · 07 88 02 16 76 · Instagram @narukla_studio',
 		'narukla.fr',
 	].join('\n');
 
