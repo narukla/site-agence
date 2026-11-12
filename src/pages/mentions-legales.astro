@@ -119,20 +119,20 @@ const ancienHebergeur = {
 			<p>
 				Les informations envoyées par le formulaire de contact (nom, entreprise, e-mail, téléphone,
 				message) servent uniquement à répondre à votre demande et à vous établir un devis. Elles ne
-				sont ni vendues ni cédées. Elles ne sont accessibles qu'aux associés de Narukla et à nos
+				sont ni vendues ni cédées. Elles ne sont accessibles qu’aux associés de Narukla et à nos
 				prestataires techniques, qui les traitent pour notre compte.
 			</p>
 			<!-- Ajouté avec la notification Discord (functions/api/contact.js) :
 			     le salon Discord doit rester privé, réservé aux associés -->
 			<p>
-				Pour que l'équipe soit prévenue rapidement, une copie de votre demande (nom, entreprise,
+				Pour que l’équipe soit prévenue rapidement, une copie de votre demande (nom, entreprise,
 				e-mail, téléphone, besoin et message) est transmise dans un espace de discussion privé de
-				l'équipe, hébergé par Discord Inc.
+				l’équipe, hébergé par Discord Inc.
 			</p>
 			<!-- À relire par l'avocate. Garanties des transferts à vérifier dans les accords de traitement des données (DPA) de Cloudflare et de Discord -->
 			<p>
 				Les messages du formulaire transitent par {hebergeur.nom} et sont conservés chez Discord Inc., deux
-				sociétés situées aux États-Unis. Il s'agit donc de transferts de données hors de l'Union
+				sociétés situées aux États-Unis. Il s’agit donc de transferts de données hors de l’Union
 				européenne, encadrés par les garanties prévues par le RGPD pour ce type de transfert.
 			</p>
 			<!-- Ajouté avec l'espace de gestion des associés (admin.narukla.fr, repo admin) : à fusionner SEULEMENT le jour de sa mise en ligne.
@@ -140,12 +140,21 @@ const ancienHebergeur = {
 			     Resend indique stocker les données aux États-Unis (https://resend.com/security/gdpr) -->
 			<p>
 				Votre demande est aussi enregistrée chez {hebergeur.nom} dans notre espace de gestion privé,
-				réservé aux associés. Juste après l'envoi du formulaire, vous recevez un e-mail qui confirme
+				réservé aux associés. Juste après l’envoi du formulaire, vous recevez un e-mail qui confirme
 				la bonne réception de votre demande, et une copie de votre demande arrive dans la boîte e-mail
-				de l'agence. Ces e-mails, comme nos réponses envoyées depuis l'espace de gestion, partent
-				par l'intermédiaire de Resend (Plus Five Five, Inc., États-Unis), notre prestataire d'envoi
-				d'e-mails : il reçoit votre adresse e-mail et le contenu de ces messages. Il s'agit là aussi
-				d'un transfert de données hors de l'Union européenne, encadré par les garanties prévues par le RGPD.
+				de l’agence. Ces e-mails, comme nos réponses envoyées depuis l’espace de gestion, partent
+				par l’intermédiaire de Resend (Plus Five Five, Inc., États-Unis), notre prestataire d’envoi
+				d’e-mails : il reçoit votre adresse e-mail et le contenu de ces messages. Il s’agit là aussi
+				d’un transfert de données hors de l’Union européenne, encadré par les garanties prévues par le RGPD.
+			</p>
+			<!-- Ajouté avec la boîte mail de l'admin (narukla/admin #13, Worker narukla-courrier, 6/11).
+			     À relire par l'avocate : Proton AG est en Suisse (pays reconnu adéquat par la Commission européenne) -->
+			<p>
+				Si vous nous écrivez directement à {editeur.mail}, votre message est reçu dans la boîte e-mail de
+				l’agence, hébergée par Proton AG (Suisse). Une copie de son texte (sans les pièces jointes) est
+				enregistrée dans notre espace de gestion privé chez {hebergeur.nom}, et l’équipe est prévenue dans
+				son espace de discussion privé chez Discord Inc. par l’adresse de l’expéditeur et le sujet du message,
+				jamais par son contenu. Nos réponses partent par Resend, comme indiqué ci-dessus.
 			</p>
 			<!-- Durée de conservation à valider en réunion -->
 			<p>
@@ -154,9 +163,9 @@ const ancienHebergeur = {
 			</p>
 			<!-- Validé avec l'avocate (2/11). Les messages restent dans Netlify Forms (décision de Jibril, 2/11) : à retirer seulement s'ils sont supprimés un jour -->
 			<p>
-				Les messages envoyés avant le 1er novembre 2026 ont été reçus par l'intermédiaire
+				Les messages envoyés avant le 1er novembre 2026 ont été reçus par l’intermédiaire
 				de {`${ancienHebergeur.nom} (${ancienHebergeur.adresse})`}, ancien hébergeur du site, situé lui
-				aussi hors de l'Union européenne. Il les conserve pour notre compte, dans la même limite de 3 ans.
+				aussi hors de l’Union européenne. Il les conserve pour notre compte, dans la même limite de 3 ans.
 			</p>
 			<p>
 				Conformément au Règlement général sur la protection des données (RGPD) et à la loi
@@ -169,9 +178,9 @@ const ancienHebergeur = {
 		<section class="mentions__section" id="cookies" aria-labelledby="titre-cookies">
 			<h2 id="titre-cookies" class="mentions__titre"><span class="mentions__numero">05</span> Cookies</h2>
 			<p>
-				Ce site ne dépose aucun cookie et n'utilise aucun traceur. Nous consultons seulement les
+				Ce site ne dépose aucun cookie et n’utilise aucun traceur. Nous consultons seulement les
 				statistiques globales de fréquentation que notre hébergeur Cloudflare établit à partir des pages
-				servies (nombre de pages vues, pays d'origine), sans pouvoir identifier les visiteurs. Si cela
+				servies (nombre de pages vues, pays d’origine), sans pouvoir identifier les visiteurs. Si cela
 				change, un bandeau vous demandera votre accord avant tout dépôt de cookie.
 			</p>
 		</section>
@@ -180,7 +189,7 @@ const ancienHebergeur = {
 			<h2 id="titre-responsabilite" class="mentions__titre"><span class="mentions__numero">06</span> Responsabilité</h2>
 			<p>
 				Narukla veille à ce que les informations de ce site soient exactes et à jour, sans pouvoir
-				garantir l'absence d'erreur. Les liens vers des sites externes n'engagent pas sa
+				garantir l’absence d’erreur. Les liens vers des sites externes n’engagent pas sa
 				responsabilité.
 			</p>
 		</section>

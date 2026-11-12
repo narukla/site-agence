@@ -4,7 +4,7 @@
 export const coordonnees = {
 	// Adresse au nom de domaine (conseil du prof, 4/11), redirigée vers narukla@proton.me par Cloudflare Email Routing
 	mail: 'contact@narukla.fr',
-	// Numéro de Jimmy (commercial), donné le 28/10
+	// Numéro de Jimmy (commercial), donné le 28/10 ; celui de Jibril du 6 au 10/11
 	telephone: '07 88 02 16 76',
 	ville: 'Troyes (10)',
 };

@@ -6,11 +6,11 @@ const annee = new Date().getFullYear();
 
 const liens = [
 	{ href: '/', label: 'Accueil' },
-	{ href: '/services', label: 'Services et tarifs' },
+	{ href: '/services/', label: 'Services et tarifs' },
 	// Réalisations cachée jusqu'au premier client (sondage du 29/10, question 7) : remettre la ligne ci-dessous à ce moment-là
-	// { href: '/realisations', label: 'Réalisations' },
-	{ href: '/equipe', label: "L'équipe" },
-	{ href: '/contact', label: 'Contact' },
+	// { href: '/realisations/', label: 'Réalisations' },
+	{ href: '/equipe/', label: "L’équipe" },
+	{ href: '/contact/', label: 'Contact' },
 ];
 
 // Réseaux : seulement ceux qui existent vraiment. Ajouter { label: 'Instagram', href: '…' } quand le compte sera créé.
@@ -25,7 +25,7 @@ const reseaux: { label: string; href: string }[] = [];
 					<img
 						src="/logo/narukla-600.webp" srcset="/logo/narukla-300.webp 300w, /logo/narukla-600.webp 600w, /logo/narukla-900.webp 900w"
 						sizes="(min-width: 64rem) 11.9rem, 7rem"
-						alt="Narukla, retour à l'accueil"
+						alt="Narukla, retour à l’accueil"
 						width="600"
 						height="224"
 						loading="lazy"
@@ -87,7 +87,7 @@ const reseaux: { label: string; href: string }[] = [];
 						</>
 					)
 				}
-				<a class="pied__bouton" href="/contact">Demander un devis</a>
+				<a class="pied__bouton" href="/contact/">Demander un devis</a>
 			</div>
 		</div>
 
@@ -96,7 +96,7 @@ const reseaux: { label: string; href: string }[] = [];
 	<div class="pied__bande">
 		<div class="pied__bas">
 			<p>&copy; {annee} Narukla – Tous droits réservés.</p>
-			<a class="pied__lien pied__lien--souligne" href="/mentions-legales">Mentions légales</a>
+			<a class="pied__lien pied__lien--souligne" href="/mentions-legales/">Mentions légales</a>
 		</div>
 	</div>
 </footer>

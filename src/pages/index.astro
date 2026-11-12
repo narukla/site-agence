@@ -12,19 +12,19 @@ const offres = [
 		titre: 'Site vitrine',
 		texte:
 			'Un site clair, rapide et adapté au mobile pour présenter votre activité, vos horaires et vos coordonnées.',
-		ancre: '/services#site-vitrine',
+		ancre: '/services/#site-vitrine',
 	},
 	{
 		titre: 'Identité visuelle',
 		texte:
 			'Logo, couleurs et typographies : une image cohérente sur votre vitrine, vos réseaux et vos supports.',
-		ancre: '/services#identite-visuelle',
+		ancre: '/services/#identite-visuelle',
 	},
 	{
 		titre: 'Maintenance',
 		texte:
 			'On garde votre site à jour et sauvegardé, et on modifie vos horaires ou vos prix quand vous en avez besoin.',
-		ancre: '/services#maintenance',
+		ancre: '/services/#maintenance',
 	},
 ];
 
@@ -44,7 +44,7 @@ const etapes = [
 	{
 		titre: 'On met en ligne',
 		texte:
-			"Nom de domaine en .fr et hébergement inclus la première année, puis compris dans la maintenance : vous n'avez rien à gérer.",
+			"Nom de domaine en .fr et hébergement inclus la première année, puis compris dans la maintenance : vous n’avez rien à gérer.",
 	},
 ];
 
@@ -57,14 +57,14 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 	description="Narukla, agence web à Troyes : sites vitrines, identités visuelles et maintenance pour les commerces, artisans et indépendants."
 >
 	<Intro etiquette="Agence web · Troyes" titre="Votre site web, pensé pour vos clients et livré" accent="sans prise de tête">
-		<!-- Décision de Jimmy (27/10) : le statut d'étudiants est dit sur L'équipe, pas ici -->
+		<!-- Décision d'équipe (27/10) : le statut d'étudiants est dit sur L'équipe, pas ici -->
 		<p>
 			Narukla est une agence web installée à Troyes. Nous créons des sites vitrines et des identités
 			visuelles pour les commerces, artisans et indépendants qui veulent être trouvés en ligne.
 		</p>
 		<ul class="accueil__actions">
-			<li><Bouton href="/contact">Demander un devis</Bouton></li>
-			<li><Bouton href="/services" variante="contour">Voir nos offres</Bouton></li>
+			<li><Bouton href="/contact/">Demander un devis</Bouton></li>
+			<li><Bouton href="/services/" variante="contour">Voir nos offres</Bouton></li>
 		</ul>
 	</Intro>
 
@@ -79,7 +79,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 	</div>
 
 	<section class="accueil__offres" aria-labelledby="titre-offres">
-		<h2 id="titre-offres" class="accueil__titre-section">Ce qu'on fait pour vous :</h2>
+		<h2 id="titre-offres" class="accueil__titre-section">Ce qu’on fait pour vous :</h2>
 		<ul class="accueil__liste-offres">
 			{
 				offres.map((offre, i) => (
@@ -91,7 +91,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 							<h3 class="accueil__offre-titre">{offre.titre}</h3>
 							<p class="accueil__offre-texte">{offre.texte}</p>
 							<a class="accueil__lien accueil__offre-lien" href={offre.ancre}>
-								En savoir plus<span class="accueil__cache"> sur l'offre {offre.titre.toLowerCase()}</span>
+								En savoir plus<span class="accueil__cache"> sur l’offre {offre.titre.toLowerCase()}</span>
 								<span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span>
 							</a>
 						</article>
@@ -124,7 +124,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 			<ul class="accueil__liste-pourquoi">
 				<li class="accueil__argument">
 					<h3>Des prix pensés pour les petites structures</h3>
-					<p>Des tarifs clairs, annoncés à l'avance, sans mauvaise surprise.</p>
+					<p>Des tarifs clairs, annoncés à l’avance, sans mauvaise surprise.</p>
 				</li>
 				<li class="accueil__argument">
 					<h3>Une équipe complète</h3>
@@ -138,7 +138,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 					<p>On est à Troyes : on peut se rencontrer et on vous répond vite.</p>
 				</li>
 			</ul>
-			<p><a class="accueil__lien" href="/equipe">Découvrir l'équipe <span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span></a></p>
+			<p><a class="accueil__lien" href="/equipe/">Découvrir l’équipe <span class="accueil__fleche" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h14m-6-6 6 6-6 6" /></svg></span></a></p>
 		</div>
 	</section>
 
@@ -146,7 +146,7 @@ const numero = (i: number) => String(i + 1).padStart(2, '0');
 		<h2 id="titre-contact" class="accueil__titre-grand">Un projet en tête ?</h2>
 		<!-- La maquette dit « sous 48 h » : sondage du 29/10, question 1 → « sous 2 jours ouvrés » -->
 		<p class="accueil__texte-large">Parlez-nous de votre activité, on vous répond sous 2 jours ouvrés.</p>
-		<a class="accueil__bouton-blanc" href="/contact">Contactez-nous</a>
+		<a class="accueil__bouton-blanc" href="/contact/">Contactez-nous</a>
 	</section>
 </Layout>
 
