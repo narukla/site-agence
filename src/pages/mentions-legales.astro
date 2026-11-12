@@ -10,9 +10,9 @@ import { coordonnees, lienTelephone } from '../config/coordonnees';
 // Dès l'immatriculation : ajouter SIREN, RCS et TVA, et retirer « en cours de constitution ».
 const editeur = {
 	forme: 'société par actions simplifiée (SAS) en cours de constitution',
-	// Capital : 100 € par associé (voté le 5/11), soit 300 € à 3 depuis le 6/11 (statuts, art. 7). À publier seulement une fois les
+	// Capital : 100 € par associé (voté le 5/11), soit 400 € à 4 (300 € à 3 du 6 au 10/11 ; statuts, art. 7). À publier seulement une fois les
 	// statuts signés et le capital déposé à la banque (sinon on annonce un capital qui n'existe pas encore).
-	capital: '300 €' as string | null,
+	capital: '400 €' as string | null,
 	// Siège chez Jibril (validé le 5/11). L'adresse est PUBLIQUE (mentions, Kbis, annuaires) : choix à confirmer
 	// entre son adresse personnelle et une domiciliation avant de la remplir. null = la ligne ne s'affiche pas.
 	siege: null as string | null,
